@@ -10,7 +10,7 @@ dt {
     clear: left;
     text-align: left;
     font-weight: bold;
-	width: 70%;
+	width: 74%;
     color: lightsmoke;
   }
 dt:after {
@@ -19,12 +19,16 @@ dt:after {
   }
 dd {
 	text-align: right;
-    margin: 0 30px 0 0;
+    margin: 0 10px 0 0;
     padding: 0 0 1px 1px;
   }
 
 .dl-narrow {
 	@extend dl;
+	
+	dt {
+		width: 70%;
+	}
 
 	dd {
 		text-align: right;
