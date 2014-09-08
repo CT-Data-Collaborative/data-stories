@@ -11,7 +11,7 @@ function makeMap(){
 	var url = "http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}";
 
 	var tileLayer = new L.tileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}");
-	$.getJSON('/static/data/eitc.geojson', function(data) {
+	$.getJSON('static/data/eitc.geojson', function(data) {
 		geojson = L.geoJson(data, {
 			style: style,
 			onEachFeature: function(feature, layer) {
@@ -57,7 +57,7 @@ function style(feature) {
 		fillColor: getColor(feature.properties.eitc_num_eitc_credits_claimed),
 		weight: 1,
 		opacity: 1,
-		color: 'white',
+		color: 'dimgray',
 		//dashArray: '3',
 		fillOpacity: 1
 	};
@@ -67,7 +67,7 @@ function highlightNeighborhood(e) {
 	var layer = e.target;
 
 	layer.setStyle({
-		"color": "#666",
+		"color": 'white',
 		weight: 2
 	});
 	
@@ -103,7 +103,7 @@ function makeChart() {
 			spacingBottom: 0,
 			spacingLeft: 0,
 			spacingRight: 0,
-			backgroundColor: '#E9EEF6'
+			backgroundColor: 'dimgray'
 		},
 		title: {
 			text: null

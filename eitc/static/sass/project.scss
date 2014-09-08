@@ -9,7 +9,7 @@
 
 * {
 	font: 100% $font3;
-	color: $primary-color;
+	color: white;
 }
 
 html,
@@ -37,10 +37,10 @@ nav.navbar.navbar-default{
 }
 
 .navbar-default .navbar-brand {
-	color: white;
+	color: dimgray;
 }
 .navbar {
-	background: dimgray; 
+	background: whitesmoke; 
 	box-shadow: 0 3px 25px rgba(0, 0, 0, 0.65);
 	position: relative;
 	z-index: 1;
@@ -61,7 +61,6 @@ a.navbar-left.logo {
 	font-family: $font1;
 	font-weight: 700;
 	font-size: 32px;
-	color: white;
 	text-align: center;
 	position: absolute;
 	width: 100%;
