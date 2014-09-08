@@ -1,0 +1,458 @@
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,700);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Arvo|PT+Sans:700);
+#map-menu {
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: -300px;
+  background: #a6a6a6;
+  padding: 15px; }
+  #map-menu h2 {
+    font-family: "PT Sans", sans-serif; }
+
+#map-menu-toggle {
+  position: absolute;
+  top: 10px;
+  right: 30px; }
+
+#otc-list {
+  list-style-type: none;
+  padding-left: 5px; }
+  #otc-list li {
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    padding-bottom: 10px; }
+
+.otc-icon {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #8b0356;
+  border-radius: 100%;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 15px;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+  padding-right: 0px;
+  margin-right: 10px; }
+
+#map {
+  height: 650px; }
+
+#canvas-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%; }
+
+#canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  -moz-transform: translateX(0);
+  -webkit-transform: translateX(0);
+  -transform: translateX(0);
+  -moz-transform: translateX(0) translateZ(0);
+  -webkit-transform: translateX(0) translateZ(0);
+  -transform: translateX(0) translateZ(0);
+  -moz-transform: translate3d(0);
+  -webkit-transform: translate3d(0);
+  transform: translate3d(0);
+  -moz-transition: 300ms ease all;
+  -webkit-transition: 300ms ease all;
+  transition: 300ms ease all; }
+
+#canvas-wrapper.show-nav #canvas {
+  -moz-transform: translateX(-300px);
+  -webkit-transform: translateX(-300px);
+  transform: translateX(-300px);
+  -moz-transform: translateX(-300px) translateZ(0);
+  -webkit-transform: translateX(-300px) translateZ(0);
+  transform: translate3d(-300px) translate(Z);
+  -moz-transform: translate3d(-300px, 0, 0);
+  -webkit-transform: translate3d(-300px, 0, 0);
+  transform: translate3d(-300px, 0, 0); }
+
+#stats-panel {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #E9EEF6;
+  opacity: 0.95;
+  border-radius: 3px;
+  border: 0px solid #8b0356;
+  width: 400px;
+  position: fixed;
+  top: 100px;
+  right: 10px;
+  z-index: 1;
+  box-shadow: 0 3px 25px rgba(0, 0, 0, 0.65); }
+
+#at-a-glance {
+  padding: 10px;
+  background-color: #E9EEF6;
+  opacity: .9;
+  border-radius: 3px;
+  border: 0px solid #8b0356;
+  width: 400px;
+  position: fixed;
+  top: 100px;
+  left: 50px;
+  z-index: 1;
+  box-shadow: 0 3px 25px rgba(0, 0, 0, 0.65); }
+  #at-a-glance h2 {
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 600;
+    margin-top: 10px; }
+  #at-a-glance span, #at-a-glance p {
+    font-family: "Source Sans Pro", sans-serif; }
+  #at-a-glance .info-text {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 0; }
+  #at-a-glance .cite {
+    padding-top: 20px; }
+  #at-a-glance .sourceid {
+    font-weight: 600; }
+  #at-a-glance .primary .value {
+    display: block;
+    font-size: 2.2em;
+    line-height: 1;
+    font-weight: 600; }
+  #at-a-glance .secondary {
+    display: block; }
+    #at-a-glance .secondary .value {
+      font-weight: 600; }
+    #at-a-glance .secondary .value {
+      font-size: 1.2em; }
+
+.legend {
+  padding: 6px 8px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  background: white;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  line-height: 18px;
+  color: #555; }
+  .legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7; }
+
+#chart {
+  background: whitesmoke;
+  opacity: 1;
+  padding-left: 0px;
+  background-color: whitesmoke;
+  border-radius: 3px;
+  border: 0px solid #8b0356;
+  height: 150px;
+  width: 100%; }
+  #chart h1 {
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 600;
+    margin-top: 10px; }
+  #chart span, #chart p {
+    font-family: "Source Sans Pro", sans-serif; }
+  #chart .cite {
+    padding-top: 20px; }
+  #chart .sourceid {
+    font-weight: 600; }
+  #chart .primary .value {
+    display: block;
+    font-size: 2.2em;
+    line-height: 1;
+    font-weight: 600; }
+  #chart .secondary {
+    display: block; }
+    #chart .secondary .value {
+      font-weight: 600; }
+    #chart .secondary .value {
+      font-size: 1.2em; }
+
+dl, .dl-narrow {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-botom: 5px;
+  width: 100%; }
+
+dt {
+  float: left;
+  clear: left;
+  text-align: left;
+  font-weight: bold;
+  width: 70%;
+  color: lightsmoke; }
+
+dt:after {
+  content: ":";
+  padding-right: 10px; }
+
+dd {
+  text-align: right;
+  margin: 0 30px 0 0;
+  padding: 0 0 1px 1px; }
+
+.dl-narrow dd {
+  text-align: right;
+  margin: 0 5px 0 0;
+  padding: 0 0 1px 1px; }
+
+* {
+  font: 100% "Source Sans Pro", sans-serif;
+  color: #333; }
+
+html,
+body {
+  height: 100%; }
+
+body {
+  background: dimgrey; }
+
+#inner-wrap {
+  padding: 0; }
+
+i {
+  padding-right: 10px; }
+
+nav.navbar.navbar-default {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 0px;
+  border: 0px;
+  border-radius: 0px; }
+
+.navbar-default .navbar-brand {
+  color: white; }
+
+.navbar {
+  background: dimgray;
+  box-shadow: 0 3px 25px rgba(0, 0, 0, 0.65);
+  position: relative;
+  z-index: 1; }
+
+.nav a {
+  font-size: 22px; }
+
+a.navbar-left.logo {
+  padding-left: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-right: 2px; }
+
+.navbar-brand {
+  font-family: "Arvo", Times, serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: white;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  line-height: 1em;
+  height: 50px;
+  padding-top: 10px; }
+
+.nav.navbar-nav.navbar-right:last-child {
+  margin-right: 0px; }
+
+.logo-svg {
+  float: right; }
+
+.jumbotron {
+  background: white; }
+
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -50px; }
+
+.content-container {
+  width: 100%;
+  padding: 0px 0px 0px 0px;
+  margin: auto;
+  background: white; }
+
+#coverphoto {
+  background-image: url("/static/images/school.jpg");
+  background-repeat: no-repeat;
+  height: 450px;
+  /*	width: 1100px;*/ }
+
+#content-right {
+  float: left;
+  height: 450px;
+  overflow: hidden;
+  background: white; }
+  #content-right #menu {
+    background: #252525; }
+    #content-right #menu ul {
+      padding-top: 25px;
+      margin-left: auto;
+      margin-right: auto; }
+      #content-right #menu ul li {
+        color: white;
+        list-style-type: none;
+        font-size: 18px;
+        padding-bottom: 15px; }
+      #content-right #menu ul a {
+        color: white; }
+      #content-right #menu ul a:hover {
+        color: grey;
+        text-decoration: none; }
+      #content-right #menu ul i {
+        padding-right: 10px;
+        font-size: 36px;
+        vertical-align: middle; }
+  #content-right #quote {
+    margin: auto;
+    background: white; }
+    #content-right #quote blockquote {
+      border-left: none;
+      font: 100% "Source Sans Pro", sans-serif;
+      font-size: 36px; }
+    #content-right #quote blockquote:before {
+      content: "\f10d";
+      font-family: FontAwesome;
+      float: left;
+      margin-right: 10px; }
+    #content-right #quote blockquote:after {
+      content: "\f10e";
+      font-family: FontAwesome;
+      float: right;
+      margin-left: 10px; }
+
+#intro {
+  padding: 10px 15px 10px 15px;
+  background: white; }
+  #intro p {
+    font: 100% "Merriweather", Times, serif;
+    font-weight: 700; }
+
+#goallist {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+  overflow: hidden;
+  background: white; }
+  #goallist ol {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    list-style-position: inside; }
+  #goallist li {
+    padding-bottom: 5px;
+    font: 100% "Merriweather", Times, serif;
+    font-weight: 400; }
+  #goallist .btn {
+    margin-right: 40px; }
+
+#push {
+  height: 10px; }
+
+#footer {
+  height: 50px; }
+
+#footer {
+  width: 100%;
+  background-color: dimgrey; }
+  #footer ul {
+    columns: 1;
+    -webkit-columns: 1;
+    -moz-columns: 1;
+    column-gap: 20px;
+    -webkit-column-gap: 20px;
+    -moz-column-gap: 20px;
+    margin: auto;
+    padding-left: 0px;
+    padding-top: 5px;
+    text-align: center;
+    float: left;
+    list-style-type: none; }
+  #footer li {
+    display: inline;
+    padding-left: 0.9375em;
+    padding-right: 0.9375em;
+    padding-bottom: 10px;
+    text-align: left;
+    font-size: 16px; }
+    #footer li a {
+      color: white; }
+    #footer li i {
+      font-size: 20px; }
+
+.footer-text a {
+  float: left; }
+.footer-text p {
+  font-size: 12px;
+  color: white; }
+
+#introduction, p {
+  font-size: 18px; }
+
+.odd {
+  background-color: #a6a6a6;
+  padding-top: 15px;
+  padding-bottom: 15px; }
+
+.even {
+  background-color: #efefe1;
+  padding-top: 15px;
+  padding-bottom: 15px; }
+
+.even:last-child {
+  padding-bottom: 20px; }
+
+.odd h1, .even h1 {
+  font-family: "PT Sans", sans-serif; }
+
+.viz {
+  font-family: "Source Sans Pro", sans-serif; }
+  .viz h3 {
+    font-weight: 600;
+    margin-top: 15px; }
+  .viz i {
+    padding-right: 0px; }
+  .viz p {
+    margin-left: 65px;
+    margin-right: 20px;
+    font-family: "Merriweather", Times, serif;
+    font-weight: 400; }
+
+.btn-primary {
+  background-image: linear-gradient(to bottom, #568b03 0px, #477202 100%);
+  background-repeat: repeat-x;
+  border-color: #284001; }
+
+.btn-primary:hover {
+  background-color: #284001;
+  background-position: 0px -44px; }
+
+.circle-icon {
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  background-color: #8b0356;
+  border-radius: 100%;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 15px;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease; }
+
+/*# sourceMappingURL=project.css.map */

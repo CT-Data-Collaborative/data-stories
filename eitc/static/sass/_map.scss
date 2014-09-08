@@ -1,0 +1,137 @@
+#map { height: 650px;}
+
+#canvas-wrapper {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+}
+
+#canvas {
+	position: relative;
+	width: 100%;
+	height: 100%;
+
+	-moz-transform: translateX(0);
+	-webkit-transform: translateX(0);
+	-transform: translateX(0);
+
+	-moz-transform: translateX(0) translateZ(0);
+	-webkit-transform: translateX(0) translateZ(0);
+	-transform: translateX(0) translateZ(0);
+	
+	-moz-transform: translate3d(0);
+	-webkit-transform: translate3d(0);
+	transform: translate3d(0);
+	
+	-moz-transition: 300ms ease all;
+	-webkit-transition: 300ms ease all;
+	transition: 300ms ease all;
+}
+
+#canvas-wrapper.show-nav #canvas {
+	
+	-moz-transform: translateX(-300px);
+	-webkit-transform: translateX(-300px);
+	transform: translateX(-300px);
+	
+	-moz-transform: translateX(-300px) translateZ(0);
+	-webkit-transform: translateX(-300px) translateZ(0);
+	transform: translate3d(-300px) translate(Z);
+
+	-moz-transform: translate3d(-300px, 0, 0);
+	-webkit-transform: translate3d(-300px, 0, 0);
+	transform: translate3d(-300px, 0, 0);
+}
+
+#stats-panel {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background-color: $blue-grey;
+	opacity: 0.95;
+	border-radius: 3px;
+	border: 0px solid $base-color3;
+//	height: 200px;
+	width: 400px;
+	position: fixed;
+	top: 100px;
+	right: 10px;
+	z-index: 1;
+	box-shadow: 0 3px 25px rgba(0, 0, 0, 0.65);
+}
+#at-a-glance {
+	padding: 10px;
+	background-color: $blue-grey;
+        opacity: .9;
+	border-radius: 3px;
+	border: 0px solid $base-color3;
+//	height: 200px;
+	width: 400px;
+	position: fixed;
+	top: 100px;
+	left: 50px;
+	z-index: 1;
+	box-shadow: 0 3px 25px rgba(0, 0, 0, 0.65);
+
+	h2 {
+		font-family: $font3;
+		font-weight: 600;
+		margin-top: 10px;
+	}
+
+	span, p {
+		font-family: $font3;
+	}
+    .info-text {
+		font-size: 16px;
+		font-weight: 700;
+		margin-top: 10px;
+		margin-bottom: 0;
+	}	
+
+	.cite {
+		padding-top: 20px;
+	}
+	.sourceid {
+		font-weight: 600;
+	}
+	.primary .value {
+		display: block;
+		font-size: 2.2em;
+		line-height: 1;
+		font-weight: 600;
+	}
+
+	.secondary {
+		display: block;
+
+		.value, {
+			font-weight: 600;
+		}
+
+		.value {
+			font-size: 1.2em;
+		}
+	}
+	
+}
+
+.legend {
+	padding: 6px 8px;
+	font-family: $font3;
+	font-size: 16px;
+	background: white;
+	background: rgba(255,255,255,0.95);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	line-height: 18px;
+	color: #555;
+
+	i {
+		width: 18px;
+		height: 18px;
+		float: left;
+		margin-right: 8px;
+		opacity: 0.7;
+	}
+}

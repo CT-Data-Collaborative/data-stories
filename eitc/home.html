@@ -1,0 +1,179 @@
+<!-- Data Story Map w/ panel overlay -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Data Story Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+    <!-- Your stuff: Third-party css libraries go here -->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/project.css" rel="stylesheet">    
+  </head>
+
+  <body>
+	<div id="wrap">
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button> 
+			</div>
+			<a class="nav navbar-brand" href="#">Who received the Earned Income Tax Credit in 2012?</a>  	
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-left">
+					<li><a class="navbar-left logo" href="http://www.ctdata.org"><img src='static/images/logo-gray.svg' class="logo-svg" alt="CT Data Collaborative"></a></li>
+				</ul>
+			</div>
+		</nav>
+		<div class="container-fluid">
+			<div class="row">
+				<div id="inner-wrap" class="col-sm-12">
+					<div id="map"></div>							
+					<div id="at-a-glance">
+						<h2 class="town-name">Connecticut</h2>
+						<div class="row">
+							<div class="col-sm-12">
+								<dl>
+									<dt>Total amount of state credit</dt>
+									<dd id="state-total">$110,566,775</dd>
+									<dt>Number of state credits</dt>
+									<dd id="number-claimed">183,322</dd>
+									<dt>Avg. Amount per state credit</dt>
+									<dd id="state-credit">$603</dd>
+									<dt>Avg. Amount per federal credit</dt>
+									<dd id="federal-credit">$2,011</dd>
+								</dl>
+							</div>							
+						</div>			
+						<div class="row">
+							<div class="col-sm-12">
+								<p class="info-text">The Earned Income Tax Credit (EITC) provides a credit to people that have earned income through work.
+								Both a federal (enacted in 1975) and state credit (enacted in 2011) are available to low and moderate income working individuals and families.</p>	
+								<p class="info-text">In 2012, a total of $479,271,956 was distributed to 225,600 Connecticut households -- $368,705,181 in federal credits and $110,566,775 in state credits.</p>
+							</div>
+						</div>	
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="cite">
+									<span class="source">Source: MetroTax model estimates based on 2012 American Community Survery microdata.</span>
+								</div>
+							</div>
+						</div>
+					</div>	
+					<div id="stats-panel">
+						<div class="row">	
+							<div class="col-sm-7">
+								<h4>State-wide Statistics</h4>
+								<dl class="dl-narrow">
+									<dt>Avg. State Credit</dt>
+									<dd>$603</dd>
+									<dt>Avg. Federal Credit</dt>
+									<dd>$2,011</dd>
+									<dt>Median Income</dt>
+									<dd>$14,143</dd>
+									<dt>Qualifying Children</dt>
+									<dd>249,339</dd>
+								</dl>
+							</div>
+							<div class="col-sm-5">
+								<h4>Recipients by Race</h4>
+								<div id="chart"></div>		
+							</div>
+							
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<p>Top 5 Industries of employment for those that received a credit:</p>
+								<dl>
+									<dt>Health Care</dt>
+									<dd>15.8%</dd>
+									<dt>Retail Trade</dt>
+									<dd>14.8%</dd>
+									<dt>Accomidations / Food Services</dt>
+									<dd>10.9%</dd>
+									<dt>Admin Services</dt>
+									<dd>8.5%</dd>
+									<dt>Manufacturing</dt>
+									<dd>7.8%</dd>
+								</dl>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<p>Top 5 Occupations for those that received a credit:</p>
+								<dl>
+									<dt>Office & Administrative</dt>
+									<dd>13.3%</dd>
+									<dt>Sales</dt>
+									<dd>12.1%</dd>
+									<dt>Building & Grounds Cleaning / Maintenance</dt>
+									<dd>9.2%</dd>
+									<dt>Food Preparation & Related Service</dt>
+									<dd>9.1%</dd>
+									<dt>Transportation & Material Moving</dt>
+									<dd>8.7%</dd>
+								</dl>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div id="push"></div>	
+		</div> <!-- /maincontainer -->			
+	</div>
+    <div id="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="footer-text">
+						<p>This work by the Connecticut Data Collaborative, unless otherwise noted, 
+							is licensed under a Creative Commons Attribution 3.0 United States License.
+						</p>
+					</div>
+				</div>
+				<div class="col-sm-6">					
+					<ul>
+						<li><a href="https://github.com/CT-Data-Collaborative"><i class="fa fa-inverse fa-github"></i></a></li>
+						<li><a href="https://twitter.com/CTOpenData"><i class="fa fa-inverse fa-twitter"></i></a></li>						
+						<li><a href="https://www.facebook.com/pages/CT-Data-Collaborative/150954425018093"><i class="fa fa-inverse fa-facebook"></i></a></li>
+						<li><a href="mailto:info@ctdata.org"><i class="fa fa-inverse fa-envelope"></i>Contact Us</a></li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Latest JQuery -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+	<!-- Your stuff: Third-party javascript libraries go here -->
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+	<script src="/static/js/profile.js"></script>
+	<!-- place project specific Javascript in this file -->
+
+</body>
+</html>
