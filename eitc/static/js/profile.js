@@ -10,7 +10,10 @@ function makeMap(){
 
 	var url = "http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}";
 
-	var tileLayer = new L.tileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}");
+	var tileLayer = new L.tileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+		attribution: "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ",
+		maxZoom: 16
+	});
 	$.getJSON('static/data/eitc.geojson', function(data) {
 		geojson = L.geoJson(data, {
 			style: style,
