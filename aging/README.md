@@ -1,7 +1,5 @@
 ### Template for CT Data Collaborative Templates
 
-LICENSE: BSD
-
 ## Getting up and running
 
 The steps below will get you up and running with a local development environment. We assume you have the following installed:
