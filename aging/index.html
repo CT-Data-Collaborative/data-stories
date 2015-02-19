@@ -1,94 +1,172 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/gif">
-    <title>CTData Data Story Template</title>
-    <link rel="stylesheet" type="text/css" href="static/css/main.css" />
+      <link rel="stylesheet" type="text/css" href="leaflet.css" />
+      <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+      <script src="ct-Towns.js"></script>
+
+      <style type="text/css">
+      #map {
+          width: 800px;
+          height: 600px;
+      }
+      .info {
+          padding: 6px 8px;
+          font: 14px/16px Arial, Helvetica, sans-serif;
+          background: white;
+          background: rgba(255,255,255,0.8);
+          box-shadow: 0 0 15px rgba(0,0,0,0.2);
+          border-radius: 5px;
+      }
+      .info h4 {
+          margin: 0 0 5px;
+          color: #777;
+      }
+
+      .legend {
+          text-align: left;
+          line-height: 18px;
+          color: #555;
+      }
+      .legend i {
+          width: 18px;
+          height: 18px;
+          float: left;
+          margin-right: 8px;
+          opacity: 0.7;
+      }
+      </style>
   </head>
   <body>
-    <div class="wrap">
-      <div id="topnav">
-        <div class="spacing">
-          <ul>
-            <li><a href="https://twitter.com/ctopendata">
-              <i class="fa fa-inverse fa-twitter fa-lg"></i>
-            </a></li>
-            <li><a href="https://www.facebook.com/pages/CT-Data-Collaborative/150954425018093">
-              <i class="fa fa-inverse fa-facebook fa-lg"></i></a>
-            </li>
-            <li><a href="http://www.ctdata.org">Home</a></li>
-            <li><a href="https://github.com/CT-Data-Collaborative">CT Data on Github</a></li>
-            <li><a href="mailto:info@ctdata.org">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-      <div id="hdr">
-        <div class="spacing">
-          <div class="logo"><img src="/static/images/logo.png" alt="CT Data Collaborative"></div>
-          <div class="headernav">
-            <h1>Data Story</h1>
-          </div>
-          <div class="container-fluid">
-            <div class="row">
-            </div>
-          </div>
-          <div id="push"></div>
-        </div>
-      </div>
-    </div>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
+  <script src="leaflet.SliderControl.min.js"></script>
+  <div id="map">
+      <script>
 
-    <div id="footer">
-      <div class="spacing">
-        <div class="footerbox">
-          <h2>About</h2>
-          <a href="http://ctdata.org">Home</a>
-          <br/>
-          <a href="http://ctdata.org/about/">About</a>
-          <br/>
-          <a href="http://ctdata.org/pages/news">News</a>
-          <br/>
-          <a href="mailto:info@ctdata.org">Contact</a>
-        </div>
+          var map = L.map('map').setView([41.624265, -72.690697], 9);
 
-        <div class="footerbox">
-          <h2>Explore CT Data</h2>
-          <a href="http://ctdata.org/pages/special-projects">Special Projects</a>
-          <br/>
-          <a href="http://nccsweb.urban.org/communityplatform/ct">CT Nonprofit Strategy Platform</a>
-        </div>
+          var Stamen_Toner = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {
+              attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+              subdomains: 'abcd',
+              minZoom: 0,
+              maxZoom: 20
+          }).addTo(map);
 
-        <div class="footerbox">
-          <h2>Get in Touch</h2>
-          <a href="mailto:info@ctdata.org">Support & Feedback</a>
-          <br/>
-          <br/>
-          <a href="https://www.facebook.com/pages/CT-Data-Collaborative/150954425018093"><i class="fa fa-inverse fa-facebook-square fa-lg"></i> &nbsp;Find us on Facebook</a>
-          <br/>
-          <a href="https://twitter.com/ctopendata"><i class="fa fa-twitter-square fa-inverse fa-lg"></i> &nbsp;Find us on Twitter</a>
-          <br/>
-          <br/>
-          <br/>
-        </div>
+          var info = L.control();
 
-        <br clear="all"/>
+          info.onAdd = function (map) {
+              this._div = L.DomUtil.create('div', 'info');
+              this.update();
+              return this._div;
+          };
 
-        <div class="footercopy">
-          <!-- <div class="cobrandleft"> -->
-          <!--   <a href="http://hfpg.org">Hartford Foundation for Public Giving</a> &copy; 2014 -->
-          <!--   <br/> -->
-          <!--   10 Columbus Boulevard, 8th Floor; Hartford, CT 06106 -->
-          <!-- </div> -->
-          <div class="cobrandleft">
-            CTdata.org is a Project of the Connecticut Data Collaborative
-            <br/>
-            Copyright &copy; 2014 CT Data Collaborative
-          </div>
-        </div>
-      </div>
-    </div>
+          info.update = function (props) {
+              this._div.innerHTML = '<h4>CT Population Over 65</h4>' +  (props ?
+              '<b>' + props.name + '</b><br />' + props.percent15*100 + ' %'
+                      : 'Hover over a town');
+          };
 
+          info.addTo(map);
+
+
+          // get color depending on population density value
+          function getColor(d) {
+              return d > 0.2    ? '#F2E2E5' :
+                     d > 0.17   ? '#C1D0E3' :
+                     d > 0.15   ? '#7E9FC5' :
+                     d > 0.13   ? '#0C527F' :
+                     d > 0.1299 ? '#0A0F1C' :
+                                  '#787878';
+          }
+
+          function style(feature) {
+              return {
+                  weight: 2,
+                  opacity: 1,
+                  color: 'white',
+                  dashArray: '3',
+                  fillOpacity: 0.9,
+                  fillColor: getColor(feature.properties.percent15)
+              };
+          }
+
+          function highlightFeature(e) {
+              var layer = e.target;
+
+              layer.setStyle({
+                  weight: 5,
+                  color: '#666',
+                  dashArray: '',
+                  fillOpacity:1
+              });
+
+              if (!L.Browser.ie && !L.Browser.opera) {
+                  layer.bringToFront();
+              }
+
+              info.update(layer.feature.properties);
+          }
+
+          var geojson;
+
+          function resetHighlight(e) {
+              geojson.resetStyle(e.target);
+              info.update();
+          }
+
+          function zoomToFeature(e) {
+              map.fitBounds(e.target.getBounds());
+          }
+
+          function onEachFeature(feature, layer) {
+              layer.on({
+                  mouseover: highlightFeature,
+                  mouseout: resetHighlight,
+                  click: zoomToFeature
+              });
+          }
+
+          geojson = L.geoJson(townShapes, {
+              style: style,
+              onEachFeature: onEachFeature
+          }).addTo(map);
+
+          map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+
+
+          var legend = L.control({position: 'bottomright'});
+
+          legend.onAdd = function (map) {
+
+              var div = L.DomUtil.create('div', 'info legend'),
+              // Since the getColor function is expecting numbers, not strings, I modified this array
+                      grades = [0.13,0.14,0.15,0.17,0.2]
+                      //grades = ["13%","14%","15%","17%","20%"],
+                      labels = [];
+
+              for (var i = 0; i < grades.length; i++) {
+                  var from = grades[i];
+                  var to = grades[i + 1];
+                  // In order to have the percentages, you can just append it on to the string
+                  // Also, you can call getColor(from+1) b/c that would be asking for the color value of 1.x with x being the array
+                  // val from grades (e.g. 1.13). So instead might need to rework this to pass grades[i+1], grade[i+2] directly in order to get the
+                  // right values for the colors. Also, the way this is currently set up, the colors are getting inverted.
+                  labels.push(
+                          '<i style="background:' + getColor(from) + '"></i> ' +
+                          Math.round(from*100) + "%" + (Math.round(to*100) ? '&ndash;' + Math.round(to*100) + "%" : '+'));
+              }
+
+              div.innerHTML = labels.join('<br>');
+              return div;
+          };
+
+          legend.addTo(map);
+
+
+      </script>
+
+  </div>
   </body>
 </html>

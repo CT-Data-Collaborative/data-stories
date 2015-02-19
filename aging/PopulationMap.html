@@ -64,7 +64,7 @@
 
           info.update = function (props) {
               this._div.innerHTML = '<h4>CT Population Over 65</h4>' +  (props ?
-              '<b>' + props.name + '</b><br />' + props.percent15 + ' people / mi<sup>2</sup>'
+              '<b>' + props.name + '</b><br />' + props.percent15 * 100 + ' %'
                       : 'Hover over a town');
           };
 
