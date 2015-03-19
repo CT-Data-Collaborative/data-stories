@@ -1,5 +1,5 @@
 {
-  "name": "eitc",
+  "name": "aging",
   "version": "0.0.1",
   "homepage": "https://github.com/CT-Data-Collaborative/DataStories",
   "authors": [
@@ -25,6 +25,6 @@
     "leaflet": "~0.7.3",
     "d3": "~3.5.3",
     "seiyria-bootstrap-slider": "~4.4.0",
-    "parallax": "git@github.com:stolksdorf/Parallaxjs.git"
+    "parallax": "https://github.com/stolksdorf/Parallaxjs.git"
   }
 }

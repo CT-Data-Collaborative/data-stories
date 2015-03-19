@@ -1,0 +1,36 @@
+.control {
+    position:fixed;
+    width:100px;
+    cursor:pointer;
+}
+
+#rightControl {
+    width: 5%;
+    right:0px;
+    top:40%;
+}
+
+#leftControl {
+    width: 5%;
+    left:0px;
+    top:40%;
+}
+
+.arrow {
+    opacity:0.2;
+    width: 40px;
+    position: fixed;
+}
+
+#rightControl .arrow {
+    right: 15px;
+}
+
+#leftControl .arrow {
+    left: 15px;
+}
+
+// .parallex-container {
+//     width: 100%;
+//     position: relative;
+// }

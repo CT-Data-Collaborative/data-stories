@@ -20,7 +20,7 @@ module.exports = function (grunt) {
       images:  'static/images',
       js:  'static/js',
       staticroot:  'static/',
-      bower_components:  '/bower_components',
+      bower_components:  'bower_components',
       vizminjs:  'static/js/viz.min.js',
       homeminjs:  'static/js/home.min.js',
       fontawesome:  'static/sass/vendor/fontawesome/font-awesome.scss'
@@ -153,7 +153,7 @@ bower_concat: {
         bg: true
       },
       runTemplate: {
-        cmd: 'python -m SimpleHTTPServer 8888'
+        cmd: 'python -m SimpleHTTPServer 8000'
       }
     }
   });

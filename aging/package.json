@@ -1,7 +1,7 @@
 {
-  "name": "template",
+  "name": "aging",
   "version": "1.0.0",
-  "description": "Data Story Template",
+  "description": "Data Story - Aging",
   "author": "Sasha Cuerda",
   "license": "ISC",
   "devDependencies": {

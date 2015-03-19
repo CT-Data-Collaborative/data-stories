@@ -10,3 +10,5 @@ vendor.js
 
 static/fonts/
 static/sass/vendor/
+raw/
+*.log
