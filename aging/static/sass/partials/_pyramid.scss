@@ -1,0 +1,58 @@
+
+.source {
+  padding-left: 10px;
+}
+.source a, .source a:hover {
+  color: #888;
+}
+
+.label {
+  position: absolute;
+  top: 15px;
+  left: 5px;
+  font-size: 48px;
+  font-weight: bold;
+  color: #dedede;
+}
+
+.break {
+  border-bottom: solid 1px #dedede;
+  margin: 10px 0px 2px 0px;
+  width: 110%;
+}
+
+.years, {
+  padding-top: 10px;
+  padding-left: 10%;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+}
+.years span, {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.years .title {
+  font-size: 17px;
+  font-variant: small-caps;
+  letter-spacing: 1;
+}
+.years a {
+  color: #888;
+  text-decoration: none;
+}
+.years a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+.years a.y1890 {
+  color: #bbb;
+}
+.years a.active {
+  color: #000;
+}
+
+
+svg {
+  shape-rendering: crispEdges;
+}

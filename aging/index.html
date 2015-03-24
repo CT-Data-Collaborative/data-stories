@@ -41,19 +41,77 @@
           <div class="col-sm-12">
             <div class="multiple-items">
             <div id="pageone">
-              <div id="map">Map Tab</div>
+              <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-4">
+                  <h2>Connecticut’s Changing Demographics</h2>
+                  <p>We live in an aging Connecticut, and that’s a dramatic change here to stay.</p>
+                  <p>More than one-third of Connecticut’s population is over the age of 50, and that proportion continues to rise. Nearly every facet of our society will be impacted. Increasing numbers of older adults will challenge municipal and state leaders and their partners to ensure that communities have the features and services to support aging in place. They will need a growing workforce to meet their emerging needs.</p>
+                  <p> At the same time, older adults will redefine retirement as they remain engaged in the workforce. They will play pivotal roles in the changing American family, both as caregivers and as recipients of care. However, they will challenge our state’s budget as they increasingly outlive their financial resources.</p>
+                  <p>Can Connecticut meet the needs of its changing demographics? And can we leverage the opportunities that come with ever-increasing numbers of older adults looking for meaningful ways to contribute their skills and talents?</p>
+                </div>
+                <div class="col-sm-4">
+                    <img src="static/images/hartford.png" alt="" id="coverpic"></img>
+                </div>
+                <div class="col-sm-1"></div>
+              </div>
             </div>
             <div id="pagetwo">
-                <div id="pyramid">Pyramid Tab</div>
+              <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                  <h2>We’re Getting Older, Town by Town</h2>
+                  <p>These maps show the percentage of people age 65 and older in each Connecticut town, beginning in the year 2010 showing changes in five-year increments. By 2025, older adults will comprise at least 20% of the population of almost every town in Connecticut.</p>
+                  <p>Who are those two beige outliers in 2025, remaining at less than 13%?  They’re Mansfield and New Haven, home to Connecticut’s two flagships universities (University of Connecticut and Yale University, respectively), with large transient student populations, partially masking the growth of the older adult population.</p>
+                </div>
+                <div class="col-sm-7"></div>
+                <div id="map"></div>
+                <div class="col-sm-1"></div>
+              </div>
             </div>
             <div id="pagethree">
-                <div id="chart">Chart Tab</div>
+              <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-4">
+                  <h2>It Didn’t Happen Overnight </h2>
+                  <p>Connecticut’s demographic transformation has been spurred by medical, social and economic advances.  And that transformation has been buoyed by baby boomers, people born between the years 1946 and 1964.  At every stage, baby boomers have been changing this country, and now is no exception. Not only are their sheer numbers larger than any other previous generation, but they are also longer-lived.  In Connecticut, a person born today can expect to live an average of 80.8 years, the 3rd highest life expectancy in the nation.  But not uniformly for all groups in Connecticut.  Life expectancy is 89.1 years Asian Americans; 83.1 years for Latinos; 81.0 years for Whites, and 77.8 years for African Americans.</p>
+                </div>
+                <div class="col-sm-6">
+                  <div id="pyramid"></div>
+                </div>
+                <div class="col-sm-1"></div>
+              </div>
+            </div>
+            <div id="pagefour">
+              <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-4">
+                  <h2>New Realities</h2>
+                  <p>Between 2010 and 2040, Connecticut’s population of people age 65 and older is projected to grow by 57%, but its population of people age 20 to 64 is projected to grow by less than 2%.  Overwhelmingly, these growing numbers of older adults want to stay in their communities and to have choice independence and dignity.  To make it happen, we need age-diverse communities, bringing together everyone, from Millennials to older adults to persons with disabilities to the caregivers and professionals needed to support them.  Thankfully, trends are converging—everyone needs and benefits from affordable, accessible and diverse, transportation options and public spaces and buildings; supportive community features and services; and vibrancy and opportunities for community engagement.</p>
+                </div>
+                <div class="col-sm-6">
+                  <div id="chart"></div>
+                </div>
+                <div class="col-sm-1"></div>
+              </div>
             </div>
             </div>
           </div>
         </div>
-        <!-- <div id="leftControl" class="control"><img class="arrow" src="static/images/arrowleft2.png" alt=""></img></div>
-        <div id="rightControl" class="control"><img class="arrow" src="static/images/arrowright2.png" alt=""></img></div> -->
+        <div class="row">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-3"></div>
+          <div class="col-sm-7">
+            <div id="slider">
+      [        <span id=firstyear></span>
+                    <input data-slider-id='mapslider1' type="text" data-slider-min="2015" data-slider-max="2025" data-slider-step="5" data-slider=value="2015" value="2015" id="mapslider"></input>
+                    <span id=lastyear></span>]
+            </div>
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+        <div id="leftControl" class="control"><img class="arrow" src="static/images/arrowleft2.png" alt=""></img></div>
+        <div id="rightControl" class="control"><img class="arrow" src="static/images/arrowright2.png" alt=""></img></div>
         <div id="push"></div>
       </div>
       </div>
@@ -110,5 +168,7 @@
     <script src="/static/js/map.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.min.js"></script>
     <script src="/static/js/controls.js"></script>
+    <script src="/static/js/pyramid.js"></script>
+    <script src="/static/js/line.js"></script>
   </body>
 </html>
