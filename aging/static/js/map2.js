@@ -131,14 +131,14 @@ function map() {
 
         var div = L.DomUtil.create('div', 'info legend'),
         // Since the getColor function is expecting numbers, not strings, I modified this array
-                grades = [0, 0.13, 0.14, 0.15, 0.17, 0.2]
+                grades = [0, 0.131, 0.151, 0.171, 0.201]
                 labels = [];
 
         for (var i = 0; i < grades.length; i++) {
             var from = grades[i];
             var to = grades[i + 1];
             labels.push(
-                    '<i style="background:' + getColor(from+0.01) + '"></i> ' +
+                    '<i style="background:' + getColor(from) + '"></i> ' +
                     Math.round(from*100) + "%" + (Math.round(to*100) ? '&ndash;' + Math.round(to*100) + "%" : '+'));
         }
 

@@ -10,7 +10,7 @@ var w = vizWidth,
     labelbins = bins.filter(function(d) {
         return d % 2 === 0;
     });
-year = 2010,
+year = 2000,
     rf = "javascript:return false;";
 d3.csv('static/data/longpyramid.csv', function(pyr) {
     data = pyr.map(function(d) {
@@ -399,7 +399,7 @@ function drawPyramid() {
     //     .attr("href", "javascript:play();")
     //     .text(" >>");
     div.selectAll("span.link")
-        .data(d3.range(2010, 2041, 10))
+        .data(d3.range(2000, 2041, 10))
         .enter()
         .append("span")
         .attr("class", "link")
