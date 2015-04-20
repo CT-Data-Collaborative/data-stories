@@ -1,23 +1,63 @@
 function map() {
   var geojson, info, stateLayer;
   var layerObj = {};
-  var layerKey = {2015: "percent15", 2020: "percent20", 2025:"percent25"}
-  var mapYears = [2015,2020,2025];
+  var layerKey = {2010: "percent10", 2015: "percent15", 2020: "percent20", 2025:"percent25"}
+  var mapYears = [2010,2015,2020,2025];
   var currentLayer = mapYears[0];
+
 
   function addSlider(yearArray) {
     firstYear = yearArray[0];
     lastYear = yearArray[yearArray.length - 1];
     $("#firstyear").text(firstYear);
     $("#lastyear").text(lastYear);
-    $("#mapslider").slider();
+    var newslider = $("#mapslider").slider();
     $('#mapslider').on('change', function(slideEvt) {
         year = slideEvt.value;
         currentLayer = year.newValue;
         setVariable(year.newValue);
     });
-  }
+    var stop = true;
 
+    $('#mapPlay').click(function() {
+      stop = false;
+      runMapLoop();
+      showStop();
+     });
+    $('#mapStop').click(function() {
+      stop = true;
+      showPlay();
+     });
+
+    function showStop() {
+      $("#mapPlay").hide();
+      $("#mapStop").show();
+    }
+
+    function showPlay() {
+      $("#mapStop").hide();
+      $("#mapPlay").show();
+    }
+
+    function runMapLoop() {
+      setTimeout(mapLoop, 1500);
+    }
+
+    function mapLoop() {
+      if(stop)
+        return false;
+      currentLayerIndex = mapYears.indexOf(currentLayer);
+      if (currentLayerIndex == (mapYears.length-1)) {
+        currentLayer = mapYears[0];
+      } else {
+        currentLayer = mapYears[currentLayerIndex+1];
+      }
+      newslider.slider('setValue', currentLayer);
+      runMapLoop();
+    }
+    showPlay();
+  }
+  addSlider(mapYears);
   // function getColor(d) {
   //     return d > 0.2    ? '#F2E2E5' :
   //            d > 0.17   ? '#C1D0E3' :
@@ -64,9 +104,11 @@ function map() {
   info.update = function (props) {
       key = layerKey[currentLayer];
       this._div.innerHTML = '<h4>CT Population Over 65</h4>' +  (props ?
-      '<b>' + props.name + '</b><br />' + props[key]*100 + ' %'
+      '<b>' + props.name + '</b><br />' + (props[key]*100).toFixed(1) + ' %'
               : 'Hover over a town');
   };
+
+
 
   function highlightFeature(e) {
       var layer = e.target;
@@ -103,10 +145,10 @@ function map() {
       });
   }
 
-  $.getJSON('static/data/towns.json', function(data) {
+  $.getJSON('static/data/towns_with_data.geojson', function(data) {
 
     var boundaries = data;
-    var map = L.map('map').setView([41.562265, -72.690697], 9);
+    var map = L.map('map');
     var baselayer = L.tileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
         attribution: "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ",
         subdomains: 'abcd',
@@ -117,12 +159,14 @@ function map() {
 
     // set variable for first layer
     boundaries.features.forEach(function(town) {
-        town.properties.percentOver65 = town.properties.percent15;;
+        town.properties.percentOver65 = town.properties.percent10;;
       });
 
     stateLayer = L.geoJson(boundaries, {
       onEachFeature: onEachFeature
     }).addTo(map);
+
+
 
     info.addTo(map);
     var legend = L.control({position: 'bottomright'});
@@ -146,9 +190,31 @@ function map() {
         return div;
     };
 
+    // var sliderControl = L.control({position: 'bottomleft'});
+
+    // sliderControl.onAdd = function(map) {
+    //   var sliderContainer = L.DomUtil.create('div', 'embeddedMapslider', this._container);
+    //   // $("#slider").clone(true).appendTo("div.embeddedMapslider");
+    //   $(sliderContainer).mousedown(function() {
+    //     map.dragging.disable();
+    //   });
+    //   $(document).mouseup(function() {
+    //     map.dragging.enable();
+    //   });
+    //   return sliderContainer;
+    // };
+
     legend.addTo(map);
-    addSlider(mapYears);
+    // addSlider(mapYears);
+    // sliderControl.addTo(map);
+
     setVariable(mapYears[0]);
+    map.fitBounds([
+      [42.050942,-73.491669],
+      [42.025033, -71.792908],
+      [41.318878,-71.848183],
+      [40.987213,-73.664703]
+      ]);
   })
 
 // This is not setting a JavaScript

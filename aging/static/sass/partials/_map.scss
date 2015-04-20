@@ -1,6 +1,6 @@
 #map {
     width: 58%;
-    height: 700px;
+    height: 525px;
 }
 
 .info {
@@ -31,9 +31,14 @@
 
 #slider {
     padding-bottom: 20px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -15px;
 
     #firstyear, #lastyear {
         padding-top: 4px;
+        font-size: 28px;
     }
 
     #firstyear {
@@ -42,4 +47,13 @@
     #lastyear {
         padding-left: 20px;
     }
+
+    #mapslider {
+        margin-bottom: 8px;
+    }
+}
+
+#mapPlay, #mapStop {
+    margin-left: 20px;
+    margin-bottom: 10px;
 }

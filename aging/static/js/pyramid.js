@@ -2,6 +2,8 @@
 var data, maxp, fdat, mdat, y, x1, x2, label, vis, rTransform, lTransform, div;
 var goTo, linkClass, tooltipText, isYear, play, barWidth, fb, ctls, rules1, rules2;
 
+var pyrStop = true;
+var pyrYears = [2000, 2010, 2020, 2030, 2040];
 var vizHeight = d3.max([window.innerHeight * .6, (18*20+100)]);
 var vizWidth = d3.max([window.innerWidth * .25, 250]);
 var w = vizWidth,
@@ -47,6 +49,33 @@ d3.csv('static/data/longpyramid.csv', function(pyr) {
         .range([w, 0]);
     drawPyramid();
 });
+
+    function showStop() {
+      $("#pyrPlay").hide();
+      $("#pyrStop").show();
+    }
+
+    function showPlay() {
+      $("#pyrStop").hide();
+      $("#pyrPlay").show();
+    }
+
+    function runpyrLoop() {
+      setTimeout(pyrLoop, 1500);
+    }
+
+    function pyrLoop() {
+      if(pyrStop)
+        return false;
+      currentYearIndex = pyrYears.indexOf(year);
+      if (currentYearIndex == (pyrYears.length-1)) {
+        year = pyrYears[0];
+      } else {
+        year = pyrYears[currentYearIndex+1];
+      }
+      goTo(year);
+      runpyrLoop();
+    }
 
     goTo = function(yr, dur) {
         dur = dur || 300;
@@ -150,43 +179,6 @@ d3.csv('static/data/longpyramid.csv', function(pyr) {
 
 function drawPyramid() {
 
-    // timer = undefined;
-    // stop = function() {
-    //     clearInterval(timer);
-    //     timer = undefined;
-    //     ctrls.select("a.toggle")
-    //         .text("play");
-    // }
-    // toggle = function() {
-    //     if (!timer) {
-    //         play();
-    //     }
-    //     else {
-    //         stop();
-    //     }
-    // }
-    // play = function(rev) {
-    //     rev = rev || false;
-    //     if (timer) {
-    //         stop();
-    //     }
-    //     ctrls.select("a.toggle")
-    //         .text("stop");
-    //     var advance = function() {
-    //         var y = year + (rev ? -1 : 1) * 10;
-    //         if (y < 2000 || y > 2040) {
-    //             // stop at end points
-    //             stop();
-    //             return;
-    //         }
-    //         else {
-    //             // else advance
-    //             goTo(y, 800);
-    //         }
-    //     };
-    //     advance();
-    //     timer = setInterval(advance, 850);
-    // }
     document.onkeydown = function(event) {
         var y = year;
         switch (event.keyCode) {
@@ -380,24 +372,6 @@ function drawPyramid() {
     div.append("span")
         .attr("class", "title")
         .text("year");
-    // ctrls = d3.select("#pyramid")
-    //     .append("div")
-    //     .attr("class", "controls");
-    // ctrls.append("span")
-    //     .append("a")
-    //     .attr("class", "control back")
-    //     .attr("href", "javascript:play(true);")
-    //     .text("<< ");
-    // ctrls.append("span")
-    //     .append("a")
-    //     .attr("class", "control toggle")
-    //     .attr("href", "javascript:toggle();")
-    //     .text("play");
-    // ctrls.append("span")
-    //     .append("a")
-    //     .attr("class", "control forward")
-    //     .attr("href", "javascript:play();")
-    //     .text(" >>");
     div.selectAll("span.link")
         .data(d3.range(2000, 2041, 10))
         .enter()
@@ -406,9 +380,35 @@ function drawPyramid() {
         .append("a")
         .attr("class", linkClass)
         .attr("href", function(d) {
-            return d == 1890 ? null : "javascript:goTo(" + d + ");";
+            return "javascript:goTo(" + d + ");";
         })
         .text(function(d) {
             return d.toFixed(0);
         });
+    // Play Controls
+    // ctrls = d3.select("#pyramid")
+    //     .append("div")
+    //     .attr("class", "controls");
+    div.append("button")
+        .attr("class", "btn btn-info")
+        .attr("id", "pyrPlay")
+        .text("Play")
+        .on("click", function() {
+            pyrStop = false;
+            runpyrLoop();
+            showStop();
+        });
+
+    div.append("button")
+        .attr("class", "btn btn-danger")
+        .attr("id", "pyrStop")
+        .text("Stop")
+        .on("click", function() {
+          pyrStop = true;
+          showPlay();
+        })
+
+
+
+    showPlay();
 }

@@ -2,8 +2,10 @@
 node_modules/
 bower_components/
 
+.Rhistory
 .DS_Store
 *.sublime-workspace
+*.sublime-project
 
 main.css
 vendor.css

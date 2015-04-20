@@ -12,6 +12,7 @@ $('.multiple-items').slick({
 });
 
 $("#slider").hide();
+$("#leftControl").hide();
 
 $('.multiple-items').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
         $("#slider").hide();
@@ -22,7 +23,19 @@ $('.multiple-items').on('afterChange', function(event, slick, currentSlide, next
     if (page === 'pagetwo') {
         $("#slider").show();
     } else {}
+   if (page === 'pageone') {
+        $("#leftControl").hide();
+    } else {}
+    if (page == 'pagetwo' || page == 'pagethree') {
+        $("#leftControl").show();
+        $("#rightControl").show();
+    } else {}
+    if (page == 'pagefive') {
+        $("#rightControl").hide()
+    }
 });
+
+
 map();
 
 // watch active tabs and control slider

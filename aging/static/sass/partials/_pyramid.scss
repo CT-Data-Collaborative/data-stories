@@ -21,7 +21,7 @@
   width: 110%;
 }
 
-.years, {
+.years, .controls {
   padding-top: 10px;
   padding-left: 10%;
   width: 100%;
@@ -33,15 +33,16 @@
   padding-right: 2px;
 }
 .years .title {
-  font-size: 17px;
+  font-size: 28px;
   font-variant: small-caps;
   letter-spacing: 1;
 }
-.years a {
+.years a, .controls a {
+  font-size: 28px;
   color: #888;
   text-decoration: none;
 }
-.years a:hover {
+.years a:hover, .controls a:hover {
   color: #000;
   text-decoration: underline;
 }
@@ -52,6 +53,16 @@
   color: #000;
 }
 
+.controls a {
+  font-variant: small-caps;
+  letter-spacing: 1;
+  text-decoration: none;
+}
+
+#pyrPlay, #pyrStop {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
 
 svg {
   shape-rendering: crispEdges;
