@@ -1,0 +1,43 @@
+* {
+    font: 100% $font1;
+    color: $base-color1;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: whitesmoke;
+}
+
+.wrap {
+    min-height: 80%;
+    height: auto !important;
+    margin: 0 auto -10px;
+}
+
+#sections {
+  position: relative;
+  display: inline-block;
+  width: 250px;
+  top: 0px;
+  z-index: 90;
+}
+
+.step {
+  margin-bottom: 200px;
+}
+
+#vis {
+  display: inline-block;
+  position: fixed;
+  top: 60px;
+  z-index: 1;
+  margin-left: 0;
+
+  height: 600px;
+  width: 600px;
+  background-color: #ddd;
+}

@@ -1,0 +1,35 @@
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,700);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Arvo|PT+Sans:700);
+@import url(http://fonts.googleapis.com/css?family=Questrial);
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700);
+
+// font weights
+$light: 100;
+$regular: 400;
+$medium: 500;
+$bold: 600;
+$heavy: 700;
+
+// fonts
+$font1: 'Questrial', Arial, Sans-Serif;
+$font2: 'Source Sans Pro', sans-serif;
+$font3: 'Roboto Condensed', sans-serif;
+$font4: 'Merriweather', sans-serif;
+$font5: 'Roboto', sans-serif;
+
+// ProPublica's State Face for Rendering icon with map of CT
+// @font-face {
+//         font-family: 'StateFaceRegular';
+//         src: url('../fonts/stateface-regular-webfont.eot');
+//         src: url('../fonts/stateface-regular-webfont.eot?#iefix') format('embedded-opentype'),
+//              url('../fonts/stateface-regular-webfont.woff') format('woff'),
+//              url('../fonts/stateface-regular-webfont.ttf') format('truetype'),
+//              url('../fonts/stateface-regular-webfont.svg#StateFaceRegular') format('svg');
+//         font-weight: normal;
+//         font-style: normal;
+//     }
+
+$base-color1: #333;
+$base-color2: #849939;
+
