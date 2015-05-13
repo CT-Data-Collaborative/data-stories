@@ -8,25 +8,49 @@
         <title>Exploring Racial Profiling Data</title>
         <link rel="stylesheet" type="text/css" href="/static/css/vendor.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+        <style>
+        body {
+          font: 11px sans-serif;
+        }
+
+        .axis path,
+        .axis line {
+          fill: none;
+          stroke: #000;
+          shape-rendering: crispEdges;
+        }
+
+        .dot {
+          stroke: #000;
+        }
+
+        .tooltip {
+          position: absolute;
+          width: 200px;
+          height: 28px;
+          pointer-events: none;
+        }
+
+        </style>
     </head>
     <body>
-    <div class="wrap">
-        <div id="topnav">
-            <div class="spacing">
-              <ul>
-                <li><a href="https://twitter.com/ctopendata">
-                  <i class="fa fa-inverse fa-twitter fa-lg"></i>
-                </a></li>
-                <li><a href="https://www.facebook.com/pages/CT-Data-Collaborative/150954425018093">
-                  <i class="fa fa-inverse fa-facebook fa-lg"></i></a>
-                </li>
-                <li><a href="http://www.ctdata.org">Home</a></li>
-                <li><a href="https://github.com/CT-Data-Collaborative">CT Data on Github</a></li>
-                <li><a href="mailto:info@ctdata.org">Contact</a></li>
-              </ul>
-            </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+    <div id="topnav">
+        <div class="spacing">
+          <ul>
+            <li><a href="https://twitter.com/ctopendata">
+              <i class="fa fa-inverse fa-twitter fa-lg"></i>
+            </a></li>
+            <li><a href="https://www.facebook.com/pages/CT-Data-Collaborative/150954425018093">
+              <i class="fa fa-inverse fa-facebook fa-lg"></i></a>
+            </li>
+            <li><a href="http://www.ctdata.org">Home</a></li>
+            <li><a href="https://github.com/CT-Data-Collaborative">CT Data on Github</a></li>
+            <li><a href="mailto:info@ctdata.org">Contact</a></li>
+          </ul>
         </div>
-        <div id="hdr">
+    </div>
+    <div id="hdr">
             <div class="spacing">
               <div class="logo">
                 <img src="/static/images/logo-ctrp3.png" alt="CT Data Collaborative" usemap="#LogoMap">
@@ -36,19 +60,46 @@
                 </map>
               </div>
               <div class="headernav">
-                <h1>Exploring Racial Profiling CT</h1>
+                <h1>Racial Profiling in CT?</h1>
               </div>
             </div>
         </div>
+    </nav>
         <div class="container">
             <div id='graphic'>
               <div id='sections'>
                 <section class="step">
-                  <div class="title">OpenVis Conf 2013</div>
-                    I did what no presenter should ever do: I watched my own talk...
+                  <div class="title">Project Background</div>
+                    We will start by explaining the history of the project and the recent data collection efforts.
                 </section>
                 <section class="step">
-                  <!-- another section -->
+                  <div class="title">Background to the data</div>
+                    We will start by explaining the problem with analyzing the racial profiling data. We've got
+                    all the towns, state police baracks, etc., but comparing the raw counts is problematic.
+                </section>
+                <section class="step">
+                  <div class="title">Two Approaches</div>
+                    KPT Hit Rate and the Veil of Darkness.
+                </section>
+                <section class="step">
+                  <div class="title">KPT Hit Rate</div>
+                    Game Theory. People adjust their behaviors to max/min chances.
+                </section>
+                <section class="step">
+                  <div class="title">KPT Hit Rate</div>
+                    If the hit rate varies, it indicates some type of discrimination.
+                </section>
+                <section class="step">
+                  <div class="title">Bisect Line</div>
+                    We can use this refence line to see which was discrimination is operating.
+                </section>
+                <section class="step">
+                  <div class="title">Line</div>
+                    We can use this refence line to see which was discrimination is operating.
+                </section>
+                <section class="step">
+                  <div class="title">Line</div>
+                    We can use this refence line to see which was discrimination is operating.
                 </section>
               </div>
               <div id='vis'>
@@ -56,7 +107,7 @@
             </div>
         </div>
     </div>
-    <div id="footer">
+   <!--  <div id="footer">
         <div class="spacing">
             <div class="footerbox">
               <h2>About</h2>
@@ -101,16 +152,21 @@
               </div>
             </div>
         </div>
-    </div>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    </div> -->
+    // <script>
+    //   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    //   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    //   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    //   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-27854885-2', 'auto');
-      ga('send', 'pageview');
+    //   ga('create', 'UA-27854885-2', 'auto');
+    //   ga('send', 'pageview');
 
-    </script>
+    // </script>
+    <script type="text/javascript" src="static/components/d3/d3.min.js"></script>
+    <script type="text/javascript" src="static/components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/queue.js"></script>
+    <script type="text/javascript" src="static/js/scroller.js"></script>
+    <script type="text/javascript" src="static/js/sections.js"></script>
   </body>
 </html>

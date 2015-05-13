@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"xAxi",
+				"xAxisScatter"
+			],
+			[
+				"ySc",
+				"yScatterScale"
+			],
+			[
+				"xc",
+				"xScatterScale"
+			],
+			[
+				"transi",
+				"transitionOpacity"
+			],
+			[
+				"hitr",
+				"hitrateData"
+			],
+			[
 				"curre",
 				"currentYear"
 			],
@@ -166,10 +186,6 @@
 			[
 				"select",
 				"selectAllYears"
-			],
-			[
-				"transi",
-				"transitionText"
 			],
 			[
 				"for",
@@ -469,6 +485,13 @@
 	},
 	"file_history":
 	[
+		"/Users/scuerda/Work/Development/data/DataStories/ctrp3/static/sass/partials/_scroller.scss",
+		"/Users/scuerda/Work/Development/data/DataStories/ctrp3/index.html",
+		"/Users/scuerda/Work/Development/data/DataStories/ctrp3/static/js/sections.js",
+		"/Users/scuerda/Desktop/ckan_reqs.txt",
+		"/Users/scuerda/Work/Development/data/DataStories/ctrp3/static/js/scatter.html",
+		"/Users/scuerda/Work/Development/data/DataStories/ctrp3/static/sass/partials/_template.scss",
+		"/Users/scuerda/Work/Development/data/DataStories/ctrp3/static/sass/main.scss",
 		"/Users/scuerda/Work/Development/data/DataStories/aging/index.html",
 		"/Users/scuerda/Work/Development/data/ctrp3/ctrp3/templates/base.html",
 		"/Users/scuerda/Work/DataCollaborative/ctdata-catalog/EDUCATION/kindgergarten-inventory-quartile/metadata/datapackage.json",
@@ -589,18 +612,11 @@
 		"/Users/scuerda/Work/DataCollaborative/ctdata-catalog/SAFETY/child-abuse-and-neglect/metadata/child_abuse_and_neglect.yml",
 		"/Users/scuerda/Work/Development/data/ofa/ofa-viz/initial.json",
 		"/Users/scuerda/Work/Development/data/ofa/ofa-viz/loadSenate.py",
-		"/Users/scuerda/Work/Development/data/ofa/ofa-viz/loadHouse.py",
-		"/Users/scuerda/Work/Development/data/ofa/ofa-viz/data/fixtures/initial_data.json",
-		"/Users/scuerda/Work/Development/data/ofa/ofa-viz/data/fixtures/initial_data.bak.json",
-		"/Users/scuerda/Work/Development/data/ofa/local/recipients.json",
-		"/Users/scuerda/Work/Development/data/ofa/local/grants.json",
-		"/Users/scuerda/Work/Development/data/ofa/local/categories.json",
-		"/Users/scuerda/Downloads/stacked (1).svg",
-		"/Users/scuerda/Downloads/stacked.svg"
+		"/Users/scuerda/Work/Development/data/ofa/ofa-viz/loadHouse.py"
 	],
 	"find":
 	{
-		"height": 33.0
+		"height": 42.0
 	},
 	"find_in_files":
 	{
@@ -614,6 +630,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"plot",
+			"Hist",
 			"currentLayerIndex",
 			"Stop",
 			"stop",

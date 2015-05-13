@@ -11278,24 +11278,6 @@ body {
   margin: 0 auto -10px;
 }
 
-/* line 21, ../sass/partials/_template.scss */
-#main {
-  height: 100%;
-}
-
-/* line 25, ../sass/partials/_template.scss */
-p {
-  font-size: 18px;
-}
-
-/* line 29, ../sass/partials/_template.scss */
-#coverpic {
-  width: 100%;
-  height: 100%;
-  margin-top: 50px;
-  margin-left: 30px;
-}
-
 /* line 1, ../sass/partials/_nav.scss */
 #topnav {
   width: 100%;
@@ -11484,219 +11466,46 @@ p {
   color: #fff;
 }
 
-/* line 1, ../sass/partials/_map.scss */
-#map {
-  width: 58%;
-  height: 525px;
-}
-
-/* line 6, ../sass/partials/_map.scss */
-.info {
-  padding: 6px 8px;
-  font: 14px/16px Arial, Helvetica, sans-serif;
-  background: white;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-}
-
-/* line 14, ../sass/partials/_map.scss */
-.info h4 {
-  margin: 0 0 5px;
-  color: #777;
-}
-
-/* line 19, ../sass/partials/_map.scss */
-.legend {
-  text-align: left;
-  line-height: 18px;
-  color: #555;
-}
-
-/* line 24, ../sass/partials/_map.scss */
-.legend i {
-  width: 18px;
-  height: 18px;
-  float: left;
-  margin-right: 8px;
-  opacity: 0.7;
-}
-
-/* line 32, ../sass/partials/_map.scss */
-#slider {
-  padding-bottom: 20px;
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -15px;
-}
-/* line 39, ../sass/partials/_map.scss */
-#slider #firstyear, #slider #lastyear {
-  padding-top: 4px;
-  font-size: 28px;
-}
-/* line 44, ../sass/partials/_map.scss */
-#slider #firstyear {
-  padding-right: 20px;
-}
-/* line 47, ../sass/partials/_map.scss */
-#slider #lastyear {
-  padding-left: 20px;
-}
-/* line 51, ../sass/partials/_map.scss */
-#slider #mapslider {
-  margin-bottom: 8px;
-}
-
-/* line 56, ../sass/partials/_map.scss */
-#mapPlay, #mapStop {
-  margin-left: 20px;
-  margin-bottom: 10px;
-}
-
-/* line 1, ../sass/partials/_parallax_controls.scss */
-.control {
-  position: fixed;
-  width: 100px;
-  cursor: pointer;
-}
-
-/* line 7, ../sass/partials/_parallax_controls.scss */
-#rightControl {
-  width: 5%;
-  right: 0px;
-  top: 40%;
-}
-
-/* line 13, ../sass/partials/_parallax_controls.scss */
-#leftControl {
-  width: 5%;
-  left: 0px;
-  top: 40%;
-}
-
-/* line 19, ../sass/partials/_parallax_controls.scss */
-.arrow {
-  opacity: 0.2;
-  width: 40px;
-  position: fixed;
-}
-
-/* line 25, ../sass/partials/_parallax_controls.scss */
-#rightControl .arrow {
-  right: 15px;
-}
-
-/* line 29, ../sass/partials/_parallax_controls.scss */
-#leftControl .arrow {
+/* line 1, ../sass/partials/_scroller.scss */
+#sections {
+  position: relative;
+  display: inline-block;
+  width: 350px;
+  top: 165px;
   left: 15px;
+  z-index: 90;
 }
 
-/* line 2, ../sass/partials/_pyramid.scss */
-.source {
-  padding-left: 10px;
+/* line 10, ../sass/partials/_scroller.scss */
+.step {
+  margin-bottom: 200px;
 }
 
-/* line 5, ../sass/partials/_pyramid.scss */
-.source a, .source a:hover {
-  color: #888;
+/* line 14, ../sass/partials/_scroller.scss */
+#vis {
+  display: inline-block;
+  position: fixed;
+  top: 165px;
+  z-index: 1;
+  margin-left: 30px;
+  padding-left: 30px;
+  height: 600px;
+  width: 750px;
+  border: 1px solid gray;
 }
 
-/* line 9, ../sass/partials/_pyramid.scss */
-.label {
-  position: absolute;
-  top: 15px;
-  left: 5px;
-  font-size: 48px;
+/* line 26, ../sass/partials/_scroller.scss */
+#sections .title, .hitRate-title {
+  font-family: Arial,Helvetica,"san-serif";
+  font-size: 26px;
   font-weight: bold;
-  color: #dedede;
+  margin-bottom: 2px;
+  color: #262626;
+  line-height: 1.2em;
 }
 
-/* line 18, ../sass/partials/_pyramid.scss */
-.break {
-  border-bottom: solid 1px #dedede;
-  margin: 10px 0px 2px 0px;
-  width: 110%;
-}
-
-/* line 24, ../sass/partials/_pyramid.scss */
-.years, .controls {
-  padding-top: 10px;
-  padding-left: 10%;
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-}
-
-/* line 31, ../sass/partials/_pyramid.scss */
-.years span {
-  padding-left: 2px;
-  padding-right: 2px;
-}
-
-/* line 35, ../sass/partials/_pyramid.scss */
-.years .title {
-  font-size: 28px;
-  font-variant: small-caps;
-  letter-spacing: 1;
-}
-
-/* line 40, ../sass/partials/_pyramid.scss */
-.years a, .controls a {
-  font-size: 28px;
-  color: #888;
-  text-decoration: none;
-}
-
-/* line 45, ../sass/partials/_pyramid.scss */
-.years a:hover, .controls a:hover {
-  color: #000;
-  text-decoration: underline;
-}
-
-/* line 49, ../sass/partials/_pyramid.scss */
-.years a.y1890 {
-  color: #bbb;
-}
-
-/* line 52, ../sass/partials/_pyramid.scss */
-.years a.active {
-  color: #000;
-}
-
-/* line 56, ../sass/partials/_pyramid.scss */
-.controls a {
-  font-variant: small-caps;
-  letter-spacing: 1;
-  text-decoration: none;
-}
-
-/* line 62, ../sass/partials/_pyramid.scss */
-#pyrPlay, #pyrStop {
-  margin-left: 20px;
-  margin-bottom: 10px;
-}
-
-/* line 67, ../sass/partials/_pyramid.scss */
-svg {
-  shape-rendering: crispEdges;
-}
-
-/* line 1, ../sass/partials/_linechart.scss */
-#chart {
-  height: 650px;
-  width: 100%;
-}
-/* line 5, ../sass/partials/_linechart.scss */
-#chart .axis path,
-#chart .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-/* line 16, ../sass/partials/_linechart.scss */
-#chart .line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+/* line 35, ../sass/partials/_scroller.scss */
+.step text {
+  opacity: .4;
+  font-size: 20px;
 }

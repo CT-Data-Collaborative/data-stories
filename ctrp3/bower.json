@@ -1,5 +1,5 @@
 {
-  "name": "aging",
+  "name": "Racial Profiling Data Story",
   "version": "0.0.1",
   "homepage": "https://github.com/CT-Data-Collaborative/DataStories",
   "authors": [
@@ -23,8 +23,6 @@
     "bootstrap-sass-official": "~3.3.1",
     "fontawesome": "~4.2.0",
     "leaflet": "~0.7.3",
-    "d3": "~3.5.3",
-    "seiyria-bootstrap-slider": "~4.4.0",
-    "parallax": "https://github.com/stolksdorf/Parallaxjs.git"
+    "d3": "~3.5.3"
   }
 }
