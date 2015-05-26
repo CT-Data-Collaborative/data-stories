@@ -50,12 +50,12 @@ d3.csv('static/data/longpyramid.csv', function(pyr) {
     drawPyramid();
 });
 
-    function showStop() {
+    function showPyrStop() {
       $("#pyrPlay").hide();
       $("#pyrStop").show();
     }
 
-    function showPlay() {
+    function showPyrPlay() {
       $("#pyrStop").hide();
       $("#pyrPlay").show();
     }
@@ -385,6 +385,35 @@ function drawPyramid() {
         .text(function(d) {
             return d.toFixed(0);
         });
+
+    var sex = ["Female", "Male"];
+    var sexColor = {"Female" : "pink", "Male": "steelblue"};
+
+    // legend = d3.selectAll("#pyramid")
+    //     .append("div")
+    //     .attr("class", "legendbox");
+
+    var legenditems = vis.selectAll(".legend")
+        .data(sex)
+        .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+    legenditems.append("rect")
+        .attr("x", w + w - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", function(d) { return sexColor[d];})
+
+    legenditems.append("text")
+        .attr("x", w + w - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d; });
+
+
+
     // Play Controls
     // ctrls = d3.select("#pyramid")
     //     .append("div")
@@ -396,7 +425,7 @@ function drawPyramid() {
         .on("click", function() {
             pyrStop = false;
             runpyrLoop();
-            showStop();
+            showPyrStop();
         });
 
     div.append("button")
@@ -405,10 +434,10 @@ function drawPyramid() {
         .text("Stop")
         .on("click", function() {
           pyrStop = true;
-          showPlay();
+          showPyrPlay();
         })
 
 
 
-    showPlay();
+    showPyrPlay();
 }

@@ -9,15 +9,39 @@ function map() {
   function addSlider(yearArray) {
     firstYear = yearArray[0];
     lastYear = yearArray[yearArray.length - 1];
-    $("#firstyear").text(firstYear);
-    $("#lastyear").text(lastYear);
-    var newslider = $("#mapslider").slider();
-    $('#mapslider').on('change', function(slideEvt) {
-        year = slideEvt.value;
-        currentLayer = year.newValue;
-        setVariable(year.newValue);
-    });
+    // $("#firstyear").text(firstYear);
+    // $("#lastyear").text(lastYear);
+    // var newslider = $("#mapslider").slider();
+    // $('#mapslider').on('change', function(slideEvt) {
+    //     myear = slideEvt.value;
+    //     currentLayer = myear.newValue;
+    //     setVariable(myear.newValue);
+    // });
     var stop = true;
+
+    var mapYearSelector = d3.select("#firstyear");
+
+    mapYearSelector.append("span")
+      .text("year")
+      .attr("id", "sliderLabel");
+      // .style("font-variant", "small-caps");
+
+    mapYearSelector.selectAll("span.mapyear")
+      .data(yearArray)
+      .enter().append("span")
+      .attr("class", "mapyear")
+      .attr("id", function(d) { return "mapyear-" + d; })
+      .append("a")
+      .attr("class", "mapyearLinkClass")
+      .on("click", function(d) {
+        d3.selectAll(".mapyearLinkClass").attr("class", "mapyearLinkClass");
+        d3.select(this).attr("class", "mapyearLinkClass active");
+        currentLayer = d;
+        setVariable(d);
+      })
+      .text(function(d) { return d.toFixed(0);});
+
+    d3.select("#mapyear-2010 a").attr("class", "mapyearLinkClass active");
 
     $('#mapPlay').click(function() {
       stop = false;
@@ -52,19 +76,15 @@ function map() {
       } else {
         currentLayer = mapYears[currentLayerIndex+1];
       }
-      newslider.slider('setValue', currentLayer);
+      var links = d3.selectAll(".mapyearLinkClass").attr("class", "mapyearLinkClass");
+      var activeLink = d3.select("#mapyear-" + currentLayer + " a").attr("class", "mapyearLinkClass active");
+      setVariable(currentLayer);
       runMapLoop();
     }
     showPlay();
   }
+
   addSlider(mapYears);
-  // function getColor(d) {
-  //     return d > 0.2    ? '#F2E2E5' :
-  //            d > 0.17   ? '#C1D0E3' :
-  //            d > 0.15   ? '#7E9FC5' :
-  //            d > 0.13   ? '#0C527F' :
-  //                         '#0A0F1C';
-  // }
 
   function getColor(d) {
       return d > 0.2    ? '#0A0F1C' :
@@ -190,23 +210,7 @@ function map() {
         return div;
     };
 
-    // var sliderControl = L.control({position: 'bottomleft'});
-
-    // sliderControl.onAdd = function(map) {
-    //   var sliderContainer = L.DomUtil.create('div', 'embeddedMapslider', this._container);
-    //   // $("#slider").clone(true).appendTo("div.embeddedMapslider");
-    //   $(sliderContainer).mousedown(function() {
-    //     map.dragging.disable();
-    //   });
-    //   $(document).mouseup(function() {
-    //     map.dragging.enable();
-    //   });
-    //   return sliderContainer;
-    // };
-
     legend.addTo(map);
-    // addSlider(mapYears);
-    // sliderControl.addTo(map);
 
     setVariable(mapYears[0]);
     map.fitBounds([

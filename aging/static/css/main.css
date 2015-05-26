@@ -11539,16 +11539,41 @@ p {
 #slider #firstyear {
   padding-right: 20px;
 }
-/* line 47, ../sass/partials/_map.scss */
+/* line 48, ../sass/partials/_map.scss */
 #slider #lastyear {
   padding-left: 20px;
 }
-/* line 51, ../sass/partials/_map.scss */
+/* line 52, ../sass/partials/_map.scss */
+#slider #sliderLabel {
+  font-size: 28px;
+  font-variant: small-caps;
+  letter-spacing: 1;
+}
+/* line 58, ../sass/partials/_map.scss */
+#slider .mapyear {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+/* line 63, ../sass/partials/_map.scss */
+#slider a.mapyearLinkClass {
+  color: #888;
+  text-decoration: none;
+}
+/* line 68, ../sass/partials/_map.scss */
+#slider a.mapyearLinkClass.active {
+  color: black;
+}
+/* line 72, ../sass/partials/_map.scss */
+#slider a.mapyearLinkClass:hover {
+  color: black;
+  text-decoration: underline;
+}
+/* line 77, ../sass/partials/_map.scss */
 #slider #mapslider {
   margin-bottom: 8px;
 }
 
-/* line 56, ../sass/partials/_map.scss */
+/* line 82, ../sass/partials/_map.scss */
 #mapPlay, #mapStop {
   margin-left: 20px;
   margin-bottom: 10px;
