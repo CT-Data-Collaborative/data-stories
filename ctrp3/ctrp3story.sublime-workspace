@@ -4,6 +4,162 @@
 		"selected_items":
 		[
 			[
+				"add",
+				"addErrorBarsVOD"
+			],
+			[
+				"si",
+				"sizePointsVOD"
+			],
+			[
+				"mo",
+				"movePointsVOD"
+			],
+			[
+				"re",
+				"revealPointsVOD"
+			],
+			[
+				"tran",
+				"transitionKPTtoVOD"
+			],
+			[
+				"size",
+				"sizePoints"
+			],
+			[
+				"col",
+				"colorPointsRace"
+			],
+			[
+				"co",
+				"colorPointsRace"
+			],
+			[
+				"show",
+				"showVODExplain"
+			],
+			[
+				"sho",
+				"showVODExplain"
+			],
+			[
+				"showKp",
+				"showKPTExplain1"
+			],
+			[
+				"func",
+				"functionDictionary"
+			],
+			[
+				"fun",
+				"functionDictionary"
+			],
+			[
+				"function",
+				"functionDictionary"
+			],
+			[
+				"fu",
+				"functionDictionary"
+			],
+			[
+				"in",
+				"initiateSections"
+			],
+			[
+				"setup",
+				"setupSections"
+			],
+			[
+				"S",
+				"SidebarHeader"
+			],
+			[
+				"ba",
+				"background-two"
+			],
+			[
+				"back",
+				"background"
+			],
+			[
+				"err",
+				"errorBars"
+			],
+			[
+				"stroke",
+				"stroke-width"
+			],
+			[
+				"ra",
+				"addRaceShadingVOD"
+			],
+			[
+				"sta",
+				"startPointsVOD"
+			],
+			[
+				"y",
+				"yCoefficientScale0"
+			],
+			[
+				"xax",
+				"xaxis-coeff"
+			],
+			[
+				"yC",
+				"yCoefficientScale1"
+			],
+			[
+				"x",
+				"xCoefficientScale"
+			],
+			[
+				"coef",
+				"coeffPoints"
+			],
+			[
+				"coe",
+				"coeffPoints"
+			],
+			[
+				"xA",
+				"xAxisCoefficient"
+			],
+			[
+				"range",
+				"rangeRoundBands"
+			],
+			[
+				"nest",
+				"nestedData"
+			],
+			[
+				"group",
+				"groupNames"
+			],
+			[
+				"lege",
+				"legendData"
+			],
+			[
+				"sort",
+				"sortHitrate"
+			],
+			[
+				"zoom",
+				"zoomHandler"
+			],
+			[
+				"sc",
+				"scatterplotData"
+			],
+			[
+				"acti",
+				"activateFunctions"
+			],
+			[
 				"xAxi",
 				"xAxisScatter"
 			],
@@ -42,10 +198,6 @@
 			[
 				"get",
 				"getNonWhite"
-			],
-			[
-				"fun",
-				"functionToCall"
 			],
 			[
 				"click",
@@ -108,10 +260,6 @@
 				"secondaryName"
 			],
 			[
-				"co",
-				"colorBoundaries"
-			],
-			[
 				"val",
 				"valToSubstitute"
 			],
@@ -132,20 +280,12 @@
 				"chronicObj"
 			],
 			[
-				"col",
-				"colorLookup"
-			],
-			[
 				"c",
 				"categorization"
 			],
 			[
 				"bi",
 				"bivariateColors"
-			],
-			[
-				"add",
-				"addBiVariateLegend"
 			],
 			[
 				"year",
@@ -202,10 +342,6 @@
 			[
 				"ne",
 				"nestedData2"
-			],
-			[
-				"nest",
-				"nested_data"
 			],
 			[
 				"label",
@@ -308,10 +444,6 @@
 				"raceSeparator"
 			],
 			[
-				"re",
-				"reasonCode"
-			],
-			[
 				"con",
 				"concat"
 			],
@@ -382,70 +514,6 @@
 			[
 				"cu",
 				"custodialArrestVal"
-			],
-			[
-				"searche",
-				"searchedVal"
-			],
-			[
-				"tow",
-				"towedVal"
-			],
-			[
-				"town",
-				"townResidentVal"
-			],
-			[
-				"resid",
-				"residentVal"
-			],
-			[
-				"Sub",
-				"SubjectSexCode"
-			],
-			[
-				"Objec",
-				"ObjectDoesNotExist"
-			],
-			[
-				"In",
-				"InterventionIdentificationID"
-			],
-			[
-				"org",
-				"orgMapAdmin"
-			],
-			[
-				"stopRe",
-				"stopRecordAdmin"
-			],
-			[
-				"Nu",
-				"Numeracy"
-			],
-			[
-				"A",
-				"Available"
-			],
-			[
-				"o",
-				"originLabel"
-			],
-			[
-				"x",
-				"xExtremeLabel"
-			],
-			[
-				"y",
-				"yExtremeLabel"
-			],
-			[
-				"biva",
-				"bivariateLegend"
-			],
-			[
-				"subst",
-				"substantiated"
 			]
 		]
 	},
@@ -485,6 +553,7 @@
 	},
 	"file_history":
 	[
+		"/Users/scuerda/Work/Development/data/DataStories/ctrp3/static/data/narrative.csv",
 		"/Users/scuerda/Work/Development/data/DataStories/ctrp3/static/sass/partials/_scroller.scss",
 		"/Users/scuerda/Work/Development/data/DataStories/ctrp3/index.html",
 		"/Users/scuerda/Work/Development/data/DataStories/ctrp3/static/js/sections.js",
@@ -611,8 +680,7 @@
 		"/Users/scuerda/Work/Development/data/edi/edi/static/sass/edi.scss",
 		"/Users/scuerda/Work/DataCollaborative/ctdata-catalog/SAFETY/child-abuse-and-neglect/metadata/child_abuse_and_neglect.yml",
 		"/Users/scuerda/Work/Development/data/ofa/ofa-viz/initial.json",
-		"/Users/scuerda/Work/Development/data/ofa/ofa-viz/loadSenate.py",
-		"/Users/scuerda/Work/Development/data/ofa/ofa-viz/loadHouse.py"
+		"/Users/scuerda/Work/Development/data/ofa/ofa-viz/loadSenate.py"
 	],
 	"find":
 	{
@@ -630,6 +698,35 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"functionArray",
+			"setupSections",
+			"functionArray",
+			"setupSections",
+			"activateFunctions",
+			"setupSections",
+			"1",
+			"500",
+			"-t",
+			"g.",
+			"g",
+			".attr(\"x\", width / 2)\n      .attr(\"y\", 60)",
+			"text",
+			"g",
+			"p2",
+			"p1",
+			"background-two",
+			"title",
+			"coeff",
+			"errorBars",
+			"addErrorBarsVOD",
+			"activate",
+			"startpoi",
+			"xAxisScatter",
+			"domain",
+			"process",
+			"processHit",
+			"colorpointsrace",
+			"processHitrate",
 			"plot",
 			"Hist",
 			"currentLayerIndex",
@@ -728,14 +825,7 @@
 			"':",
 			"u'",
 			"u",
-			"<td>",
-			".}\n",
-			"\\n",
-			"console.log",
-			"\\n",
-			"\\n ",
-			"\\n",
-			"\\n "
+			"<td>"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -807,6 +897,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"s",
+				"static/js/sections.js"
+			],
+			[
+				"nar",
+				"static/data/narrative.csv"
+			],
 			[
 				"base",
 				"chronic_absent/templates/base.html"

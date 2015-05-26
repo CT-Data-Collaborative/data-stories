@@ -13,6 +13,25 @@ var test;
 var vod = false;
 
 /**
+ * setupSlides -
+ * simple setup of slides as driven by NPR Style CSV CMS
+ */
+
+var setupSlides = function(data) {
+    var index = 1;
+    var sections = d3.select("#sections");
+    data.forEach(function(s) {
+      sectionID = "#sidebar-" + index;
+      index++;
+      var section = sections.append("section").attr("class", "step");
+      var slide = section.append("div").attr("id", sectionID);
+      slide.append("div").attr("class","title").text(s.SidebarHeader);
+      slide.append("p").attr("class", "p1").text(s.S1);
+      slide.append("p").attr("class", "p2").text(s.S2);
+    });
+  }
+
+/**
  * scrollVis - encapsulates
  * all the code for the visualization
  * using reusable charts pattern:
@@ -101,6 +120,7 @@ var scrollVis = function() {
   // the activation function for that
   // section is called.
   var activateFunctions = [];
+  var functionDictionary = {};
   // If a section has an update function
   // then it is called while scrolling
   // through the section with the current
@@ -133,19 +153,12 @@ var scrollVis = function() {
       // extract the two datasets
       var hitrateData = rawData['hitRate'];
       var veilData = rawData['veil'];
+      var slideData = rawData['slides'];
       // Process each
       var scatterData = processHitrate(hitrateData);
       var vodData = processVOD(veilData);
-      // get aggregated histogram data
-      // var histData = getHistogram(fillerWords);
-      // // set histogram's domain
-      // var histMax = d3.max(histData, function(d) { return d.y; });
-      // yHistScale.domain([0, histMax]);
 
-      setupVis(hitrateData, vodData);
-
-      setupSections();
-
+      setupVis(hitrateData, vodData, slideData);
     });
   };
 
@@ -159,19 +172,98 @@ var scrollVis = function() {
    *  element for each filler word type.
    * @param histData - binned histogram data
    */
-  setupVis = function(scatterplotData, vodData) {
+  setupVis = function(scatterplotData, vodData, slides) {
+
+    var visBox = d3.select("#vis");
 
     // Hit Rate Scatter Plot
     var tooltip = g.append("div")
         .attr("class", "tooltip")
         .style("opacity", 1);
 
-    g.append("text")
-      .attr("class", "title hitRate hitRate-title")
-      .attr("x", width / 2)
-      .attr("y", 60)
-      .text("Hit Rate")
+    var quote = visBox.append("div")
+     .attr("class", "slide")
+     .attr("id", "quote-slide")
+     .style("visibility", "hidden");
+
+     quote.append("p")
+      .attr("class", "title quote")
+      .text(slides[0].Quote);
+
+     quote.append("p")
+      .attr("class", "title attribution")
+      .text(slides[0].Attribution);
+
+    var background = visBox.append("div")
+      .attr("class", "slide")
+      .attr("id", "background-slide")
+      .style("visibility", "hidden");
+
+    background.append("p")
+      .attr("class", "text background")
+      .text(slides[1].P1);
+
+    background.append("p")
+      .attr("class", "text background")
+      .text(slides[1].P2);
+
+    var backgroundTwo = visBox.append("div")
+     .attr("class", "slide")
+     .attr("id", "background-two-slide")
+     .style("visibility", "hidden");
+
+    backgroundTwo.append("p")
+      .attr("class", "text background-two")
+      .text(slides[2].P1);
+
+    backgroundTwo.append("p")
+      .attr("class", "text background-two")
+      .text(slides[2].P2);
+
+    var history = visBox.append("div")
+      .attr("class", "slide")
+      .attr("id", "history-slide")
+      .style("visibility", "hidden");
+
+    history.append("p")
+      .attr("class", "text history")
+      .text(slides[3].P1)
       .attr("opacity", 0);
+
+    history.append("p")
+      .attr("class", "text history")
+      .text(slides[3].P2)
+      .attr("opacity", 0);
+
+    var kpt = visBox.append("div")
+      .attr("class", "slide")
+      .attr("id", "kpt-slide")
+      .style("visibility", "hidden");
+
+    kpt.append("p")
+      .attr("class", "text kpt")
+      .text(slides[4].P1)
+      .attr("opacity", 1);
+
+    kpt.append("p")
+      .attr("class", "text kpt")
+      .text(slides[4].P2)
+      .attr("opacity", 1);
+
+    var vod = visBox.append("div")
+      .attr("class", "slide")
+      .attr("id", "vod-slide")
+      .style("visibility", "hidden");
+
+    vod.append("p")
+      .attr("class", "text kpt")
+      .text(slides[7].P1)
+      .attr("opacity", 1);
+
+    vod.append("p")
+      .attr("class", "text kpt")
+      .text(slides[7].P2)
+      .attr("opacity", 1);
 
     // axis
     g.append("g")
@@ -353,7 +445,7 @@ var scrollVis = function() {
         .attr("class", "y axis")
         .attr("id", "yaxis-coeff")
         .call(yAxisCoefficient)
-        .style("opacity", 1)
+        .style("opacity", 0)
       .append("text")
         .attr("class", "label")
         .attr("transform", "rotate(-90)")
@@ -394,46 +486,6 @@ var scrollVis = function() {
       .attr("cy", function(d,i) { return yCoefficientScale1(d.key)+15;})
       .style("fill", "#1F77B4")
       .style("opacity", 0);
-
-      // nLegend.append("line")
-      //   .attr("x1", width - 75)
-      //   .attr("x2", width - 40)
-      //   .attr("y1", function(d) { return height-35-(nLookup[d]*2)})
-      //   .attr("y2", function(d) { return height-35-(nLookup[d]*2)})
-      //   .attr("stroke-width",1)
-      //   .attr("stroke", "black");
-    // // histogram
-    // var hist = g.selectAll(".hist").data(histData);
-    // hist.enter().append("rect")
-    //   .attr("class", "hist")
-    //   .attr("x", function(d) { return xHistScale(d.x); })
-    //   .attr("y", height)
-    //   .attr("height", 0)
-    //   .attr("width", xHistScale(histData[0].dx) - 1)
-    //   .attr("fill", barColors[0])
-    //   .attr("opacity", 0);
-
-
-    // // arrowhead from
-    // // http://logogin.blogspot.com/2013/02/d3js-arrowhead-markers.html
-    // svg.append("defs").append("marker")
-    //   .attr("id", "arrowhead")
-    //   .attr("refY", 2)
-    //   .attr("markerWidth", 6)
-    //   .attr("markerHeight", 4)
-    //   .attr("orient", "auto")
-    //   .append("path")
-    //   .attr("d", "M 0,0 V 4 L6,2 Z");
-
-    // g.append("path")
-    //   .attr("class", "cough cough-arrow")
-    //   .attr("marker-end", "url(#arrowhead)")
-    //   .attr("d", function() {
-    //     var line = "M " + ((width / 2) - 10) + " " + 80;
-    //     line += " l 0 " + 230;
-    //     return line;
-    //   })
-    //   .attr("opacity", 0);
   };
 
   /**
@@ -443,23 +495,13 @@ var scrollVis = function() {
    * the section's index.
    *
    */
-  setupSections = function() {
+  setupSections = function(fA,fD) {
     // activateFunctions are called each
     // time the active section changes
-    // activateFunctions[0] = showAll;
-    activateFunctions[0] = showTitle;
-    activateFunctions[1] = showAxis;
-    activateFunctions[2] = addPoints;
-    activateFunctions[3] = addBisect;
-    activateFunctions[4] = colorPointsRace;
-    activateFunctions[5] = opacityPointsSignificant;
-    activateFunctions[6] = sizePoints;
-    activateFunctions[7] = hideKPT;
-    activateFunctions[8] = revealPointsVOD;
-    activateFunctions[9] = movePointsVOD;
-    activateFunctions[10] = addRaceShadingVOD;
-    activateFunctions[11] = addErrorBarsVOD;
-    activateFunctions[12] = sizePointsVOD;
+    for (i = 0; i < fA.length; i++) {
+      activateFunctions[i] = fD[fA[i]];
+    }
+    console.log(activateFunctions);
 
     // updateFunctions are called while
     // in a particular section to update
@@ -467,7 +509,7 @@ var scrollVis = function() {
     // Most sections do not need to be updated
     // for all scrolling and so are set to
     // no-op functions.
-    for(var i = 0; i < 13; i++) {
+    for(var i = 0; i < fA.length; i++) {
       updateFunctions[i] = function() {};
     }
   };
@@ -487,28 +529,63 @@ var scrollVis = function() {
    *
    */
 
-   function showAll() {
-    d3.selectAll("#xaxis-coeff").transition().duration(0).style("opacity", 1);
-    d3.selectAll("#yaxis-coeff").transition().duration(0).style("opacity", 1);
+   function showQuote() {
+      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+      d3.select("#quote-slide").transition().style("visibility", "visible");
+      d3.select("#vis").transition().attr("class", "well well-lg photo");
+      // d3.select("#quote-slide").transition().attr("class", "slide photo");
    }
-  /**
-   * showTitle - initial title
-   *
-   * hides: count title
-   * (no previous step to hide)
-   * shows: intro title
-   *
-   */
-  function showTitle() {
-    g.selectAll(".hitRate-title")
-      .transition()
-      .duration(600)
-      .attr("opacity", 1.0);
+   functionDictionary['showQuote'] = showQuote;
 
-    d3.selectAll(".axis")
-      .transition().duration(0)
-      .style("opacity", 0);
-  }
+   function showIntro1() {
+      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+      d3.select("#background-slide").transition().style("visibility", "visible");
+   }
+   functionDictionary['showIntro1'] = showIntro1;
+
+   function showIntro2() {
+      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+      d3.select("#background-two-slide").transition().style("visibility", "visible");
+   }
+   functionDictionary['showIntro2'] = showIntro2;
+
+   function showAnalysis() {
+      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+      d3.select("#history-slide").transition().style("visibility", "visible");
+   }
+   functionDictionary['showAnalysis'] = showAnalysis;
+
+   function showKPTExplain1() {
+      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+      d3.select("#kpt-slide").transition().style("visibility", "visible");
+   }
+   functionDictionary['showKPTExplain1'] = showKPTExplain1;
+
+  function showKPTExplain2() {
+    d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+    d3.selectAll(".dot").transition().duration(0).style("opacity", 0);
+    d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity", 0);
+    d3.selectAll("#xaxis-scatter").transition().duration(0).style("opacity", 0);
+    d3.selectAll("#yaxis-scatter").transition().duration(0).style("opacity", 0);
+    d3.select("#vis").transition().duration(0).attr("class", "well well-lg photo");
+   }
+   functionDictionary['showKPTExplain2'] = showKPTExplain2;
+
+   function showVODExplain() {
+      d3.select("#vis").transition().attr("class", "well well-lg");
+      d3.selectAll(".dot").transition().duration(0).style("opacity",0);
+      d3.selectAll(".axis").transition().duration(0).style("opacity",0);
+      d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
+      d3.selectAll(".legend").transition().duration(0).style("opacity",0);
+      d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity",0);
+      d3.selectAll(".coeffPoints")
+       .transition().duration(0)
+       .style("opacity",0);
+      d3.selectAll("#xaxis-coeff").transition().duration(0).style("opacity",0);
+      d3.selectAll("#yaxis-coeff").transition().duration(0).style("opacity",0);
+      d3.select("#vod-slide").transition().style("visibility", "visible");
+   }
+   functionDictionary['showVODExplain'] = showVODExplain;
 
   /**
    * showAxis - helper function to
@@ -517,32 +594,10 @@ var scrollVis = function() {
    * @param axis - the axis to show
    *  (xAxisHist or xAxisBar)
    */
-   function showAxis(axis) {
-    g.selectAll(".dot")
-     .transition()
-     .duration(0)
-     .style("opacity", 0);
-
-    g.selectAll(".hitRate-title")
-      .transition()
-      .duration(0)
-      .attr("opacity", 0);
-
-    d3.selectAll("#xaxis-scatter")
-      .transition().duration(500)
-      .style("opacity", 1);
-
-    d3.selectAll("#yaxis-scatter")
-      .transition().duration(500)
-      .style("opacity", 1);
-
-    d3.selectAll(".tooltip")
-       .transition()
-       .duration(0)
-       .style("opacity", 0);
-  }
-
    function addPoints() {
+      d3.select("#vis").transition().attr("class", "well well-lg");
+      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+
       d3.selectAll(".dot")
         .transition()
         .style("opacity", 0.6)
@@ -558,303 +613,210 @@ var scrollVis = function() {
         .transition()
         .duration(0)
         .style("stroke-opacity", 0);
+
+      d3.selectAll("#xaxis-scatter")
+        .transition().duration(500)
+        .style("opacity", 1);
+
+      d3.selectAll("#yaxis-scatter")
+        .transition().duration(500)
+        .style("opacity", 1);
+
+      d3.selectAll(".tooltip")
+         .transition()
+         .duration(0)
+         .style("opacity", 0);
    }
+   functionDictionary['addPoints'] = addPoints;
 
    function addBisect() {
      d3.selectAll(".bisect").transition().style("stroke-opacity", 1);
-     // d3.selectAll(".dot").transition().duration(0).style("fill", "#1F77B4");
+     d3.selectAll(".dot").transition().duration(0).style("fill", "#1F77B4");
      d3.selectAll(".legend")
       .transition()
       .duration(0)
       .style("opacity", 0);
    }
+   functionDictionary['addBisect'] = addBisect;
 
    function colorPointsRace() {
-    d3.selectAll(".dot")
-      .transition()
-      .style("opacity", 0.6)
-      .style("fill", function(d) {
-        switch (d.Group) {
-          case "Hispanic":
-            return "#d6616b";
-          case "Black":
-            return "#9467bd";
-          case "Non-caucasian":
-            return "#e377c2";
-          case "Non-caucasian or Hispanic":
-            return "#17becf";
-          case "Black or Hispanic":
-            return "#2ca02c";
-        }
-      });
-    d3.selectAll(".legend")
-      .transition()
-      .style("opacity", 1);
-   }
-
-   function opacityPointsSignificant() {
-    d3.selectAll(".nLegend").transition().duration(0).attr("opacity",0);
-    testDomain = xScatterScale.domain();
-    if (testDomain[0] == 0) {
       d3.selectAll(".dot")
         .transition()
-        .style("opacity", function(d) {
-          p = d.pvalue;
-          if (p > 0.1) {
-            return 0.1;
-          } else {
-            return 0.6;
+        .style("opacity", 0.6)
+        .style("fill", function(d) {
+          switch (d.Group) {
+            case "Hispanic":
+              return "#d6616b";
+            case "Black":
+              return "#9467bd";
+            case "Non-caucasian":
+              return "#e377c2";
+            case "Non-caucasian or Hispanic":
+              return "#17becf";
+            case "Black or Hispanic":
+              return "#2ca02c";
           }
-      });
-    } else {
-      yScatterScale.domain([0,1]);
-      xScatterScale.domain([0,1]);
-      d3.selectAll(".nLegend").transition().duration(0).attr("opacity",0);
-      d3.select("#xaxis-scatter").transition().duration(0).call(xAxisScatter);
-      d3.select("#yaxis-scatter").transition().duration(0).call(yAxisScatter);
-      d3.selectAll(".dot")
-        .transition().duration(0)
-        .attr("cx", xMap)
-        .attr("cy", yMap)
-        .attr("r", 5)
-        .style("opacity", function(d) {
-          p = d.pvalue;
-          if (p > 0.1) {
-            return 0.1;
-          } else {
-            return 0.6;
-          }
-      });
-    }
+        });
+      d3.selectAll(".legend")
+        .transition()
+        .style("opacity", 1);
+   }
+   functionDictionary['colorPointsRace'] = colorPointsRace;
+
+   function opacityPointsSignificant() {
+      d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
+      testDomain = xScatterScale.domain();
+      if (testDomain[0] == 0) {
+        d3.selectAll(".dot")
+          .transition()
+          .style("opacity", function(d) {
+            p = d.pvalue;
+            if (p > 0.1) {
+              return 0.1;
+            } else {
+              return 0.6;
+            }
+        });
+      } else {
+        yScatterScale.domain([0,1]);
+        xScatterScale.domain([0,1]);
+        d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
+        d3.select("#xaxis-scatter").transition().duration(0).call(xAxisScatter);
+        d3.select("#yaxis-scatter").transition().duration(0).call(yAxisScatter);
+        d3.selectAll(".dot")
+          .transition().duration(0)
+          .attr("cx", xMap)
+          .attr("cy", yMap)
+          .attr("r", 5)
+          .style("opacity", function(d) {
+            p = d.pvalue;
+            if (p > 0.1) {
+              return 0.1;
+            } else {
+              return 0.6;
+            }
+        });
+      }
 
    }
+   functionDictionary['opacityPointsSignificant'] = opacityPointsSignificant;
 
    function sizePoints() {
-     if (vod) {
-      vod = false;
-      yScatterScale.domain([0.13,0.55]);
-      xScatterScale.domain([0.13,0.55]);
-      d3.select("#xaxis-scatter").transition().duration(0).call(xAxisScatter);
-      d3.select("#yaxis-scatter").transition().duration(0).call(yAxisScatter);
-      d3.select("#xaxis-coeff").transition().duration(0).style("opacity",0);
-      d3.select("#yaxis-coeff").transition().duration(0).style("opacity",0);
-      d3.select("#xaxis-scatter").transition().duration(0).style("opacity",1);
-      d3.select("#yaxis-scatter").transition().duration(0).style("opacity",1);
-      d3.selectAll(".nLegend").transition().duration(0).style("opacity",1);
-      d3.selectAll(".legend")
+     yScatterScale.domain([0.13,0.55]);
+     xScatterScale.domain([0.13,0.55]);
+     d3.select("#xaxis-scatter").transition().duration(0).call(xAxisScatter);
+     d3.select("#yaxis-scatter").transition().duration(0).call(yAxisScatter);
+     d3.selectAll(".nLegend").transition().duration(0).style("opacity",1);
+     d3.selectAll(".legend")
         .transition()
         .duration(0)
         .style("opacity", 1);
       d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity", 1);
+     if (vod) {
+      vod = false;
+      d3.select("#xaxis-coeff").transition().duration(0).style("opacity",0);
+      d3.select("#yaxis-coeff").transition().duration(0).style("opacity",0);
+      d3.select("#xaxis-scatter").transition().duration(0).style("opacity",1);
+      d3.select("#yaxis-scatter").transition().duration(0).style("opacity",1);
      } else {}
-     d3.selectAll(".dot")
-       .transition()
-       .attr("cx", xMap)
-       .attr("cy", yMap)
-       .style("opacity", function(d) {
-         p = d.pvalue;
-         if (p > 0.1) {
-           return 0.1;
-         } else {
-           return 0.6;
-         }})
-       .attr("r", function(d) {
-          n = d.searches;
-          p = d.pval
-          if (n<125) {
-            return 0;
-          } else {
-            if (p > 0.1) {
+       d3.selectAll(".dot")
+         .transition()
+         .attr("cx", xMap)
+         .attr("cy", yMap)
+         .style("opacity", function(d) {
+           p = d.pvalue;
+           if (p > 0.1) {
+             return 0.1;
+           } else {
+             return 0.6;
+           }})
+         .attr("r", function(d) {
+            n = d.searches;
+            p = d.pval
+            if (n<125) {
               return 0;
             } else {
-                // console.log(n);
-                if (n>200) {
-                  return 30;
-                } else if (n>150) {
-                  return 20;
-                } else {
-                  return 15;
-                }
+              if (p > 0.1) {
+                return 0;
+              } else {
+                  // console.log(n);
+                  if (n>200) {
+                    return 30;
+                  } else if (n>150) {
+                    return 20;
+                  } else {
+                    return 15;
+                  }
+              }
             }
-          }
-      });
+        });
    }
+   functionDictionary['sizePoints'] = sizePoints;
 
-   function hideKPT() {
-    vod = true;
-    d3.selectAll(".dot").transition().duration(0).style("opacity",0);
-    d3.selectAll(".axis").transition().duration(0).style("opacity",0);
-    d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
-    d3.selectAll(".legend").transition().duration(0).style("opacity",0);
-    d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity",0);
-    d3.selectAll(".coeffPoints")
-     .transition().duration(0)
-     .style("opacity",0);
-    d3.selectAll("#xaxis-coeff").transition().duration(500).style("opacity",1);
-    d3.selectAll("#yaxis-coeff").transition().duration(500).style("opacity",1);
+   function transitionKPTtoVOD() {
+      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+      vod = true;
+      d3.selectAll(".dot").transition().duration(0).style("opacity",0);
+      d3.selectAll(".axis").transition().duration(0).style("opacity",0);
+      d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
+      d3.selectAll(".legend").transition().duration(0).style("opacity",0);
+      d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity",0);
+      d3.selectAll(".coeffPoints")
+       .transition().duration(0)
+       .style("opacity",0);
+      d3.selectAll("#xaxis-coeff").transition().duration(0).style("opacity",0);
+      d3.selectAll("#yaxis-coeff").transition().duration(0).style("opacity",0);
    }
+   functionDictionary['transitionKPTtoVOD'] = transitionKPTtoVOD;
 
    function revealPointsVOD() {
-    d3.selectAll(".coeffPoints")
-     .transition().duration(0)
-     .attr("cx", function(d) { return xCoefficientScale(0);})
-     .transition()
-     .style("opacity",1);
+      d3.selectAll("#xaxis-coeff").transition().style("opacity",1);
+      d3.selectAll("#yaxis-coeff").transition().style("opacity",1);
+      d3.selectAll(".coeffPoints")
+       .transition()
+       .attr("cx", function(d) { return xCoefficientScale(0);})
+       .transition()
+       .style("opacity",1)
+       .style("fill", function(d) { return color(d.values[0].Variable)});
    }
+   functionDictionary['revealPointsVOD'] = revealPointsVOD;
 
    function movePointsVOD() {
-    d3.selectAll(".coeffPoints")
-     .transition().duration(0)
-     .style("fill", "#1F77B4")
-     .transition().duration(750)
-     .attr("cx", function(d) { return xCoefficientScale(d.values[0].Coefficient);});
+      d3.selectAll(".coeffPoints")
+       .transition().duration(0)
+       .attr("r", 5)
+       .transition().duration(500)
+       .attr("cx", function(d) { return xCoefficientScale(d.values[0].Coefficient);});
    }
-
-   function addRaceShadingVOD() {
-    d3.selectAll("line.errorBars")
-     .transition().duration(0)
-     .style("opacity",0);
-    d3.selectAll(".coeffPoints")
-     .transition().duration(0)
-     .style("fill", function(d) { return color(d.values[0].Variable)})
-   }
-
-   function addErrorBarsVOD() {
-    d3.selectAll(".coeffPoints")
-     .transition().duration(0)
-     .attr("r", 5);
-    d3.selectAll("line.errorBars")
-     .transition().duration(500)
-     .style("opacity", 1);
-   }
+   functionDictionary['movePointsVOD'] = movePointsVOD;
 
    function sizePointsVOD() {
-    d3.selectAll(".coeffPoints")
-     .transition().duration(500)
-     .attr("r", function(d) {
-      n = d.values[0].N;
-      if (n > 8000) {
-        return 9;
-      } else if (n > 4000) {
-        return 7;
-      } else if (n > 1000) {
-        return 5;
-      } else if (n > 200) {
-        return 3;
-      }
-     });
+      d3.selectAll("line.errorBars")
+       .transition().duration(0)
+       .style("opacity", 0);
+      d3.selectAll(".coeffPoints")
+       .transition().duration(500)
+       .attr("r", function(d) {
+        n = d.values[0].N;
+        if (n > 8000) {
+          return 9;
+        } else if (n > 4000) {
+          return 7;
+        } else if (n > 1000) {
+          return 5;
+        } else if (n > 200) {
+          return 3;
+        }
+       });
    }
-  /**
-   * showHistPart - shows the first part
-   *  of the histogram of filler words
-   *
-   * hides: barchart
-   * hides: last half of histogram
-   * shows: first half of histogram
-   *
-   */
-  function showHistPart() {
-    // switch the axis to histogram one
-    showAxis(xAxisHist);
+   functionDictionary['sizePointsVOD'] = sizePointsVOD;
 
-    g.selectAll(".bar-text")
-      .transition()
-      .duration(0)
-      .attr("opacity", 0);
-
-    g.selectAll(".bar")
-      .transition()
-      .duration(600)
-      .attr("width", 0);
-
-    // here we only show a bar if
-    // it is before the 15 minute mark
-    g.selectAll(".hist")
-      .transition()
-      .duration(600)
-      .attr("y", function(d) { return (d.x < 15) ? yHistScale(d.y) : height; })
-      .attr("height", function(d) { return (d.x < 15) ? height - yHistScale(d.y) : 0;  })
-      .style("opacity", function(d,i) { return (d.x < 15) ? 1.0 : 1e-6; });
-  }
-
-  /**
-   * showHistAll - show all histogram
-   *
-   * hides: cough title and color
-   * (previous step is also part of the
-   *  histogram, so we don't have to hide
-   *  that)
-   * shows: all histogram bars
-   *
-   */
-  function showHistAll() {
-    // ensure the axis to histogram one
-    showAxis(xAxisHist);
-
-    g.selectAll(".cough")
-      .transition()
-      .duration(0)
-      .attr("opacity", 0);
-
-    // named transition to ensure
-    // color change is not clobbered
-    g.selectAll(".hist")
-      .transition("color")
-      .duration(500)
-      .style("fill", "#008080");
-
-    g.selectAll(".hist")
-      .transition()
-      .duration(1200)
-      .attr("y", function(d) { return yHistScale(d.y); })
-      .attr("height", function(d) { return  height - yHistScale(d.y);  })
-      .style("opacity", 1.0);
-  }
-
-
-  /**
-   * hideAxis - helper function
-   * to hide the axis
-   *
-   */
-  function hideAxis() {
-    g.select(".x.axis")
-      .transition().duration(500)
-      .style("opacity",0);
-  }
-
-  /**
-   * UPDATE FUNCTIONS
-   *
-   * These will be called within a section
-   * as the user scrolls through it.
-   *
-   * We use an immediate transition to
-   * update visual elements based on
-   * how far the user has scrolled
-   *
-   */
-
-  /**
-   * updateCough - increase/decrease
-   * cough text and color
-   *
-   * @param progress - 0.0 - 1.0 -
-   *  how far user has scrolled in section
-   */
-  function updateCough(progress) {
-    g.selectAll(".cough")
-      .transition()
-      .duration(0)
-      .attr("opacity", progress);
-
-    g.selectAll(".hist")
-      .transition("cough")
-      .duration(0)
-      .style("fill", function(d,i) {
-        return (d.x >= 14) ? coughColorScale(progress) : "#008080";
-      });
-  }
+   function addErrorBarsVOD() {
+      d3.selectAll("line.errorBars")
+       .transition().duration(500)
+       .style("opacity", 1);
+   }
+   functionDictionary['addErrorBarsVOD'] = addErrorBarsVOD;
 
   /**
    * DATA FUNCTIONS
@@ -871,9 +833,7 @@ var scrollVis = function() {
   * @parem data - raw data from csv
   */
 
-  function sortHitrate(a,b) {
-    return b.searches - a.searches;
-  }
+  function sortHitrate(a,b) { return b.searches - a.searches; }
 
   function processHitrate(data) {
     data.forEach(function(d) {
@@ -884,7 +844,6 @@ var scrollVis = function() {
       d.hr_c = +d.hr_c;
     });
     data.sort(sortHitrate);
-    console.log(data);
     return data;
   }
 
@@ -900,6 +859,7 @@ var scrollVis = function() {
     test = nestedData;
     return nestedData;
   }
+
   /**
    * activate -
    *
@@ -925,6 +885,10 @@ var scrollVis = function() {
     updateFunctions[index](progress);
   };
 
+  chart.initiateSections = function(fa) {
+    console.log(functionDictionary);
+    setupSections(fa, functionDictionary);
+  }
   // return chart function
   return chart;
 };
@@ -939,6 +903,8 @@ var scrollVis = function() {
  * @param data - loaded tsv data
  */
 function display(data) {
+
+  functionArray = data['functionArray'];
   // create a new plot and
   // display it
   var plot = scrollVis();
@@ -946,6 +912,7 @@ function display(data) {
     .datum(data)
     .call(plot);
 
+  plot.initiateSections(functionArray);
   // setup scroll functionality
   var scroll = scroller()
     .container(d3.select('#graphic'));
@@ -970,8 +937,11 @@ function display(data) {
 
 d3.csv("static/data/hitrate.csv", function(error1, data1) {
   d3.csv("static/data/vod.csv", function(error2, data2) {
-    data = {'hitRate': data1, 'veil': data2};
-    console.log(data2);
-    display(data);
+    d3.csv("static/data/narrative.csv", function(error3, data3) {
+      functionArray = data3.map(function(s) { return s.functions});
+      data = {'hitRate': data1, 'veil': data2, 'slides': data3, 'functionArray': functionArray};
+      setupSlides(data3);
+      display(data);
+    })
   });
 });
