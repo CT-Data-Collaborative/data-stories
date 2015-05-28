@@ -1,7 +1,23 @@
+.slide-header {
+  position: absolute;
+  width: 95%;
+  top: 5px;
+
+  h2 {
+    text-align: center;
+    color: white;
+  }
+
+  h2.header-white {
+    text-align: center;
+    color: #666;
+  }
+}
+
 .slide {
   position: absolute;
   width: 40%;
-  top: 40px;
+  top: 50px;
 }
 
 .slide p {
@@ -13,6 +29,18 @@
   color: white;
   font-family: $font4;
   font-weight: bold;
+
+  .tests {
+    color: #666;
+    font-family: $font4;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  li {
+    color: white;
+    font-size: 18px;
+  }
 }
 .step p {
   padding-top: 20px;
@@ -58,4 +86,13 @@ div#quote-slide {
   width: 100%;
   background-color: #666;
   opacity: 0.4;
+}
+
+.tooltip {
+  background-color: #666;
+  padding: 5px;
+  color: white;
+  position: absolute;
+  width: 200px;
+  height: 75px;
 }

@@ -26,8 +26,8 @@ var setupSlides = function(data) {
       var section = sections.append("section").attr("class", "step");
       var slide = section.append("div").attr("id", sectionID);
       slide.append("div").attr("class","title").text(s.SidebarHeader);
-      slide.append("p").attr("class", "p1").text(s.S1);
-      slide.append("p").attr("class", "p2").text(s.S2);
+      slide.append("p").attr("class", "p1").html(s.S1);
+      slide.append("p").attr("class", "p2").html(s.S2);
     });
   }
 
@@ -177,10 +177,12 @@ var scrollVis = function() {
     var visBox = d3.select("#vis");
 
     // Hit Rate Scatter Plot
-    var tooltip = g.append("div")
+    var tooltip = visBox.append("div")
         .attr("class", "tooltip")
-        .style("opacity", 1);
+        .style("opacity", 0);
 
+
+    // Slide 0 - showQuote
     var quote = visBox.append("div")
      .attr("class", "slide")
      .attr("id", "quote-slide")
@@ -188,81 +190,147 @@ var scrollVis = function() {
 
      quote.append("p")
       .attr("class", "title quote")
-      .text(slides[0].Quote);
+      .html(slides[0].P1);
 
      quote.append("p")
       .attr("class", "title attribution")
-      .text(slides[0].Attribution);
+      .html(slides[0].P2);
 
-    var background = visBox.append("div")
+    // Slide 1 - showIntro1
+    var intro1 = visBox.append("div")
       .attr("class", "slide")
-      .attr("id", "background-slide")
+      .attr("id", "intro1")
       .style("visibility", "hidden");
 
-    background.append("p")
-      .attr("class", "text background")
-      .text(slides[1].P1);
+    intro1.append("p")
+      .attr("class", "text")
+      .html(slides[1].P1);
 
-    background.append("p")
-      .attr("class", "text background")
-      .text(slides[1].P2);
+    intro1.append("p")
+      .attr("class", "text")
+      .html(slides[1].P2);
 
-    var backgroundTwo = visBox.append("div")
+    intro1.append("p")
+      .attr("class", "text")
+      .html(slides[1].P3);
+
+    intro1.append("p")
+      .attr("class", "text")
+      .html(slides[1].P4);
+
+    // Slide 2 showIntro2
+    var intro2 = visBox.append("div")
      .attr("class", "slide")
-     .attr("id", "background-two-slide")
+     .attr("id", "intro2")
      .style("visibility", "hidden");
 
-    backgroundTwo.append("p")
-      .attr("class", "text background-two")
-      .text(slides[2].P1);
+    intro2.append("p")
+      .attr("class", "text")
+      .html(slides[2].P1);
 
-    backgroundTwo.append("p")
-      .attr("class", "text background-two")
-      .text(slides[2].P2);
+    // Slide 3 - showInterpretationProblems
 
-    var history = visBox.append("div")
+    var methodBackground = visBox.append("div")
       .attr("class", "slide")
-      .attr("id", "history-slide")
+      .attr("id", "method-background")
       .style("visibility", "hidden");
 
-    history.append("p")
-      .attr("class", "text history")
-      .text(slides[3].P1)
+    methodBackground.append("p")
+      .attr("class", "text")
+      .html(slides[3].P1)
       .attr("opacity", 0);
 
-    history.append("p")
-      .attr("class", "text history")
-      .text(slides[3].P2)
+    methodBackground.append("p")
+      .attr("class", "text")
+      .html(slides[3].P2)
       .attr("opacity", 0);
 
-    var kpt = visBox.append("div")
-      .attr("class", "slide")
-      .attr("id", "kpt-slide")
+    // Slide 4 - showAnalysis
+
+    var analysisHeader = visBox.append("div")
+      .attr("class", "slide-header")
+      .attr("id", "analysis-header")
       .style("visibility", "hidden");
 
-    kpt.append("p")
-      .attr("class", "text kpt")
-      .text(slides[4].P1)
+    analysisHeader.append("h2")
+      .html(slides[4].BoxHeader)
+      .attr("opacity", 0);
+
+    var analysis = visBox.append("div")
+      .attr("class", "slide")
+      .attr("id", "analysis")
+      .style("visibility", "hidden");
+
+    analysis.append("p")
+      .attr("class", "text")
+      .html(slides[4].P1)
+      .attr("opacity", 0);
+
+    analysis.append("p")
+      .attr("class", "text")
+      .html(slides[4].P2)
+      .attr("opacity", 0);
+
+    analysis.append("p")
+      .attr("class", "text")
+      .html(slides[4].P3)
+      .attr("opacity", 0);
+
+    analysis.append("p")
+      .attr("class", "text")
+      .html(slides[4].P4)
+      .attr("opacity", 0);
+
+    analysis.append("p")
+      .attr("class", "text")
+      .html(slides[4].P5)
+      .attr("opacity", 0);
+
+    // slide 5 - showMethodology
+
+    var methodologyHeader = visBox.append("div")
+      .attr("class", "slide-header")
+      .attr("id", "methodology-header")
+      .style("visibility", "hidden");
+
+    methodologyHeader.append("h2")
+      .html(slides[5].BoxHeader)
+      .attr("opacity", 0);
+
+    var methodology = visBox.append("div")
+      .attr("class", "slide")
+      .attr("id", "methodology")
+      .style("visibility", "hidden");
+
+    methodology.append("p")
+      .attr("class", "text")
+      .html(slides[5].P1)
       .attr("opacity", 1);
 
-    kpt.append("p")
-      .attr("class", "text kpt")
-      .text(slides[4].P2)
+    methodology.append("p")
+      .attr("class", "text")
+      .html(slides[5].P2)
       .attr("opacity", 1);
 
+    methodology.append("p")
+      .attr("class", "text")
+      .html(slides[5].P3)
+      .attr("opacity", 1);
+
+    // slide 10 - showVODExplain
     var vod = visBox.append("div")
       .attr("class", "slide")
       .attr("id", "vod-slide")
       .style("visibility", "hidden");
 
     vod.append("p")
-      .attr("class", "text kpt")
-      .text(slides[7].P1)
+      .attr("class", "text")
+      .html(slides[10].P1)
       .attr("opacity", 1);
 
     vod.append("p")
-      .attr("class", "text kpt")
-      .text(slides[7].P2)
+      .attr("class", "text")
+      .html(slides[10].P2)
       .attr("opacity", 1);
 
     // axis
@@ -307,18 +375,23 @@ var scrollVis = function() {
         .style("opacity", 0)
         // .style("stroke-opacity", 0)
         .on("mouseover", function(d) {
+            radius = this.getAttribute('r');
             tooltip.transition()
                  .duration(200)
                  .style("opacity", .9);
-            tooltip.html(d.Department + "<br/> (" + xValue(d)
-              + ", " + yValue(d) + ")")
-                 .style("left", (d3.event.pageX + 5) + "px")
-                 .style("top", (d3.event.pageY - 28) + "px");
+            tooltip.html(d.Department + "<br/>" + "Hit Rate - Caucasian: " + xValue(d).toLocaleString()
+              + "<br/>Hit Rate - " + d.Group + ": " + yValue(d).toLocaleString())
+                 .style("left", 130 + "px")
+                 .style("top", 30 + "px");
+            d3.select(this).style("stroke", "black").style("stroke-width", 4);
         })
         .on("mouseout", function(d) {
+            radius = this.getAttribute('r');
             tooltip.transition()
                  .duration(500)
                  .style("opacity", 0);
+            d3.select(this)
+              .style("stroke", "black").style("stroke-width", 1);
         });
 
     var line = g.append("line")
@@ -407,6 +480,30 @@ var scrollVis = function() {
       })
       .style("text-anchor", "start")
       .text(function(d) {return "N > " + d;});
+
+    // slide 13 Header
+
+    var revealPointsVODheader = visBox.append("div")
+      .attr("class", "slide-header")
+      .attr("id", "revealPointsVOD-header")
+      .style("visibility", "hidden");
+
+    revealPointsVODheader.append("h2")
+      .html(slides[12].BoxHeader)
+      .attr("class", "header-white")
+      .attr("opacity", 0);
+
+
+    // slide 14 Header
+    var movePointsVODheader = visBox.append("div")
+      .attr("class", "slide-header")
+      .attr("id", "movePointsVOD-header")
+      .style("visibility", "hidden");
+
+    movePointsVODheader.append("h2")
+      .html(slides[13].BoxHeader)
+      .attr("class", "header-white")
+      .attr("opacity", 0);
 
     // Veil of Darkness
 
@@ -501,7 +598,7 @@ var scrollVis = function() {
     for (i = 0; i < fA.length; i++) {
       activateFunctions[i] = fD[fA[i]];
     }
-    console.log(activateFunctions);
+    // console.log(activateFunctions);
 
     // updateFunctions are called while
     // in a particular section to update
@@ -539,53 +636,45 @@ var scrollVis = function() {
 
    function showIntro1() {
       d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-      d3.select("#background-slide").transition().style("visibility", "visible");
+      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+      d3.select("#intro1").transition().style("visibility", "visible");
    }
    functionDictionary['showIntro1'] = showIntro1;
 
    function showIntro2() {
       d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-      d3.select("#background-two-slide").transition().style("visibility", "visible");
+      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+      d3.select("#intro2").transition().style("visibility", "visible");
    }
    functionDictionary['showIntro2'] = showIntro2;
 
+   function showInterpretationProblems() {
+    d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+    d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+    d3.select("#method-background").transition().style("visibility", "visible");
+   }
+   functionDictionary['showInterpretationProblems'] = showInterpretationProblems;
+
    function showAnalysis() {
       d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-      d3.select("#history-slide").transition().style("visibility", "visible");
+      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+      d3.select("#analysis").transition().style("visibility", "visible");
+      d3.select("#analysis-header").transition().style("visibility", "visible");
    }
    functionDictionary['showAnalysis'] = showAnalysis;
 
-   function showKPTExplain1() {
-      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-      d3.select("#kpt-slide").transition().style("visibility", "visible");
-   }
-   functionDictionary['showKPTExplain1'] = showKPTExplain1;
-
-  function showKPTExplain2() {
+   function showMethodology() {
+    d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
     d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
     d3.selectAll(".dot").transition().duration(0).style("opacity", 0);
     d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity", 0);
     d3.selectAll("#xaxis-scatter").transition().duration(0).style("opacity", 0);
     d3.selectAll("#yaxis-scatter").transition().duration(0).style("opacity", 0);
     d3.select("#vis").transition().duration(0).attr("class", "well well-lg photo");
+    d3.select("#methodology").transition().style("visibility", "visible");
+    d3.select("#methodology-header").transition().style("visibility", "visible");
    }
-   functionDictionary['showKPTExplain2'] = showKPTExplain2;
-
-   function showVODExplain() {
-      d3.select("#vis").transition().attr("class", "well well-lg");
-      d3.selectAll(".dot").transition().duration(0).style("opacity",0);
-      d3.selectAll(".axis").transition().duration(0).style("opacity",0);
-      d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
-      d3.selectAll(".legend").transition().duration(0).style("opacity",0);
-      d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity",0);
-      d3.selectAll(".coeffPoints")
-       .transition().duration(0)
-       .style("opacity",0);
-      d3.selectAll("#xaxis-coeff").transition().duration(0).style("opacity",0);
-      d3.selectAll("#yaxis-coeff").transition().duration(0).style("opacity",0);
-      d3.select("#vod-slide").transition().style("visibility", "visible");
-   }
-   functionDictionary['showVODExplain'] = showVODExplain;
+   functionDictionary['showMethodology'] = showMethodology;
 
   /**
    * showAxis - helper function to
@@ -595,6 +684,7 @@ var scrollVis = function() {
    *  (xAxisHist or xAxisBar)
    */
    function addPoints() {
+      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
       d3.select("#vis").transition().attr("class", "well well-lg");
       d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
 
@@ -753,9 +843,10 @@ var scrollVis = function() {
    }
    functionDictionary['sizePoints'] = sizePoints;
 
-   function transitionKPTtoVOD() {
-      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+   function showVODExplain() {
       vod = true;
+      d3.select("#vis").transition().attr("class", "well well-lg");
+      d3.select("#points-header").transition().duration(0).style("visibility", "hidden");
       d3.selectAll(".dot").transition().duration(0).style("opacity",0);
       d3.selectAll(".axis").transition().duration(0).style("opacity",0);
       d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
@@ -766,10 +857,30 @@ var scrollVis = function() {
        .style("opacity",0);
       d3.selectAll("#xaxis-coeff").transition().duration(0).style("opacity",0);
       d3.selectAll("#yaxis-coeff").transition().duration(0).style("opacity",0);
+      d3.select("#vod-slide").transition().style("visibility", "visible");
    }
-   functionDictionary['transitionKPTtoVOD'] = transitionKPTtoVOD;
+   functionDictionary['showVODExplain'] = showVODExplain;
+
+   // function transitionKPTtoVOD() {
+   //    d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+   //    vod = true;
+   //    d3.selectAll(".dot").transition().duration(0).style("opacity",0);
+   //    d3.selectAll(".axis").transition().duration(0).style("opacity",0);
+   //    d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
+   //    d3.selectAll(".legend").transition().duration(0).style("opacity",0);
+   //    d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity",0);
+   //    d3.selectAll(".coeffPoints")
+   //     .transition().duration(0)
+   //     .style("opacity",0);
+   //    d3.selectAll("#xaxis-coeff").transition().duration(0).style("opacity",0);
+   //    d3.selectAll("#yaxis-coeff").transition().duration(0).style("opacity",0);
+   // }
+   // functionDictionary['transitionKPTtoVOD'] = transitionKPTtoVOD;
 
    function revealPointsVOD() {
+      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+      d3.select("#revealPointsVOD-header").transition().style("visibility", "visible");
       d3.selectAll("#xaxis-coeff").transition().style("opacity",1);
       d3.selectAll("#yaxis-coeff").transition().style("opacity",1);
       d3.selectAll(".coeffPoints")
@@ -782,6 +893,9 @@ var scrollVis = function() {
    functionDictionary['revealPointsVOD'] = revealPointsVOD;
 
    function movePointsVOD() {
+      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+      d3.select("#movePointsVOD-header").transition().style("visibility", "visible");
       d3.selectAll(".coeffPoints")
        .transition().duration(0)
        .attr("r", 5)
@@ -818,6 +932,10 @@ var scrollVis = function() {
    }
    functionDictionary['addErrorBarsVOD'] = addErrorBarsVOD;
 
+   function showConclusion() {
+
+   }
+   functionDictionary['showConclusion'] = showConclusion;
   /**
    * DATA FUNCTIONS
    *
