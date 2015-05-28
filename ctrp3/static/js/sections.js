@@ -481,8 +481,18 @@ var scrollVis = function() {
       .style("text-anchor", "start")
       .text(function(d) {return "N > " + d;});
 
-    // slide 13 Header
+    // slide 5 header
 
+    var addPointsHeader = visBox.append("div")
+      .attr("class", "slide-header")
+      .attr("id", "addPoints-header")
+      .style("visibility", "hidden");
+
+    addPointsHeader.append("h3")
+      .html(slides[6].BoxHeader)
+      .attr("class", "header-white")
+
+    // slide 13 Header
     var revealPointsVODheader = visBox.append("div")
       .attr("class", "slide-header")
       .attr("id", "revealPointsVOD-header")
@@ -685,6 +695,7 @@ var scrollVis = function() {
    */
    function addPoints() {
       d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+      d3.select("#addPoints-header").transition().style("visibility", "visible");
       d3.select("#vis").transition().attr("class", "well well-lg");
       d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
 
@@ -720,6 +731,7 @@ var scrollVis = function() {
    functionDictionary['addPoints'] = addPoints;
 
    function addBisect() {
+     d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
      d3.selectAll(".bisect").transition().style("stroke-opacity", 1);
      d3.selectAll(".dot").transition().duration(0).style("fill", "#1F77B4");
      d3.selectAll(".legend")

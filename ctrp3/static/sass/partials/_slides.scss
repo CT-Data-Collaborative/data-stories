@@ -8,9 +8,15 @@
     color: white;
   }
 
-  h2.header-white {
+  h3.header-white, h2.header-white {
     text-align: center;
     color: #666;
+  }
+
+  h3.header-white {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
