@@ -228,6 +228,10 @@ var scrollVis = function() {
       .attr("class", "text")
       .html(slides[2].P1);
 
+    intro2.append("p")
+      .attr("class", "text")
+      .html(slides[2].P2);
+
     // Slide 3 - showInterpretationProblems
 
     var methodBackground = visBox.append("div")
