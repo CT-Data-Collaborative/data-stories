@@ -26,8 +26,11 @@ var setupSlides = function(data) {
       var section = sections.append("section").attr("class", "step");
       var slide = section.append("div").attr("id", sectionID);
       slide.append("div").attr("class","title").text(s.SidebarHeader);
-      slide.append("p").attr("class", "p1").html(s.S1);
-      slide.append("p").attr("class", "p2").html(s.S2);
+      slide.append("p").attr("class", "s1").html(s.S1);
+      slide.append("p").attr("class", "s2").html(s.S2);
+      slide.append("p").attr("class", "s3").html(s.S3);
+      slide.append("p").attr("class", "s4").html(s.S4);
+      slide.append("p").attr("class", "s5").html(s.S5);
     });
   }
 
@@ -82,7 +85,7 @@ var scrollVis = function() {
     .range(["#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c"]);
 
   // Color is determined just by the index of the bars
-  var barColors = {0: "#008080", 1: "#399785", 2: "#5AAF8C"};
+  // var barColors = {0: "#008080", 1: "#399785", 2: "#5AAF8C"};
 
   // The scatter plot goes from 0 to 1
   // on both dimensions
@@ -181,6 +184,10 @@ var scrollVis = function() {
         .attr("class", "tooltip")
         .style("opacity", 0);
 
+    var vodTooltip = visBox.append("div")
+        .attr("class", "tooltip")
+        .attr("id", "vodTooltip")
+        .style("opacity", 0);
 
     // Slide 0 - showQuote
     var quote = visBox.append("div")
@@ -383,8 +390,11 @@ var scrollVis = function() {
             tooltip.transition()
                  .duration(200)
                  .style("opacity", .9);
-            tooltip.html(d.Department + "<br/>" + "Hit Rate - Caucasian: " + xValue(d).toLocaleString()
-              + "<br/>Hit Rate - " + d.Group + ": " + yValue(d).toLocaleString())
+            tooltip.html(d.Department + "<br/>"
+              + "Hit Rate - Caucasian: " + xValue(d).toLocaleString()
+              + "<br/>Hit Rate - " + d.Group + ": " + yValue(d).toLocaleString()
+              + "<br/>Sample Size: " + d.searches
+              + "<br/>P-Value: " + d.pval)
                  .style("left", 130 + "px")
                  .style("top", 30 + "px");
             d3.select(this).style("stroke", "black").style("stroke-width", 4);
@@ -410,7 +420,7 @@ var scrollVis = function() {
         .attr("stroke-dasharray", ("4, 4"));
 
 
-    var legendData = ["Non-caucasian", "Non-caucasian or Hispanic", "Black", "Hispanic", "Black or Hispanic"];
+    var legendData = ["Non-Caucasian", "Non-Caucasian or Hispanic", "Black", "Hispanic", "Black or Hispanic"];
 
     var legend = g.selectAll(".legend")
       .data(legendData)
@@ -442,6 +452,30 @@ var scrollVis = function() {
     legend.append("text")
       .attr("x", width - 24)
       .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
+    var vodLegend = g.selectAll(".vod-legend")
+      .data(legendData)
+      .enter().append("g")
+      .attr("class", "vod-legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")";})
+      .style("opacity", 0);
+
+    vodLegend.append("rect")
+      .attr("x", width - 18)
+      .attr("y", height - 150)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", function(d) {
+          return color(d);
+        })
+      .style("fill-opacity", 1);
+
+    vodLegend.append("text")
+      .attr("x", width - 24)
+      .attr("y", height - 150 + 9)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
       .text(function(d) { return d; });
@@ -485,37 +519,38 @@ var scrollVis = function() {
       .style("text-anchor", "start")
       .text(function(d) {return "N > " + d;});
 
-    // slide 5 header
 
+
+    // slide 4 header
     var addPointsHeader = visBox.append("div")
       .attr("class", "slide-header")
       .attr("id", "addPoints-header")
       .style("visibility", "hidden");
 
     addPointsHeader.append("h3")
-      .html(slides[6].BoxHeader)
+      .html(slides[4].BoxHeader)
       .attr("class", "header-white")
 
-    // slide 13 Header
+    // slide 10 Header
     var revealPointsVODheader = visBox.append("div")
       .attr("class", "slide-header")
       .attr("id", "revealPointsVOD-header")
       .style("visibility", "hidden");
 
-    revealPointsVODheader.append("h2")
-      .html(slides[12].BoxHeader)
+    revealPointsVODheader.append("h3")
+      .html(slides[10].BoxHeader)
       .attr("class", "header-white")
       .attr("opacity", 0);
 
 
-    // slide 14 Header
+    // slide 11 Header
     var movePointsVODheader = visBox.append("div")
       .attr("class", "slide-header")
       .attr("id", "movePointsVOD-header")
       .style("visibility", "hidden");
 
-    movePointsVODheader.append("h2")
-      .html(slides[13].BoxHeader)
+    movePointsVODheader.append("h3")
+      .html(slides[11].BoxHeader)
       .attr("class", "header-white")
       .attr("opacity", 0);
 
@@ -644,18 +679,17 @@ var scrollVis = function() {
       d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
       d3.select("#quote-slide").transition().style("visibility", "visible");
       d3.select("#vis").transition().attr("class", "well well-lg photo");
-      // d3.select("#quote-slide").transition().attr("class", "slide photo");
    }
    functionDictionary['showQuote'] = showQuote;
 
    function showIntro1() {
-      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
-      d3.select("#intro1").transition().style("visibility", "visible");
+      d3.select("#quote-slide").transition().duration(0).style("visibility", "visible");
+      d3.select("#vis").transition().duration(0).attr("class", "well well-lg photo");
    }
    functionDictionary['showIntro1'] = showIntro1;
 
    function showIntro2() {
+      d3.select("#vis").transition().duration(0).attr("class", "well well-lg");
       d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
       d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
       d3.select("#intro2").transition().style("visibility", "visible");
@@ -663,32 +697,36 @@ var scrollVis = function() {
    functionDictionary['showIntro2'] = showIntro2;
 
    function showInterpretationProblems() {
+    d3.selectAll(".dot").transition().duration(0).style("opacity", 0);
+    d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity", 0);
+    d3.selectAll("#xaxis-scatter").transition().duration(0).style("opacity", 0);
+    d3.selectAll("#yaxis-scatter").transition().duration(0).style("opacity", 0);
     d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
     d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
     d3.select("#method-background").transition().style("visibility", "visible");
    }
    functionDictionary['showInterpretationProblems'] = showInterpretationProblems;
 
-   function showAnalysis() {
-      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
-      d3.select("#analysis").transition().style("visibility", "visible");
-      d3.select("#analysis-header").transition().style("visibility", "visible");
-   }
-   functionDictionary['showAnalysis'] = showAnalysis;
+   // function showAnalysis() {
+   //    d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+   //    d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+   //    d3.select("#analysis").transition().style("visibility", "visible");
+   //    d3.select("#analysis-header").transition().style("visibility", "visible");
+   // }
+   // functionDictionary['showAnalysis'] = showAnalysis;
 
-   function showMethodology() {
-    d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
-    d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-    d3.selectAll(".dot").transition().duration(0).style("opacity", 0);
-    d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity", 0);
-    d3.selectAll("#xaxis-scatter").transition().duration(0).style("opacity", 0);
-    d3.selectAll("#yaxis-scatter").transition().duration(0).style("opacity", 0);
-    d3.select("#vis").transition().duration(0).attr("class", "well well-lg photo");
-    d3.select("#methodology").transition().style("visibility", "visible");
-    d3.select("#methodology-header").transition().style("visibility", "visible");
-   }
-   functionDictionary['showMethodology'] = showMethodology;
+   // function showMethodology() {
+   //  d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+   //  d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+   //  d3.selectAll(".dot").transition().duration(0).style("opacity", 0);
+   //  d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity", 0);
+   //  d3.selectAll("#xaxis-scatter").transition().duration(0).style("opacity", 0);
+   //  d3.selectAll("#yaxis-scatter").transition().duration(0).style("opacity", 0);
+   //  d3.select("#vis").transition().duration(0).attr("class", "well well-lg photo");
+   //  d3.select("#methodology").transition().style("visibility", "visible");
+   //  d3.select("#methodology-header").transition().style("visibility", "visible");
+   // }
+   // functionDictionary['showMethodology'] = showMethodology;
 
   /**
    * showAxis - helper function to
@@ -735,7 +773,6 @@ var scrollVis = function() {
    functionDictionary['addPoints'] = addPoints;
 
    function addBisect() {
-     d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
      d3.selectAll(".bisect").transition().style("stroke-opacity", 1);
      d3.selectAll(".dot").transition().duration(0).style("fill", "#1F77B4");
      d3.selectAll(".legend")
@@ -746,6 +783,7 @@ var scrollVis = function() {
    functionDictionary['addBisect'] = addBisect;
 
    function colorPointsRace() {
+      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
       d3.selectAll(".dot")
         .transition()
         .style("opacity", 0.6)
@@ -808,6 +846,30 @@ var scrollVis = function() {
    functionDictionary['opacityPointsSignificant'] = opacityPointsSignificant;
 
    function sizePoints() {
+     var tooltip = d3.select(".tooltip");
+     d3.selectAll(".dot")
+     .on("mouseover", function(d) {
+         radius = this.getAttribute('r');
+         tooltip.transition()
+              .duration(200)
+              .style("opacity", .9);
+         tooltip.html(d.Department + "<br/>"
+           + "Hit Rate - Caucasian: " + xValue(d).toLocaleString()
+           + "<br/>Hit Rate - " + d.Group + ": " + yValue(d).toLocaleString()
+           + "<br/>Sample Size: " + d.searches
+           + "<br/>P-Value: " + d.pval)
+              .style("left", 130 + "px")
+              .style("top", 30 + "px");
+         d3.select(this).style("stroke", "black").style("stroke-width", 4);
+     })
+     .on("mouseout", function(d) {
+         radius = this.getAttribute('r');
+         tooltip.transition()
+              .duration(500)
+              .style("opacity", 0);
+         d3.select(this)
+           .style("stroke", "black").style("stroke-width", 1);
+     });
      yScatterScale.domain([0.13,0.55]);
      xScatterScale.domain([0.13,0.55]);
      d3.select("#xaxis-scatter").transition().duration(0).call(xAxisScatter);
@@ -860,6 +922,9 @@ var scrollVis = function() {
    functionDictionary['sizePoints'] = sizePoints;
 
    function showVODExplain() {
+      d3.selectAll(".dot")
+        .on("mouseover", function(d) {})
+        .on("mouseout", function(d) {});
       vod = true;
       d3.select("#vis").transition().attr("class", "well well-lg");
       d3.select("#points-header").transition().duration(0).style("visibility", "hidden");
@@ -873,6 +938,7 @@ var scrollVis = function() {
        .style("opacity",0);
       d3.selectAll("#xaxis-coeff").transition().duration(0).style("opacity",0);
       d3.selectAll("#yaxis-coeff").transition().duration(0).style("opacity",0);
+      d3.selectAll(".vod-legend").transition().duration(0).style("opacity",0);
       d3.select("#vod-slide").transition().style("visibility", "visible");
    }
    functionDictionary['showVODExplain'] = showVODExplain;
@@ -894,17 +960,37 @@ var scrollVis = function() {
    // functionDictionary['transitionKPTtoVOD'] = transitionKPTtoVOD;
 
    function revealPointsVOD() {
+      var vodTooltip = d3.select("#vodTooltip");
       d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
       d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
       d3.select("#revealPointsVOD-header").transition().style("visibility", "visible");
       d3.selectAll("#xaxis-coeff").transition().style("opacity",1);
       d3.selectAll("#yaxis-coeff").transition().style("opacity",1);
+      d3.selectAll(".vod-legend").transition().style("opacity",1);
       d3.selectAll(".coeffPoints")
+       .on("mouseover", function(d) {
+            ddata = d.values[0];
+            vodTooltip.transition()
+                 .duration(200)
+                 .style("opacity", .9);
+            vodTooltip.html(ddata.Department
+              + "<br/>Subgroup: " + ddata.Variable
+              + "<br/>Coefficient: " + ddata.Coefficient + ", P-Value: " + ddata.P
+              + "<br/>Sample Size: " + ddata.N);
+            d3.select(this).style("stroke", "black").style("stroke-width", 4);
+        })
+       .on("mouseout", function(d) {
+           vodTooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+           d3.select(this)
+             .style("stroke", "black").style("stroke-width", 1);
+       })
        .transition()
        .attr("cx", function(d) { return xCoefficientScale(0);})
-       .transition()
        .style("opacity",1)
        .style("fill", function(d) { return color(d.values[0].Variable)});
+
    }
    functionDictionary['revealPointsVOD'] = revealPointsVOD;
 

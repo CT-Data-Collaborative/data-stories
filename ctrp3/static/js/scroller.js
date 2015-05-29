@@ -8,7 +8,7 @@
  */
 function scroller() {
   var windowHeight;
-  var container = d3.select('body');
+  var container = d3.select('.graphic');
   // event dispatcher
   var dispatch = d3.dispatch("active", "progress");
 
@@ -91,7 +91,6 @@ function scroller() {
     var pos = window.pageYOffset - 10 - containerStart;
     var sectionIndex = d3.bisect(sectionPositions, pos);
     sectionIndex = Math.min(sections.size() - 1, sectionIndex);
-
     if (currentIndex !== sectionIndex) {
       dispatch.active(sectionIndex);
       currentIndex = sectionIndex;
