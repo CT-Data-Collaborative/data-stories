@@ -157,11 +157,12 @@ var scrollVis = function() {
       var hitrateData = rawData['hitRate'];
       var veilData = rawData['veil'];
       var slideData = rawData['slides'];
+      var towns = rawData['towns'];
       // Process each
       var scatterData = processHitrate(hitrateData);
       var vodData = processVOD(veilData);
 
-      setupVis(hitrateData, vodData, slideData);
+      setupVis(hitrateData, vodData, slideData, towns);
     });
   };
 
@@ -175,9 +176,28 @@ var scrollVis = function() {
    *  element for each filler word type.
    * @param histData - binned histogram data
    */
-  setupVis = function(scatterplotData, vodData, slides) {
+  setupVis = function(scatterplotData, vodData, slides, towns) {
 
     var visBox = d3.select("#vis");
+
+    // function style(feature) {
+    //   return {
+    //     opacity: 1,
+    //     weight: 1,
+    //     color: 'white',
+    //     fillOpacity: 0.9,
+    //     fillColor: 'blue'
+    //   };
+    // }
+
+    // townJSON = L.geoJson(towns, {style: style});
+    // var tileLayer = new L.tileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+    //     attribution: "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ"
+    //   });
+    // visBox.append("div").attr("id", "townmap");
+    // var map = new L.map('townmap', {zoomControl: false}).setView([41.5013,-72.8325],9);
+    // tileLayer.addTo(map);
+    // townJSON.addTo(map);
 
     // Hit Rate Scatter Plot
     var tooltip = visBox.append("div")
@@ -193,7 +213,7 @@ var scrollVis = function() {
     var quote = visBox.append("div")
      .attr("class", "slide")
      .attr("id", "quote-slide")
-     .style("visibility", "hidden");
+     .style("visibility", "visible");
 
      quote.append("p")
       .attr("class", "title quote")
@@ -202,147 +222,6 @@ var scrollVis = function() {
      quote.append("p")
       .attr("class", "title attribution")
       .html(slides[0].P2);
-
-    // Slide 1 - showIntro1
-    var intro1 = visBox.append("div")
-      .attr("class", "slide")
-      .attr("id", "intro1")
-      .style("visibility", "hidden");
-
-    intro1.append("p")
-      .attr("class", "text")
-      .html(slides[1].P1);
-
-    intro1.append("p")
-      .attr("class", "text")
-      .html(slides[1].P2);
-
-    intro1.append("p")
-      .attr("class", "text")
-      .html(slides[1].P3);
-
-    intro1.append("p")
-      .attr("class", "text")
-      .html(slides[1].P4);
-
-    // Slide 2 showIntro2
-    var intro2 = visBox.append("div")
-     .attr("class", "slide")
-     .attr("id", "intro2")
-     .style("visibility", "hidden");
-
-    intro2.append("p")
-      .attr("class", "text")
-      .html(slides[2].P1);
-
-    intro2.append("p")
-      .attr("class", "text")
-      .html(slides[2].P2);
-
-    // Slide 3 - showInterpretationProblems
-
-    var methodBackground = visBox.append("div")
-      .attr("class", "slide")
-      .attr("id", "method-background")
-      .style("visibility", "hidden");
-
-    methodBackground.append("p")
-      .attr("class", "text")
-      .html(slides[3].P1)
-      .attr("opacity", 0);
-
-    methodBackground.append("p")
-      .attr("class", "text")
-      .html(slides[3].P2)
-      .attr("opacity", 0);
-
-    // Slide 4 - showAnalysis
-
-    var analysisHeader = visBox.append("div")
-      .attr("class", "slide-header")
-      .attr("id", "analysis-header")
-      .style("visibility", "hidden");
-
-    analysisHeader.append("h2")
-      .html(slides[4].BoxHeader)
-      .attr("opacity", 0);
-
-    var analysis = visBox.append("div")
-      .attr("class", "slide")
-      .attr("id", "analysis")
-      .style("visibility", "hidden");
-
-    analysis.append("p")
-      .attr("class", "text")
-      .html(slides[4].P1)
-      .attr("opacity", 0);
-
-    analysis.append("p")
-      .attr("class", "text")
-      .html(slides[4].P2)
-      .attr("opacity", 0);
-
-    analysis.append("p")
-      .attr("class", "text")
-      .html(slides[4].P3)
-      .attr("opacity", 0);
-
-    analysis.append("p")
-      .attr("class", "text")
-      .html(slides[4].P4)
-      .attr("opacity", 0);
-
-    analysis.append("p")
-      .attr("class", "text")
-      .html(slides[4].P5)
-      .attr("opacity", 0);
-
-    // slide 5 - showMethodology
-
-    var methodologyHeader = visBox.append("div")
-      .attr("class", "slide-header")
-      .attr("id", "methodology-header")
-      .style("visibility", "hidden");
-
-    methodologyHeader.append("h2")
-      .html(slides[5].BoxHeader)
-      .attr("opacity", 0);
-
-    var methodology = visBox.append("div")
-      .attr("class", "slide")
-      .attr("id", "methodology")
-      .style("visibility", "hidden");
-
-    methodology.append("p")
-      .attr("class", "text")
-      .html(slides[5].P1)
-      .attr("opacity", 1);
-
-    methodology.append("p")
-      .attr("class", "text")
-      .html(slides[5].P2)
-      .attr("opacity", 1);
-
-    methodology.append("p")
-      .attr("class", "text")
-      .html(slides[5].P3)
-      .attr("opacity", 1);
-
-    // slide 10 - showVODExplain
-    var vod = visBox.append("div")
-      .attr("class", "slide")
-      .attr("id", "vod-slide")
-      .style("visibility", "hidden");
-
-    vod.append("p")
-      .attr("class", "text")
-      .html(slides[10].P1)
-      .attr("opacity", 1);
-
-    vod.append("p")
-      .attr("class", "text")
-      .html(slides[10].P2)
-      .attr("opacity", 1);
 
     // axis
     g.append("g")
@@ -521,36 +400,47 @@ var scrollVis = function() {
 
 
 
-    // slide 4 header
+    // addpoints header
     var addPointsHeader = visBox.append("div")
       .attr("class", "slide-header")
       .attr("id", "addPoints-header")
       .style("visibility", "hidden");
 
     addPointsHeader.append("h3")
-      .html(slides[4].BoxHeader)
+      .html(slides[5].BoxHeader)
       .attr("class", "header-white")
 
-    // slide 10 Header
+    // sizepoints header
+    var sizePointsHeader = visBox.append("div")
+      .attr("class", "slide-header")
+      .attr("id", "sizePoints-header")
+      .style("visibility","hidden");
+
+    sizePointsHeader.append("h3")
+      .html(slides[9].BoxHeader)
+      .attr("class", "header-white")
+      .attr("opacity", 0);
+
+    // slide 2 Header
     var revealPointsVODheader = visBox.append("div")
       .attr("class", "slide-header")
       .attr("id", "revealPointsVOD-header")
       .style("visibility", "hidden");
 
     revealPointsVODheader.append("h3")
-      .html(slides[10].BoxHeader)
+      .html(slides[1].BoxHeader)
       .attr("class", "header-white")
       .attr("opacity", 0);
 
 
-    // slide 11 Header
+    // slide 3 Header
     var movePointsVODheader = visBox.append("div")
       .attr("class", "slide-header")
       .attr("id", "movePointsVOD-header")
       .style("visibility", "hidden");
 
     movePointsVODheader.append("h3")
-      .html(slides[11].BoxHeader)
+      .html(slides[2].BoxHeader)
       .attr("class", "header-white")
       .attr("opacity", 0);
 
@@ -675,37 +565,41 @@ var scrollVis = function() {
    *
    */
 
-   function showQuote() {
-      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-      d3.select("#quote-slide").transition().style("visibility", "visible");
-      d3.select("#vis").transition().attr("class", "well well-lg photo");
-   }
-   functionDictionary['showQuote'] = showQuote;
+   // function showQuote() {
+   //    d3.select("#xkcd").style("visibility", "hidden").style("display", "block");
+   //    d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+   //    d3.select("#quote-slide").transition().style("visibility", "visible");
+   //    d3.select("#vis").transition().attr("class", "well well-lg photo");
+   // }
+   // functionDictionary['showQuote'] = showQuote;
 
-   function showIntro1() {
-      d3.select("#quote-slide").transition().duration(0).style("visibility", "visible");
-      d3.select("#vis").transition().duration(0).attr("class", "well well-lg photo");
-   }
-   functionDictionary['showIntro1'] = showIntro1;
+   // function showIntro1() {
+   //    d3.select("#quote-slide").transition().duration(0).style("visibility", "visible");
+   //    d3.select("#vis").transition().duration(0).attr("class", "well well-lg photo");
+   // }
+   // functionDictionary['showIntro1'] = showIntro1;
 
-   function showIntro2() {
-      d3.select("#vis").transition().duration(0).attr("class", "well well-lg");
-      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
-      d3.select("#intro2").transition().style("visibility", "visible");
-   }
-   functionDictionary['showIntro2'] = showIntro2;
+   // function showIntro2() {
+   //    d3.select("#xkcd").style("visibility", "hidden").style("display", "block");
+   //    //d3.select("#townmap").style("visibility", "visible");
+   //    d3.select("#vis").transition().duration(0).attr("class", "well well-lg");
+   //    d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+   //    d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+   //    d3.select("#intro2").transition().style("visibility", "visible");
+   // }
+   // functionDictionary['showIntro2'] = showIntro2;
 
-   function showInterpretationProblems() {
-    d3.selectAll(".dot").transition().duration(0).style("opacity", 0);
-    d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity", 0);
-    d3.selectAll("#xaxis-scatter").transition().duration(0).style("opacity", 0);
-    d3.selectAll("#yaxis-scatter").transition().duration(0).style("opacity", 0);
-    d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
-    d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-    d3.select("#method-background").transition().style("visibility", "visible");
-   }
-   functionDictionary['showInterpretationProblems'] = showInterpretationProblems;
+   // function showInterpretationProblems() {
+   //  d3.select("#xkcd").style("visibility", "visible").style("display", "block");
+   //  d3.selectAll(".dot").transition().duration(0).style("opacity", 0);
+   //  d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity", 0);
+   //  d3.selectAll("#xaxis-scatter").transition().duration(0).style("opacity", 0);
+   //  d3.selectAll("#yaxis-scatter").transition().duration(0).style("opacity", 0);
+   //  d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+   //  d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+   //  d3.select("#method-background").transition().style("visibility", "visible");
+   // }
+   // functionDictionary['showInterpretationProblems'] = showInterpretationProblems;
 
    // function showAnalysis() {
    //    d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
@@ -735,14 +629,236 @@ var scrollVis = function() {
    * @param axis - the axis to show
    *  (xAxisHist or xAxisBar)
    */
+   function showVODExplain() {
+      // d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+      d3.select("#vis").transition().duration(0).attr("class", "well well-lg photo");
+      d3.select("#quote-slide").transition().style("visibility", "visible");
+      d3.select("#revealPointsVOD-header").style("visibility", "hidden");
+      d3.selectAll(".dot")
+        .on("mouseover", function(d) {})
+        .on("mouseout", function(d) {});
+      d3.selectAll(".coeffPoints")
+        .on("mouseover", function(d) {})
+        .on("mouseout", function(d) {});
+      d3.selectAll(".coeffPoints").transition().duration(0).style("opacity", 0)
+      d3.selectAll("#xaxis-coeff").transition().duration(0).style("opacity",0);
+      d3.selectAll("#yaxis-coeff").transition().duration(0).style("opacity",0);
+      d3.selectAll(".vod-legend").transition().duration(0).style("opacity",0);
+      d3.select("#vod-slide").transition().style("visibility", "visible");
+   }
+   functionDictionary['showVODExplain'] = showVODExplain;
+
+   function revealPointsVOD() {
+      var vodTooltip = d3.select("#vodTooltip");
+      d3.select("#vis").transition().duration(0).attr("class", "well well-lg");
+      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+      d3.select("#revealPointsVOD-header").transition().style("visibility", "visible");
+      d3.selectAll("#xaxis-coeff").transition().style("opacity",1);
+      d3.selectAll("#yaxis-coeff").transition().style("opacity",1);
+      d3.selectAll(".vod-legend").transition().style("opacity",1);
+      d3.selectAll(".coeffPoints")
+       .on("mouseover", function(d) {
+            ddata = d.values[0];
+            vodTooltip.transition()
+                 .duration(200)
+                 .style("opacity", .9);
+            vodTooltip.html(ddata.Department
+              + "<br/>Subgroup: " + ddata.Variable
+              + "<br/>Coefficient: " + ddata.Coefficient + ", P-Value: " + ddata.P
+              + "<br/>Sample Size: " + ddata.N);
+            d3.select(this).style("stroke", "black").style("stroke-width", 4);
+        })
+       .on("mouseout", function(d) {
+           vodTooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+           d3.select(this)
+             .style("stroke", "black").style("stroke-width", 1);
+       })
+       .transition().duration(0)
+       .attr("r", 5)
+       .transition()
+       .attr("cx", function(d) { return xCoefficientScale(0);})
+       .style("opacity",1)
+       .style("fill", function(d) { return color(d.values[0].Variable)});
+
+   }
+   functionDictionary['revealPointsVOD'] = revealPointsVOD;
+
+   function movePointsVOD() {
+      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
+      d3.select("#movePointsVOD-header").transition().style("visibility", "visible");
+      d3.selectAll("line.errorBars")
+       .transition().duration(0)
+       .style("opacity", 0);
+      d3.selectAll(".coeffPoints")
+       .transition().duration(500)
+       .attr("cx", function(d) { return xCoefficientScale(d.values[0].Coefficient);})
+       // .transition().duration(750)
+       .attr("r", function(d) {
+        n = d.values[0].N;
+        if (n > 8000) {
+          return 9;
+        } else if (n > 4000) {
+          return 7;
+        } else if (n > 1000) {
+          return 5;
+        } else if (n > 200) {
+          return 3;
+        }
+       });
+   }
+   functionDictionary['movePointsVOD'] = movePointsVOD;
+
+   function addErrorBarsVOD() {
+      // Hide Cartoon
+      d3.select("#cartoon").style("display","none");
+      // Show VOD Stuff
+      d3.select("#xaxis-coeff").transition().duration(0).style("opacity",1);
+      d3.select("#yaxis-coeff").transition().duration(0).style("opacity",1);
+      d3.selectAll(".coeffPoints").transition().duration(0).style("opacity",1);
+      d3.selectAll(".vod-legend").transition().duration(0).style("opacity",1);
+      d3.select("#movePointsVOD-header").transition().duration(0).style("visibility", "hidden");
+      d3.selectAll("line.errorBars")
+       .transition().duration(250)
+       .style("opacity", 1);
+   }
+   functionDictionary['addErrorBarsVOD'] = addErrorBarsVOD;
+
+   function showCartoon() {
+      d3.select("#cartoon").style("display","block");
+      // Hide KPT Stuff
+      d3.select("#addPoints-header").transition().duration(0).style("visibility", "hidden");
+      d3.selectAll(".dot").transition().duration(0).style("opacity",0);
+      d3.select("#xaxis-scatter").transition().duration(0).style("opacity",0);
+      d3.select("#yaxis-scatter").transition().duration(0).style("opacity",0);
+      d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
+      d3.selectAll(".legend").transition().duration(0).style("opacity",0);
+      d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity",0);
+      // Hide VOD Stuff
+      d3.select("#xaxis-coeff").transition().duration(0).style("opacity",0);
+      d3.select("#yaxis-coeff").transition().duration(0).style("opacity",0);
+      d3.selectAll(".coeffPoints").transition().duration(0).style("opacity",0);
+      d3.selectAll(".vod-legend").transition().duration(0).style("opacity",0);
+      d3.selectAll("line.errorBars")
+       .transition().duration(0)
+       .style("opacity", 0);
+   }
+   functionDictionary['showCartoon'] = showCartoon;
+
+   function showKPTTowns() {
+      d3.select("#cartoon").style("display", "none");
+      d3.select("#sizePoints-header").style("visibility", "visible");
+      var tooltip = d3.select(".tooltip");
+      d3.selectAll(".dot")
+      .on("mouseover", function(d) {
+          radius = this.getAttribute('r');
+          tooltip.transition()
+               .duration(200)
+               .style("opacity", .9);
+          tooltip.html(d.Department + "<br/>"
+            + "Hit Rate - Caucasian: " + xValue(d).toLocaleString()
+            + "<br/>Hit Rate - " + d.Group + ": " + yValue(d).toLocaleString()
+            + "<br/>Sample Size: " + d.searches
+            + "<br/>P-Value: " + d.pval)
+               .style("left", 130 + "px")
+               .style("top", 30 + "px");
+          d3.select(this).style("stroke", "black").style("stroke-width", 4);
+      })
+      .on("mouseout", function(d) {
+          radius = this.getAttribute('r');
+          tooltip.transition()
+               .duration(500)
+               .style("opacity", 0);
+          d3.select(this)
+            .style("stroke", "black").style("stroke-width", 1);
+      });
+      yScatterScale.domain([0.13,0.55]);
+      xScatterScale.domain([0.13,0.55]);
+      d3.select("#xaxis-scatter").transition().duration(0).style("opacity", 1).call(xAxisScatter);
+      d3.select("#yaxis-scatter").transition().duration(0).style("opacity", 1).call(yAxisScatter);
+      d3.selectAll(".nLegend").transition().duration(0).style("opacity",1);
+      d3.selectAll(".legend")
+         .transition()
+         .duration(0)
+         .style("opacity", 1);
+       d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity", 1);
+      if (vod) {
+       vod = false;
+       d3.select("#xaxis-coeff").transition().duration(0).style("opacity",0);
+       d3.select("#yaxis-coeff").transition().duration(0).style("opacity",0);
+      } else {}
+        d3.selectAll(".dot")
+          .transition()
+          .attr("cx", xMap)
+          .attr("cy", yMap)
+          .style("opacity", function(d) {
+            p = d.pvalue;
+            if (p > 0.1) {
+              return 0.1;
+            } else {
+              return 0.6;
+            }})
+          .style("fill", function(d) {
+            switch (d.Group) {
+              case "Hispanic":
+                return "#d6616b";
+              case "Black":
+                return "#9467bd";
+              case "Non-caucasian":
+                return "#e377c2";
+              case "Non-caucasian or Hispanic":
+                return "#17becf";
+              case "Black or Hispanic":
+                return "#2ca02c";
+            }
+          })
+          .attr("r", function(d) {
+             n = d.searches;
+             p = d.pval
+             if (n<125) {
+               return 0;
+             } else {
+               if (p > 0.1) {
+                 return 0;
+               } else {
+                   // console.log(n);
+                   if (n>200) {
+                     return 30;
+                   } else if (n>150) {
+                     return 20;
+                   } else {
+                     return 15;
+                   }
+               }
+             }
+         });
+   }
+   functionDictionary['showKPTTowns'] = showKPTTowns;
+
    function addPoints() {
+      // Hide Cartoon
+      d3.select("#cartoon").style("display","none");
+
+      // Add KPT Stuff
+      yScatterScale.domain([0,1]);
+      xScatterScale.domain([0,1]);
+      d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
+      d3.selectAll(".legend").transition().duration(0).style("opacity",0);
+
+      d3.select("#xaxis-scatter").transition().duration(0).call(xAxisScatter);
+      d3.select("#yaxis-scatter").transition().duration(0).call(yAxisScatter);
       d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
       d3.select("#addPoints-header").transition().style("visibility", "visible");
       d3.select("#vis").transition().attr("class", "well well-lg");
       d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
 
       d3.selectAll(".dot")
-        .transition()
+        .transition().duration(0)
+        .attr("cx", xMap)
+        .attr("cy", yMap)
         .style("opacity", 0.6)
         .style("fill", "#1F77B4")
         .attr("r", 5);
@@ -757,13 +873,13 @@ var scrollVis = function() {
         .duration(0)
         .style("stroke-opacity", 0);
 
-      d3.selectAll("#xaxis-scatter")
-        .transition().duration(500)
-        .style("opacity", 1);
+      // d3.selectAll("#xaxis-scatter")
+      //   .transition().duration(500)
+      //   .style("opacity", 1);
 
-      d3.selectAll("#yaxis-scatter")
-        .transition().duration(500)
-        .style("opacity", 1);
+      // d3.selectAll("#yaxis-scatter")
+      //   .transition().duration(500)
+      //   .style("opacity", 1);
 
       d3.selectAll(".tooltip")
          .transition()
@@ -808,6 +924,7 @@ var scrollVis = function() {
    functionDictionary['colorPointsRace'] = colorPointsRace;
 
    function opacityPointsSignificant() {
+      d3.select("#sizePoints-header").style("visibility", "hidden");
       d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
       testDomain = xScatterScale.domain();
       if (testDomain[0] == 0) {
@@ -846,6 +963,8 @@ var scrollVis = function() {
    functionDictionary['opacityPointsSignificant'] = opacityPointsSignificant;
 
    function sizePoints() {
+     d3.select("#cartoon").style("display", "none");
+     d3.select("#sizePoints-header").style("visibility", "visible");
      var tooltip = d3.select(".tooltip");
      d3.selectAll(".dot")
      .on("mouseover", function(d) {
@@ -884,8 +1003,6 @@ var scrollVis = function() {
       vod = false;
       d3.select("#xaxis-coeff").transition().duration(0).style("opacity",0);
       d3.select("#yaxis-coeff").transition().duration(0).style("opacity",0);
-      d3.select("#xaxis-scatter").transition().duration(0).style("opacity",1);
-      d3.select("#yaxis-scatter").transition().duration(0).style("opacity",1);
      } else {}
        d3.selectAll(".dot")
          .transition()
@@ -921,118 +1038,7 @@ var scrollVis = function() {
    }
    functionDictionary['sizePoints'] = sizePoints;
 
-   function showVODExplain() {
-      d3.selectAll(".dot")
-        .on("mouseover", function(d) {})
-        .on("mouseout", function(d) {});
-      vod = true;
-      d3.select("#vis").transition().attr("class", "well well-lg");
-      d3.select("#points-header").transition().duration(0).style("visibility", "hidden");
-      d3.selectAll(".dot").transition().duration(0).style("opacity",0);
-      d3.selectAll(".axis").transition().duration(0).style("opacity",0);
-      d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
-      d3.selectAll(".legend").transition().duration(0).style("opacity",0);
-      d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity",0);
-      d3.selectAll(".coeffPoints")
-       .transition().duration(0)
-       .style("opacity",0);
-      d3.selectAll("#xaxis-coeff").transition().duration(0).style("opacity",0);
-      d3.selectAll("#yaxis-coeff").transition().duration(0).style("opacity",0);
-      d3.selectAll(".vod-legend").transition().duration(0).style("opacity",0);
-      d3.select("#vod-slide").transition().style("visibility", "visible");
-   }
-   functionDictionary['showVODExplain'] = showVODExplain;
 
-   // function transitionKPTtoVOD() {
-   //    d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-   //    vod = true;
-   //    d3.selectAll(".dot").transition().duration(0).style("opacity",0);
-   //    d3.selectAll(".axis").transition().duration(0).style("opacity",0);
-   //    d3.selectAll(".nLegend").transition().duration(0).style("opacity",0);
-   //    d3.selectAll(".legend").transition().duration(0).style("opacity",0);
-   //    d3.selectAll(".bisect").transition().duration(0).style("stroke-opacity",0);
-   //    d3.selectAll(".coeffPoints")
-   //     .transition().duration(0)
-   //     .style("opacity",0);
-   //    d3.selectAll("#xaxis-coeff").transition().duration(0).style("opacity",0);
-   //    d3.selectAll("#yaxis-coeff").transition().duration(0).style("opacity",0);
-   // }
-   // functionDictionary['transitionKPTtoVOD'] = transitionKPTtoVOD;
-
-   function revealPointsVOD() {
-      var vodTooltip = d3.select("#vodTooltip");
-      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
-      d3.select("#revealPointsVOD-header").transition().style("visibility", "visible");
-      d3.selectAll("#xaxis-coeff").transition().style("opacity",1);
-      d3.selectAll("#yaxis-coeff").transition().style("opacity",1);
-      d3.selectAll(".vod-legend").transition().style("opacity",1);
-      d3.selectAll(".coeffPoints")
-       .on("mouseover", function(d) {
-            ddata = d.values[0];
-            vodTooltip.transition()
-                 .duration(200)
-                 .style("opacity", .9);
-            vodTooltip.html(ddata.Department
-              + "<br/>Subgroup: " + ddata.Variable
-              + "<br/>Coefficient: " + ddata.Coefficient + ", P-Value: " + ddata.P
-              + "<br/>Sample Size: " + ddata.N);
-            d3.select(this).style("stroke", "black").style("stroke-width", 4);
-        })
-       .on("mouseout", function(d) {
-           vodTooltip.transition()
-                .duration(500)
-                .style("opacity", 0);
-           d3.select(this)
-             .style("stroke", "black").style("stroke-width", 1);
-       })
-       .transition()
-       .attr("cx", function(d) { return xCoefficientScale(0);})
-       .style("opacity",1)
-       .style("fill", function(d) { return color(d.values[0].Variable)});
-
-   }
-   functionDictionary['revealPointsVOD'] = revealPointsVOD;
-
-   function movePointsVOD() {
-      d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
-      d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
-      d3.select("#movePointsVOD-header").transition().style("visibility", "visible");
-      d3.selectAll(".coeffPoints")
-       .transition().duration(0)
-       .attr("r", 5)
-       .transition().duration(500)
-       .attr("cx", function(d) { return xCoefficientScale(d.values[0].Coefficient);});
-   }
-   functionDictionary['movePointsVOD'] = movePointsVOD;
-
-   function sizePointsVOD() {
-      d3.selectAll("line.errorBars")
-       .transition().duration(0)
-       .style("opacity", 0);
-      d3.selectAll(".coeffPoints")
-       .transition().duration(500)
-       .attr("r", function(d) {
-        n = d.values[0].N;
-        if (n > 8000) {
-          return 9;
-        } else if (n > 4000) {
-          return 7;
-        } else if (n > 1000) {
-          return 5;
-        } else if (n > 200) {
-          return 3;
-        }
-       });
-   }
-   functionDictionary['sizePointsVOD'] = sizePointsVOD;
-
-   function addErrorBarsVOD() {
-      d3.selectAll("line.errorBars")
-       .transition().duration(500)
-       .style("opacity", 1);
-   }
-   functionDictionary['addErrorBarsVOD'] = addErrorBarsVOD;
 
    function showConclusion() {
 
@@ -1158,10 +1164,12 @@ function display(data) {
 d3.csv("static/data/hitrate.csv", function(error1, data1) {
   d3.csv("static/data/vod.csv", function(error2, data2) {
     d3.csv("static/data/narrative.csv", function(error3, data3) {
-      functionArray = data3.map(function(s) { return s.functions});
-      data = {'hitRate': data1, 'veil': data2, 'slides': data3, 'functionArray': functionArray};
-      setupSlides(data3);
-      display(data);
-    })
+      d3.json("static/data/towns_with_stops.geojson", function(error4, data4) {
+        functionArray = data3.map(function(s) { return s.functions});
+        data = {'hitRate': data1, 'veil': data2, 'slides': data3, 'functionArray': functionArray, 'towns': data4};
+        setupSlides(data3);
+        display(data);
+      });
+    });
   });
 });

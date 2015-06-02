@@ -11466,6 +11466,50 @@ body {
   color: #fff;
 }
 
+/* line 1, ../sass/partials/_index.scss */
+#intro {
+  padding-top: 165px;
+  min-height: 500px;
+}
+/* line 5, ../sass/partials/_index.scss */
+#intro h1, #intro h2, #intro h3, #intro h4 {
+  font-family: "Merriweather", serif;
+}
+/* line 9, ../sass/partials/_index.scss */
+#intro p {
+  padding-bottom: 5px;
+  font-size: 18px;
+  line-height: 20px;
+}
+/* line 16, ../sass/partials/_index.scss */
+#intro .textwrap {
+  float: right;
+}
+/* line 20, ../sass/partials/_index.scss */
+#intro #townmap {
+  width: 50%;
+  height: 300px;
+  top: 1px;
+  float: right;
+}
+/* line 27, ../sass/partials/_index.scss */
+#intro img {
+  max-width: 40%;
+  height: auto;
+  padding-left: 10px;
+  padding-bottom: 10;
+}
+/* line 34, ../sass/partials/_index.scss */
+#intro li {
+  font-size: 18px;
+}
+/* line 39, ../sass/partials/_index.scss */
+#intro a.btn {
+  text-decoration: none;
+  color: white;
+  margin-bottom: 25px;
+}
+
 /* line 1, ../sass/partials/_scroller.scss */
 #sections {
   position: relative;
@@ -11511,36 +11555,50 @@ body {
 }
 
 /* line 1, ../sass/partials/_slides.scss */
+#cartoon {
+  display: none;
+}
+/* line 4, ../sass/partials/_slides.scss */
+#cartoon img {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 50%;
+}
+
+/* line 16, ../sass/partials/_slides.scss */
 .slide-header {
   position: absolute;
   width: 95%;
   top: 5px;
 }
-/* line 6, ../sass/partials/_slides.scss */
+/* line 21, ../sass/partials/_slides.scss */
 .slide-header h2 {
   text-align: center;
   color: white;
 }
-/* line 11, ../sass/partials/_slides.scss */
+/* line 26, ../sass/partials/_slides.scss */
 .slide-header h3.header-white, .slide-header h2.header-white {
   text-align: center;
   color: #666;
 }
-/* line 16, ../sass/partials/_slides.scss */
+/* line 31, ../sass/partials/_slides.scss */
 .slide-header h3.header-white {
   width: 75%;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* line 23, ../sass/partials/_slides.scss */
+/* line 38, ../sass/partials/_slides.scss */
 .slide {
   position: absolute;
   width: 50%;
   top: 65px;
 }
 
-/* line 30, ../sass/partials/_slides.scss */
+/* line 45, ../sass/partials/_slides.scss */
 .slide p {
   padding-top: 20px;
   margin-left: auto;
@@ -11550,26 +11608,26 @@ body {
   font-family: "Merriweather", serif;
   font-weight: bold;
 }
-/* line 40, ../sass/partials/_slides.scss */
+/* line 55, ../sass/partials/_slides.scss */
 .slide p .tests {
   color: #666;
   font-family: "Merriweather", serif;
   font-weight: bold;
   font-size: 18px;
 }
-/* line 47, ../sass/partials/_slides.scss */
+/* line 62, ../sass/partials/_slides.scss */
 .slide p li {
   color: white;
   font-size: 18px;
 }
 
-/* line 52, ../sass/partials/_slides.scss */
+/* line 67, ../sass/partials/_slides.scss */
 .step p {
   padding-top: 20px;
   font-size: 18px;
   font-family: "Merriweather", serif;
 }
-/* line 57, ../sass/partials/_slides.scss */
+/* line 72, ../sass/partials/_slides.scss */
 .step p .tests {
   color: #666;
   font-family: "Merriweather", serif;
@@ -11578,7 +11636,7 @@ body {
 }
 
 /* First Slide: Quote and Photo */
-/* line 67, ../sass/partials/_slides.scss */
+/* line 82, ../sass/partials/_slides.scss */
 div#quote-slide {
   position: absolute;
   bottom: 20px;
@@ -11586,7 +11644,7 @@ div#quote-slide {
   background-color: rgba(10, 10, 10, 0.5);
   padding: 10px;
 }
-/* line 76, ../sass/partials/_slides.scss */
+/* line 91, ../sass/partials/_slides.scss */
 div#quote-slide p.quote:before {
   content: '\f10d ';
   font-family: FontAwesome;
@@ -11594,7 +11652,7 @@ div#quote-slide p.quote:before {
   font-weight: normal;
   padding-right: 5px;
 }
-/* line 84, ../sass/partials/_slides.scss */
+/* line 99, ../sass/partials/_slides.scss */
 div#quote-slide p.quote:after {
   content: '\f10e ';
   font-family: FontAwesome;
@@ -11603,7 +11661,7 @@ div#quote-slide p.quote:after {
   padding-left: 5px;
 }
 
-/* line 92, ../sass/partials/_slides.scss */
+/* line 107, ../sass/partials/_slides.scss */
 .photo {
   height: 100%;
   width: 100%;
@@ -11611,7 +11669,7 @@ div#quote-slide p.quote:after {
   background-position: -350px -400px;
 }
 
-/* line 99, ../sass/partials/_slides.scss */
+/* line 114, ../sass/partials/_slides.scss */
 .photo:after {
   content: '\A';
   position: absolute;
@@ -11623,7 +11681,7 @@ div#quote-slide p.quote:after {
   opacity: 0.4;
 }
 
-/* line 110, ../sass/partials/_slides.scss */
+/* line 125, ../sass/partials/_slides.scss */
 .tooltip {
   background-color: #666;
   padding: 5px;
@@ -11633,7 +11691,7 @@ div#quote-slide p.quote:after {
   height: 100px;
 }
 
-/* line 119, ../sass/partials/_slides.scss */
+/* line 134, ../sass/partials/_slides.scss */
 #vodTooltip {
   position: absolute;
   top: 50px;

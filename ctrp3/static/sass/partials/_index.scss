@@ -1,0 +1,45 @@
+#intro {
+    padding-top: 165px;
+    min-height: 500px;
+
+    h1,h2,h3,h4 {
+        font-family: $font4;
+    }
+
+    p {
+        // display: inline-block;
+        padding-bottom: 5px;
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+    .textwrap {
+        float: right;
+        // margin: 10px;
+    }
+    #townmap {
+      width: 50%;
+      height: 300px;
+      top: 1px;
+      float: right;
+    }
+
+    img {
+        max-width: 40%;
+        height: auto;
+        padding-left: 10px;
+        padding-bottom: 10;
+    }
+
+    li {
+        font-size: 18px;
+        // font-family: $font4;
+    }
+
+    a.btn {
+        text-decoration: none;
+        color: white;
+        margin-bottom: 25px;
+    }
+
+}
