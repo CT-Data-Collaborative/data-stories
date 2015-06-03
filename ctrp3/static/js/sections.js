@@ -217,11 +217,11 @@ var scrollVis = function() {
 
      quote.append("p")
       .attr("class", "title quote")
-      .html(slides[0].P1);
+      .html(slides[1].P1);
 
      quote.append("p")
       .attr("class", "title attribution")
-      .html(slides[0].P2);
+      .html(slides[1].P2);
 
     // axis
     g.append("g")
@@ -428,7 +428,7 @@ var scrollVis = function() {
       .style("visibility", "hidden");
 
     revealPointsVODheader.append("h3")
-      .html(slides[1].BoxHeader)
+      .html(slides[2].BoxHeader)
       .attr("class", "header-white")
       .attr("opacity", 0);
 
@@ -440,7 +440,7 @@ var scrollVis = function() {
       .style("visibility", "hidden");
 
     movePointsVODheader.append("h3")
-      .html(slides[2].BoxHeader)
+      .html(slides[3].BoxHeader)
       .attr("class", "header-white")
       .attr("opacity", 0);
 
@@ -573,11 +573,7 @@ var scrollVis = function() {
    // }
    // functionDictionary['showQuote'] = showQuote;
 
-   // function showIntro1() {
-   //    d3.select("#quote-slide").transition().duration(0).style("visibility", "visible");
-   //    d3.select("#vis").transition().duration(0).attr("class", "well well-lg photo");
-   // }
-   // functionDictionary['showIntro1'] = showIntro1;
+
 
    // function showIntro2() {
    //    d3.select("#xkcd").style("visibility", "hidden").style("display", "block");
@@ -629,8 +625,17 @@ var scrollVis = function() {
    * @param axis - the axis to show
    *  (xAxisHist or xAxisBar)
    */
+
+   function showIntroduction() {
+      d3.select("#xkcd").style("visibility", "visible").style("display", "block");
+      d3.select("#quote-slide").transition().duration(0).style("visibility", "hidden");
+      d3.select("#vis").transition().duration(0).attr("class", "well well-lg");
+   }
+   functionDictionary['showIntroduction'] = showIntroduction;
+
    function showVODExplain() {
       // d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
+      d3.select("#xkcd").style("visibility", "visible").style("display", "none");
       d3.select("#vis").transition().duration(0).attr("class", "well well-lg photo");
       d3.select("#quote-slide").transition().style("visibility", "visible");
       d3.select("#revealPointsVOD-header").style("visibility", "hidden");
@@ -863,23 +868,9 @@ var scrollVis = function() {
         .style("fill", "#1F77B4")
         .attr("r", 5);
 
-      d3.selectAll(".tooltip")
-       .transition()
-       .duration(0)
-       .style("opacity", 1);
-
       d3.selectAll(".bisect")
         .transition()
-        .duration(0)
-        .style("stroke-opacity", 0);
-
-      // d3.selectAll("#xaxis-scatter")
-      //   .transition().duration(500)
-      //   .style("opacity", 1);
-
-      // d3.selectAll("#yaxis-scatter")
-      //   .transition().duration(500)
-      //   .style("opacity", 1);
+        .style("stroke-opacity", 1);
 
       d3.selectAll(".tooltip")
          .transition()
@@ -887,16 +878,6 @@ var scrollVis = function() {
          .style("opacity", 0);
    }
    functionDictionary['addPoints'] = addPoints;
-
-   function addBisect() {
-     d3.selectAll(".bisect").transition().style("stroke-opacity", 1);
-     d3.selectAll(".dot").transition().duration(0).style("fill", "#1F77B4");
-     d3.selectAll(".legend")
-      .transition()
-      .duration(0)
-      .style("opacity", 0);
-   }
-   functionDictionary['addBisect'] = addBisect;
 
    function colorPointsRace() {
       d3.selectAll(".slide-header").transition().duration(0).style("visibility", "hidden");
