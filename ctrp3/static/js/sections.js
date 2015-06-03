@@ -236,6 +236,7 @@ var scrollVis = function() {
         .attr("y", -6)
         .style("text-anchor", "end")
         .style("opacity", 1)
+        .style("font-size", "14px")
         .text("Hit Rate - Caucasian");
 
     // y-axis
@@ -251,6 +252,7 @@ var scrollVis = function() {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .style("opacity", 1)
+        .style("font-size", "14px")
         .text("Hit Rate - Other");
 
     var dots = g.selectAll(".dot")
@@ -474,6 +476,7 @@ var scrollVis = function() {
         .attr("y", -6)
         .style("text-anchor", "end")
         .style("opacity", 1)
+        .style("font-size", "14px")
         .text("Coefficient");
 
     // y-axis
@@ -489,6 +492,7 @@ var scrollVis = function() {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .style("opacity", 0)
+        .style("font-size", "14px")
         .text("Department");
 
     var coeffPoints = g.selectAll(".department")
@@ -637,7 +641,7 @@ var scrollVis = function() {
       // d3.selectAll(".slide").transition().duration(0).style("visibility", "hidden");
       d3.select("#xkcd").style("visibility", "visible").style("display", "none");
       d3.select("#vis").transition().duration(0).attr("class", "well well-lg photo");
-      d3.select("#quote-slide").transition().style("visibility", "visible");
+      // d3.select("#quote-slide").transition().style("visibility", "visible");
       d3.select("#revealPointsVOD-header").style("visibility", "hidden");
       d3.selectAll(".dot")
         .on("mouseover", function(d) {})

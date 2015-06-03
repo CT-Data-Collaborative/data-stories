@@ -8,7 +8,7 @@
         <title>Exploring Racial Profiling Data</title>
         <link rel="stylesheet" type="text/css" href="/static/css/vendor.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
-        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+        <link rel="stylesheet" href="/static/components/leaflet/dist/leaflet.css" />
         <style>
         body {
           font: 11px sans-serif;
@@ -70,9 +70,9 @@
                 <p>Over the past fifteen years, racial profiling has been recognized as an issue of national, state, and local importance. Members of the public have increasingly questioned whether police officers target individuals based on their race, ethnicity, age, gender or membership in a protected class. Nationally, disparities found in traffic stops have come under scrutiny by the public, policymakers, and civil rights groups.<p>
                 <div id="townmap"></div>
                 <p>Minority groups have historically expressed lower levels of trust and confidence in law enforcement. Conversely, while acknowledging that 'bad actors' do exist, law enforcement often feel as though legitimate police work can be mistakenly perceived as bias, or even overt racism.</p>
-                <p>In accordance with changes to the Alvin W. Penn Racial Profiling Prohibition Act (Public Act 99-198) made by the Connecticut General Assembly in 2012 and 2013, statewide data collection on traffic stops began on October 1, 2013. During the first year of data collection, data from over 590,000 traffic stops was recorded.</p>
+                <p>In accordance with changes to the Alvin W. Penn Racial Profiling Prohibition Act (Public Act 99-198) made by the Connecticut General Assembly in 2012 and 2013, statewide data collection on traffic stops began on October 1, 2013. During the first year of data collection, data from approximately 595,000 traffic stops was recorded.</p>
                 <p>Connecticut is the first state to collect and analyze this data on a statewide basis.</p>
-                <p>This data story will provide the following: :</p>
+                <p>The intention of this data story is to walk you through the statistical analysis and provide you with a better understand of the following: </p>
                 <ol>
                   <li>Overview of the statewide analysis</li>
                   <li>Explanation of the two statistical tests - Veil of Darkness and KPT Hit Rate</li>
@@ -132,7 +132,9 @@
         </div>
     </div>
     <script type="text/javascript" src="static/components/jquery/dist/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+    <script type="text/javascript" src="static/components/simple-statistics/src/simple_statistics.js"></script>
+    <script src="static/components/leaflet/dist/leaflet.js"></script>
+    <script src="static/components/Leaflet.pattern-master/dist/leaflet.pattern.js"></script>
     // <script>
     //   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     //   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

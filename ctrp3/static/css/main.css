@@ -11488,15 +11488,42 @@ body {
 /* line 20, ../sass/partials/_index.scss */
 #intro #townmap {
   width: 50%;
-  height: 300px;
+  height: 400px;
   top: 1px;
   float: right;
 }
-/* line 27, ../sass/partials/_index.scss */
+/* line 26, ../sass/partials/_index.scss */
+#intro #townmap .info {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+/* line 34, ../sass/partials/_index.scss */
+#intro #townmap .info h4 {
+  margin: 0 0 5px;
+  color: #777;
+}
+/* line 38, ../sass/partials/_index.scss */
+#intro #townmap .legend {
+  line-height: 18px;
+  color: #555;
+}
+/* line 42, ../sass/partials/_index.scss */
+#intro #townmap .legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+/* line 51, ../sass/partials/_index.scss */
 #intro li {
   font-size: 18px;
 }
-/* line 32, ../sass/partials/_index.scss */
+/* line 56, ../sass/partials/_index.scss */
 #intro a.btn {
   text-decoration: none;
   color: white;
@@ -11570,7 +11597,7 @@ body {
 }
 /* line 20, ../sass/partials/_slides.scss */
 #xkcd img {
-  padding-top: 25%;
+  padding-top: 15%;
   width: 100%;
 }
 /* line 24, ../sass/partials/_slides.scss */

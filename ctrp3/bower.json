@@ -23,7 +23,8 @@
     "bootstrap-sass-official": "~3.3.1",
     "fontawesome": "~4.2.0",
     "leaflet": "~0.7.3",
-    "d3": "~3.5.3"
+    "d3": "~3.5.3",
+    "leafletpattern": "git@github.com:teastman/Leaflet.pattern.git"
   },
   "devDependencies": {
     "lodash": "~3.8.0"
