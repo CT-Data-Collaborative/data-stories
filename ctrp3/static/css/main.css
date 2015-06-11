@@ -11254,6 +11254,12 @@ button.close {
   content: "";
 }
 
+@font-face {
+  font-family: 'ff-tisa-web-pro';
+  src: url("../fonts/ff-tisa-web-pro.eot?") format("embedded-opentype"), url("../fonts/ff-tisa-web-pro.woff") format("woff"), url("../fonts/ff-tisa-web-pro.ttf") format("truetype"), url("../fonts/ff-tisa-web-pro.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
 /* line 1, ../sass/partials/_template.scss */
 * {
   font: 100% "Questrial", Arial, Sans-Serif;
@@ -11268,7 +11274,7 @@ body {
 
 /* line 11, ../sass/partials/_template.scss */
 body {
-  background: #CFE1E3;
+  background: white;
 }
 
 /* line 15, ../sass/partials/_template.scss */
@@ -11733,4 +11739,156 @@ div#quote-slide p.quote:after {
   position: absolute;
   top: 50px;
   right: 25px;
+}
+
+/* line 1, ../sass/partials/_article.scss */
+article {
+  margin-left: -15px;
+  margin-right: -15px;
+  font-size: 1.25em;
+}
+
+/* line 1, ../sass/partials/_articleHeader.scss */
+header {
+  margin-bottom: 2em;
+}
+/* line 5, ../sass/partials/_articleHeader.scss */
+header img.lede-image {
+  width: 100%;
+}
+/* line 9, ../sass/partials/_articleHeader.scss */
+header .title-set {
+  position: absolute;
+  top: 14em;
+  width: 100%;
+}
+/* line 14, ../sass/partials/_articleHeader.scss */
+header .title-set .titles {
+  text-align: center;
+  width: 56.25%;
+  margin: 3.25em 21.875%;
+}
+/* line 19, ../sass/partials/_articleHeader.scss */
+header .title-set .titles h1, header .title-set .titles h2, header .title-set .titles .byline, header .title-set .titles .dateline {
+  color: white;
+}
+/* line 23, ../sass/partials/_articleHeader.scss */
+header .title-set .titles h1 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 4rem;
+  margin-bottom: 0.125em;
+  line-height: 1;
+  font-weight: 600;
+}
+/* line 31, ../sass/partials/_articleHeader.scss */
+header .title-set .titles h2 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 2rem;
+  font-weight: 300;
+}
+/* line 36, ../sass/partials/_articleHeader.scss */
+header .title-set .titles .byline, header .title-set .titles .dateline {
+  font-family: "Merriweather", serif;
+}
+
+/* line 2, ../sass/partials/_articleWrapper.scss */
+article .wrapper {
+  max-width: 75em;
+  margin: 0 auto;
+}
+/* line 6, ../sass/partials/_articleWrapper.scss */
+article .wrapper p, article .wrapper ol, article .wrapper ul {
+  width: 68.25%;
+  margin-left: 21.875%;
+}
+/* line 11, ../sass/partials/_articleWrapper.scss */
+article .wrapper p, article .wrapper span, article .wrapper ol > li, article .wrapper ul > li {
+  font-family: "ff-tisa-web-pro", "Merriweather", serif;
+  font-size: 1.25em;
+}
+/* line 15, ../sass/partials/_articleWrapper.scss */
+article .wrapper .dropcap {
+  float: left;
+  font-size: 2.75em;
+  line-height: 1;
+  padding-right: 0.125em;
+  padding-bottom: 0;
+  position: relative;
+  color: #4997a5;
+}
+/* line 24, ../sass/partials/_articleWrapper.scss */
+article .wrapper p.opening {
+  font-size: 1.5em;
+}
+/* line 27, ../sass/partials/_articleWrapper.scss */
+article .wrapper p.opening .lead-in {
+  text-transform: uppercase;
+}
+/* line 30, ../sass/partials/_articleWrapper.scss */
+article .wrapper p.opening .lead-in .dropcap {
+  font-size: 2.25em;
+}
+/* line 36, ../sass/partials/_articleWrapper.scss */
+article .wrapper hr {
+  border-top: 2px solid #b9b9b9;
+  text-align: center;
+  width: 40%;
+}
+/* line 42, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.viz {
+  width: 25.625%;
+  margin-left: 17.5%;
+  margin-right: 1.75em;
+  float: left;
+}
+/* line 48, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.viz img {
+  width: 100%;
+}
+/* line 53, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.interactive {
+  width: 42%;
+  margin-left: 3em;
+  margin-right: 1em;
+  float: right;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border-top: 1px solid #b9b9b9;
+  border-bottom: 1px solid #b9b9b9;
+}
+/* line 63, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.interactive #townmap {
+  height: 350px;
+}
+/* line 65, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.interactive #townmap .info {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+/* line 73, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.interactive #townmap .info h4 {
+  margin: 0 0 5px;
+  color: #777;
+}
+/* line 77, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.interactive #townmap .legend {
+  line-height: 18px;
+  color: #555;
+}
+/* line 81, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.interactive #townmap .legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+/* line 89, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.interactive #vod, article .wrapper aside.interactive #kpt {
+  width: 100%;
+  height: 350px;
 }

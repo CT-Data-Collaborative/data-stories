@@ -198,8 +198,218 @@ $.getJSON("static/data/troops_with_stops.geojson", function(data1) {
               return div;
           };
 
-
-
-
         });
-})
+});
+
+/**
+ * scatterPlot - encapsulated, reusable, d3 scatterplot
+ * using reusable charts pattern:
+ * http://bost.ocks.org/mike/chart/
+ */
+var scatterPlot = function(data, selection) {
+  console.log(selection);
+  // Set up the svg space
+  var $graphic = $(selection),
+      margin = {top:20, left:75, bottom:40, right:20},
+      width = $graphic.width() - margin.left - margin.right,
+      height = $graphic.height() - margin.top - margin.bottom;
+
+  // var svg = d3.select(selection).selectAll("svg").data(data);
+  // svg.enter().append("svg").append("g");
+
+  var svg = d3.select(selection).append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  // data accessor and mapping functions
+  var xValue = function(d) { return d.hr_group;}, // data -> value
+    xScatterScale = d3.scale.linear().range([0, width]).domain([0,1]),
+    xMap = function(d) { return xScatterScale(xValue(d));}; // data -> display
+
+  var yValue = function(d) { return d.hr_c;}, // data -> value
+    yScatterScale = d3.scale.linear().range([height, 0]).domain([0,1]),
+    yMap = function(d) { return yScatterScale(yValue(d));}; // data -> display
+
+
+  // x-,y- axis
+  var xAxisScatter = d3.svg.axis()
+      .scale(xScatterScale)
+      .orient("bottom");
+
+  var yAxisScatter = d3.svg.axis()
+    .scale(yScatterScale)
+    .orient("left");
+
+  var tooltip = svg.append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("id", "xaxis-scatter")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxisScatter)
+      .style("opacity", 1)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width)
+      .attr("y", -6)
+      .style("text-anchor", "end")
+      .style("opacity", 1)
+      .style("font-size", "14px")
+      .text("Hit Rate - Caucasian");
+
+  // y-axis
+  svg.append("g")
+      .attr("class", "y axis")
+      .attr("id", "yaxis-scatter")
+      .call(yAxisScatter)
+      .style("opacity", 1)
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .style("opacity", 1)
+      .style("font-size", "14px")
+      .text("Hit Rate - Other");
+
+  var dots = svg.selectAll(".dot")
+      .data(data)
+    .enter().append("circle")
+      .attr("class", "dot")
+      // .style("opacity", 1)
+      .style("opacity", function(d) {
+        p = d.pvalue;
+        if (p > 0.1) {
+          return 0.3;
+        } else {
+          return 0.8;
+        }})
+      .style("fill", function(d) {
+        switch (d.Group) {
+          case "Hispanic":
+            return "#d6616b";
+          case "Black":
+            return "#9467bd";
+          case "Non-caucasian":
+            return "#e377c2";
+          case "Non-caucasian or Hispanic":
+            return "#17becf";
+          case "Black or Hispanic":
+            return "#2ca02c";
+        }
+      })
+      .attr("r", 3)
+      .attr("cx", xMap)
+      .attr("cy", yMap)
+      .on("mouseover", function(d) {
+          radius = this.getAttribute('r');
+          tooltip.transition()
+               .duration(200)
+               .style("opacity", .9);
+          tooltip.html(d.Department + "<br/>"
+            + "Hit Rate - Caucasian: " + xValue(d).toLocaleString()
+            + "<br/>Hit Rate - " + d.Group + ": " + yValue(d).toLocaleString()
+            + "<br/>Sample Size: " + d.searches
+            + "<br/>P-Value: " + d.pval)
+               .style("left", 130 + "px")
+               .style("top", 30 + "px");
+          d3.select(this).style("stroke", "black").style("stroke-width", 4);
+      })
+      .on("mouseout", function(d) {
+          radius = this.getAttribute('r');
+          tooltip.transition()
+               .duration(500)
+               .style("opacity", 0);
+          d3.select(this)
+            .style("stroke", "black").style("stroke-width", 1);
+      });
+
+  var line = svg.append("line")
+      .attr("x1", xScatterScale(0))
+      .attr("y1", yScatterScale(0))
+      .attr("x2", xScatterScale(.82))
+      .attr("y2", yScatterScale(.82))
+      .attr("class", "bisect")
+      .attr("stroke-width",1)
+      .attr("stroke", "black")
+      .attr("stroke-opacity", 1)
+      .attr("stroke-dasharray", ("4, 4"));
+
+
+  var legendData = ["Non-Caucasian", "Non-Caucasian or Hispanic", "Black", "Hispanic", "Black or Hispanic"];
+
+  var legend = svg.selectAll(".legend")
+    .data(legendData)
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")";})
+    .style("opacity", 1);
+
+  legend.append("rect")
+    .attr("x", width - 18)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", function(d) {
+        switch (d) {
+          case "Hispanic":
+            return "#d6616b";
+          case "Black":
+            return "#9467bd";
+          case "Non-caucasian":
+            return "#e377c2";
+          case "Non-caucasian or Hispanic":
+            return "#17becf";
+          case "Black or Hispanic":
+            return "#2ca02c";
+        }
+      })
+    .style("fill-opacity", 0.6);
+
+  legend.append("text")
+    .attr("x", width - 24)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    .style("text-anchor", "end")
+    .text(function(d) { return d; });
+
+}
+
+
+function hitRate(data) {
+  console.log("loaded Hit Rate");
+  console.log(data);
+  scatterPlot(data, "#kpt");
+}
+
+
+function vod(data) {
+  console.log("loaded VOD");
+}
+
+function sortHitrate(a,b) { return b.searches - a.searches; }
+
+function processHitrate(data) {
+  data.forEach(function(d) {
+    d.pvalue = +d.pval;
+    d.searches = +d.searches;
+    d.hits = +d.hits;
+    d.hr_group = +d.hr_group;
+    d.hr_c = +d.hr_c;
+  });
+  data.sort(sortHitrate);
+  return data;
+}
+
+d3.csv("static/data/hitrate.csv", function(error1, hitrateData) {
+  var scatterData = processHitrate(hitrateData);
+  hitRate(scatterData);
+});
+
+d3.csv("static/data/vod.csv", function(error2, vodData) {
+  vod(vodData);
+});

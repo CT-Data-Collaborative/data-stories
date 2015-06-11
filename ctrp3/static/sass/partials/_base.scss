@@ -18,6 +18,19 @@ $font3: 'Roboto Condensed', sans-serif;
 $font4: 'Merriweather', serif;
 $font5: 'Roboto', sans-serif;
 
+
+@font-face {
+    font-family: 'ff-tisa-web-pro';
+    src: url('../fonts/ff-tisa-web-pro.eot?') format('embedded-opentype'),
+         url('../fonts/ff-tisa-web-pro.woff') format('woff'),
+         url('../fonts/ff-tisa-web-pro.ttf') format('truetype'),
+         url('../fonts/ff-tisa-web-pro.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+$font6: 'ff-tisa-web-pro', 'Merriweather', serif;
+
 // ProPublica's State Face for Rendering icon with map of CT
 // @font-face {
 //         font-family: 'StateFaceRegular';
