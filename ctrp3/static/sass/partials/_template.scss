@@ -1,0 +1,19 @@
+* {
+    font: 100% $font1;
+    color: $base-color1;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: $base-color4;
+}
+
+.wrap {
+    min-height: 80%;
+    height: auto !important;
+    margin: 0 auto -10px;
+}

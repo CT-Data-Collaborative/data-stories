@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<!-- Example based on http://bl.ocks.org/mbostock/3887118 -->
+<!-- Tooltip example from http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.html -->
+
+<style>
+body {
+  font: 11px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.dot {
+  stroke: #000;
+}
+
+.tooltip {
+  position: absolute;
+  width: 200px;
+  height: 28px;
+  pointer-events: none;
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+  var margin = {top: 20, right: 20, bottom: 30, left: 40},
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+  /*
+   * value accessor - returns the value to encode for a given data object.
+   * scale - maps value to a visual display encoding, such as a pixel position.
+   * map function - maps from data value to display value
+   * axis - sets up axis
+   */
+
+  // setup x
+  var xValue = function(d) { return d.hr_c;}, // data -> value
+      xScale = d3.scale.linear().range([0, width]), // value -> display
+      xMap = function(d) { return xScale(xValue(d));}, // data -> display
+      xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+
+  // setup y
+  var yValue = function(d) { return d.hr_nc;}, // data -> value
+      yScale = d3.scale.linear().range([height, 0]), // value -> display
+      yMap = function(d) { return yScale(yValue(d));}, // data -> display
+      yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+  // setup fill color
+  var cValue = function(d) { return d.pvalue;},
+      color = d3.scale.category10();
+
+  // add the graph canvas to the body of the webpage
+  var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  // add the tooltip area to the webpage
+  var tooltip = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
+  // load data
+  d3.csv("static/data/hitrate.csv", function(error, data) {
+
+    // change string (from CSV) into number format
+    data.forEach(function(d) {
+      d.hit_nc = +d.hit_nc;
+      d.search_nc = +d.search_nc;
+      d.hr_nc = +d.hr_nc;
+      d.pvalue = +d.pvalue;
+      d.hit_c = +d.hit_c;
+      d.search_c = +d.search_c;
+      d.hr_c = +d.hr_c;
+  //    console.log(d);
+    });
+
+    // don't want dots overlapping axis, so add in buffer to data domain
+    xScale.domain([0,1]);
+    yScale.domain([0,1]);
+
+    // x-axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        .style("opacity", 0)
+      .append("text")
+        .attr("class", "label")
+        .attr("x", width)
+        .attr("y", -6)
+        .style("text-anchor", "end")
+        .style("opacity", 1)
+        .text("Hit Rate - Caucasian");
+
+    // y-axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .style("opacity", 0)
+      .append("text")
+        .attr("class", "label")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .style("opacity", 1)
+        .text("Hit Rate - Non-caucasian");
+
+    var line = svg.append("line")
+                    .attr("x1", xScale(0))
+                    .attr("y1", yScale(0))
+                    .attr("x2", xScale(1))
+                    .attr("y2", yScale(1))
+                    .attr("stroke-width",1)
+                    .attr("stroke", "black")
+                    .attr("stroke-opacity", 0)
+                    .attr("stroke-dasharray", ("4, 4"));
+
+    // draw dots
+    svg.selectAll(".dot")
+        .data(data)
+      .enter().append("circle")
+        .attr("class", "dot")
+        .attr("r", 5)
+        // .attr("r", function(d) { return d.hit_nc/4;})
+        .attr("cx", xMap)
+        .attr("cy", yMap)
+        .style("fill", "#1F77B4")
+        .style("opacity", 0)
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                 .duration(200)
+                 .style("opacity", .9);
+            tooltip.html(d.Department + "<br/> (" + xValue(d)
+              + ", " + yValue(d) + ")")
+                 .style("left", (d3.event.pageX + 5) + "px")
+                 .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                 .duration(500)
+                 .style("opacity", 0);
+        });
+      });
+
+var showAxis = function () {
+  d3.selectAll(".axis").transition().duration(500).style("opacity", 1)
+}
+
+var showPoints = function() {
+  d3.selectAll(".dots").transition().duration(250).style("opacity", 1);
+}
+
+var transitionSize = function () {
+  d3.selectAll(".dot").transition().attr("r", function(d) { return d.hit_nc/4;});
+}
+
+var transitionOpacity = function () {
+  d3.selectAll(".dot").transition().style("opacity", function(d) { return d.pvalue});
+}
+
+var drawLine = function () {
+  d3.selectAll("line").transition().style("stroke-opacity", 1);
+}
+
+window.setTimeout(showAxis,1000);
+window.setTimeout(showPoints,2000)
+window.setTimeout(transitionOpacity,3000);
+window.setTimeout(transitionSize,4000);
+window.setTimeout(drawLine,5000);
+</script>
+</body>
+</html>

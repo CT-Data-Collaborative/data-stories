@@ -1,0 +1,39 @@
+#sections {
+  position: relative;
+  display: inline-block;
+  width: 35%;
+  top: 165px;
+  left:15px;
+  z-index: 90;
+}
+
+.step {
+  // margin-bottom: 200px;
+  height: 75vh;
+}
+
+#vis {
+  display: inline-block;
+  position: fixed;
+  top: 165px;
+  z-index: 1;
+  margin-left: 30px;
+  padding-left:30px;
+  height: 75vh;
+  width: 60%;
+  border:1px solid gray;
+}
+
+#sections .title, .hitRate-title {
+  font-family: Arial,Helvetica,"san-serif";
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: #262626;
+  line-height: 1.2em;
+}
+
+.step text {
+  opacity:.4;
+  font-size:20px;
+}

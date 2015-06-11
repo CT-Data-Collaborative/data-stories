@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/gif">
+        <title>Exploring Racial Profiling Data</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/vendor.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+        <style>
+        body {
+          font: 11px sans-serif;
+        }
+
+        .axis path,
+        .axis line {
+          fill: none;
+          stroke: #000;
+          shape-rendering: crispEdges;
+        }
+
+        .dot {
+          stroke: #000;
+        }
+
+        </style>
+    </head>
+    <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+    <div id="topnav">
+        <div class="spacing">
+          <ul>
+            <li><a href="https://twitter.com/ctopendata">
+              <i class="fa fa-inverse fa-twitter fa-lg"></i>
+            </a></li>
+            <li><a href="https://www.facebook.com/pages/CT-Data-Collaborative/150954425018093">
+              <i class="fa fa-inverse fa-facebook fa-lg"></i></a>
+            </li>
+            <li><a href="http://www.ctdata.org">Home</a></li>
+            <li><a href="https://github.com/CT-Data-Collaborative">CT Data on Github</a></li>
+            <li><a href="mailto:info@ctdata.org">Contact</a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="hdr">
+            <div class="spacing">
+              <div class="logo">
+                <img src="/static/images/logo-ctrp3.png" alt="CT Data Collaborative" usemap="#LogoMap">
+                <map name="LogoMap" id="LogoMap">
+                    <area alt="" title="" href="http://ctdata.org" shape="poly" coords="26,38,177,38,175,112,26,113" />
+                    <area alt="" title="" href="http://www.ctrp3.org" shape="poly" coords="205,23,308,23,305,117,205,118"  />
+                </map>
+              </div>
+              <div class="headernav">
+                <h1><a href="../">Interpreting Connecticut Traffic Stop Data</a></h1>
+              </div>
+            </div>
+        </div>
+    </nav>
+        <div class="container-fluid">
+          <div id='graphic'>
+
+            <div id='sections'></div>
+            <div id='vis' class="well well-lg">
+              <div id="xkcd">
+                <h2 style="text-align: center">Moving Beyond Description?</h2>
+                <a href="http://xkcd.com/552/"><img src='http://imgs.xkcd.com/comics/correlation.png'></a>
+                <p><a href="http://xkcd.com/552/">xkcd</a></p>
+                </div>
+              <div id="cartoon">
+                <h2 style="text-align: center">Nash Equilibrium? A Game Theory Approach</h2>
+                <img src="/static/images/guillotine.png">
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    // <script>
+    //   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    //   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    //   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    //   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    //   ga('create', 'UA-27854885-2', 'auto');
+    //   ga('send', 'pageview');
+
+    // </script>
+    <script type="text/javascript" src="static/components/d3/d3.min.js"></script>
+    <script type="text/javascript" src="static/components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="static/components/lodash/lodash.min.js"></script>
+    <script type="text/javascript" src="static/js/queue.js"></script>
+    <script type="text/javascript" src="static/js/scroller.js"></script>
+    <script type="text/javascript" src="static/js/sections.js"></script>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+#cartoon {
+  display:none;
+
+  img {
+    width: 50%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    position: relative;
+    top: 50%;
+    // transform: translateY(10%);
+  }
+}
+
+#xkcd {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  img {
+    padding-top: 15%;
+    width: 100%;
+  }
+  p {
+    float: right;
+  }
+}
+
+.slide-header {
+  position: absolute;
+  width: 95%;
+  top: 5px;
+
+  h2 {
+    text-align: center;
+    color: white;
+  }
+
+  h3.header-white, h2.header-white {
+    text-align: center;
+    color: #666;
+  }
+
+  h3.header-white {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.slide {
+  position: absolute;
+  width: 50%;
+  top: 65px;
+
+}
+
+.slide p {
+  padding-top: 20px;
+  // width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 18px;
+  color: white;
+  font-family: $font4;
+  font-weight: bold;
+
+  .tests {
+    color: #666;
+    font-family: $font4;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  li {
+    color: white;
+    font-size: 18px;
+  }
+}
+.step p {
+  padding-top: 20px;
+  font-size: 18px;
+  font-family: $font4;
+
+  .tests {
+    color: #666;
+    font-family: $font4;
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
+/* First Slide: Quote and Photo */
+
+div#quote-slide {
+  // width: 40%;
+
+  position: absolute;
+  bottom: 20px;
+  top: initial;
+  background-color:rgba(10,10,10,.5);
+  padding: 10px;
+
+  p.quote:before {
+    content: '\f10d ';
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    padding-right: 5px;
+  }
+
+  p.quote:after {
+    content: '\f10e ';
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    padding-left: 5px;
+  }
+}
+.photo {
+  height: 100%;
+  width: 100%;
+  background-image: url('../images/ctrp3b.jpg');
+  background-position: -350px -400px;
+}
+
+.photo:after {
+  content: '\A';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #666;
+  opacity: 0.4;
+}
+
+.tooltip {
+  background-color: #666;
+  padding: 5px;
+  color: white;
+  position: absolute;
+  width: 200px;
+  height: 100px;
+}
+
+#vodTooltip {
+  position: absolute;
+  top: 50px;
+  right: 25px;
+}
