@@ -1,3 +1,13 @@
+function slugify(text)
+{
+  return text.toString().toLowerCase()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '');            // Trim - from end of text
+}
+
 $.getJSON("static/data/troops_with_stops.geojson", function(data1) {
   $.getJSON("static/data/towns_with_stops.geojson", function(data) {
           // Define pattern for municipalities with no department
@@ -132,7 +142,6 @@ $.getJSON("static/data/troops_with_stops.geojson", function(data1) {
           townJSON.addTo(map);
           L.control.layers(layers).addTo(map);
           map.on('baselayerchange', function (eventLayer) {
-            console.log(eventLayer);
             if (eventLayer.name == 'Municipal Departments') {
               this.removeControl(troopLegend);
               townLegend.addTo(map);
@@ -201,16 +210,202 @@ $.getJSON("static/data/troops_with_stops.geojson", function(data1) {
         });
 });
 
-/**
- * scatterPlot - encapsulated, reusable, d3 scatterplot
- * using reusable charts pattern:
- * http://bost.ocks.org/mike/chart/
- */
-var scatterPlot = function(data, selection) {
-  console.log(selection);
+
+var coefficientPlot = function(data, selection) {
   // Set up the svg space
   var $graphic = $(selection),
-      margin = {top:20, left:75, bottom:40, right:20},
+      margin = {top:20, left:90, bottom:40, right:120},
+      width = $graphic.width() - margin.left - margin.right,
+      height = $graphic.height() - margin.top - margin.bottom;
+
+  // var svg = d3.select(selection).selectAll("svg").data(data);
+  // svg.enter().append("svg").append("g");
+
+  var svg = d3.select(selection).append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var xCoefficientScale = d3.scale.linear()
+    .range([0, width]);
+
+  var yCoefficientScale0 = d3.scale.ordinal()
+    .rangeRoundBands([0, height], 0.1);
+
+  var yCoefficientScale1 = d3.scale.ordinal();
+
+  var color = d3.scale.ordinal()
+    .range(["#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c"]);
+
+  var xAxisCoefficient = d3.svg.axis()
+    .scale(xCoefficientScale)
+    .orient("bottom");
+
+  var yAxisCoefficient = d3.svg.axis()
+    .scale(yCoefficientScale0)
+    .orient("left");
+
+  var vodTooltip = d3.select(selection).append("div")
+      .attr("class", "tooltip")
+      .style({"opacity": 0,
+              "left": function() {
+                return (width + (margin.right/2)) + 'px';
+              },
+              "width": function() {
+                return margin.right + 'px';
+              },
+              "top": function() {
+
+                return (-height-margin.top-margin.bottom) + 'px';
+              }
+            });
+
+  var groupNames = data[0].values.map(function(g) { return g.key;});
+
+  yCoefficientScale0.domain(data.map(function(o) { return o.key;}));
+
+  // we will substract 30 here to tighten up the distribution, making it easier to see where
+  // towns split
+  yCoefficientScale1.domain(groupNames).rangeRoundBands([0, yCoefficientScale0.rangeBand()-20]);
+  xCoefficientScale.domain([
+    d3.min(data, function(g) { return d3.min(g.values, function(r) {
+      return (r.values[0].Coefficient + r.values[0].SE);
+    });})-0.25,
+    d3.max(data, function(g) { return d3.max(g.values, function(r) {
+      return (r.values[0].Coefficient - r.values[0].SE);
+    });})+0.25
+    ]);
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("id", "xaxis-coeff")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxisCoefficient)
+        .style("opacity", 1)
+      .append("text")
+        .attr("class", "label")
+        .attr("x", width)
+        .attr("y", -6)
+        .style("text-anchor", "end")
+        .style("opacity", 1)
+        .style("font-size", "1em")
+        .text("Coefficient");
+
+    // y-axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .attr("id", "yaxis-coeff")
+        .call(yAxisCoefficient)
+        .style("opacity", 1)
+      .append("text")
+        .attr("class", "label")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .style("opacity", 1)
+        .style("font-size", "1em")
+        .text("Department");
+
+    var coeffPoints = svg.selectAll(".department")
+      .data(data)
+      .enter().append("g")
+      .attr("class", "g")
+      .attr("transform", function(d) { return "translate(0," + yCoefficientScale0(d.key) + ")";});
+
+    // We adjusted the domain of the y scale 1 above (decresed by 30)
+    // Here we will tweak the cy position to center points around the center of
+    // the band
+
+    coeffPoints.selectAll("line")
+      .data(function(d) { return d.values;})
+      .enter().append("line")
+      .attr("class", "errorBars")
+      .attr("y1", function(d) { return yCoefficientScale1(d.key)+15;})
+      .attr("y2", function(d) { return yCoefficientScale1(d.key)+15;})
+      .attr("x1", function (d) { return xCoefficientScale(d.values[0].Coefficient-d.values[0].SE)})
+      .attr("x2", function (d) { return xCoefficientScale(d.values[0].Coefficient+d.values[0].SE)})
+      .attr("stroke-width",0.5)
+      .attr("stroke", "black")
+      .style("opacity", 1);
+
+    coeffPoints.selectAll("circle")
+      .data(function(d) { return d.values;})
+      .enter().append("circle")
+      .attr("class", "coeffPoints")
+      .attr("r", 4)
+      // .attr("r", function(d) {
+      //  n = d.values[0].N;
+      //  if (n > 8000) {
+      //    return 8;
+      //  } else if (n > 4000) {
+      //    return 6;
+      //  } else if (n > 1000) {
+      //    return 4;
+      //  } else if (n > 200) {
+      //    return 2;
+      //  }
+      // })
+      .attr("cx", function(d) { return xCoefficientScale(d.values[0].Coefficient);})
+      .attr("cy", function(d,i) { return yCoefficientScale1(d.key)+15;})
+      .style("fill", function(d) { return color(d.values[0].Variable)})
+      .style("opacity", 0.8)
+      .on("mouseover", function(d) {
+           ddata = d.values[0];
+           vodTooltip.transition()
+                .duration(200)
+                .style("opacity", .9);
+           vodTooltip.html(
+             "Subgroup: " + ddata.Variable
+             + "<br/>Coefficient: " + ddata.Coefficient
+             + "<br/>P-Value: " + ddata.P
+             + "<br/>Sample Size: " + ddata.N);
+           d3.select(this).style("stroke", "black").style("stroke-width", 4);
+       })
+      .on("mouseout", function(d) {
+          vodTooltip.transition()
+               .duration(500)
+               .style("opacity", 0);
+          d3.select(this)
+            .style("stroke", "black").style("stroke-width", 0);
+      });
+
+    var legendData = ["Non-Caucasian", "Non-Caucasian or Hispanic", "Black", "Hispanic", "Black or Hispanic"];
+    var vodLegend = svg.selectAll(".vod-legend")
+      .data(legendData)
+      .enter().append("g")
+      .attr("class", "vod-legend")
+      .attr("transform", function(d, i) { return "translate(0," + (20 + (i * 20)) + ")";})
+      .style("opacity", 1);
+
+    vodLegend.append("rect")
+      // .attr("x", width - 18)
+      .attr("x", width - 50)
+      .attr("y", height - 150)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", function(d) {
+          return color(d);
+        })
+      .style("fill-opacity", 1);
+
+    vodLegend.append("text")
+      // .attr("x", width - 24)
+      .attr("x", width - 30)
+      .attr("y", height - 150 + 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "start")
+      .text(function(d) { return d; })
+      .style("font-size", "0.8em");
+};
+
+
+var scatterPlot = function(data, selection) {
+
+  // Set up the svg space
+  var $graphic = $(selection),
+      margin = {top:20, left:75, bottom:40, right:120},
       width = $graphic.width() - margin.left - margin.right,
       height = $graphic.height() - margin.top - margin.bottom;
 
@@ -242,9 +437,19 @@ var scatterPlot = function(data, selection) {
     .scale(yScatterScale)
     .orient("left");
 
-  var tooltip = svg.append("div")
+  var tooltip = d3.select(selection).append("div")
       .attr("class", "tooltip")
-      .style("opacity", 0);
+      .style({"opacity": 0,
+              "left": function() {
+                return (width + (margin.right/2)) + 'px';
+              },
+              "width": function() {
+                return margin.right + 'px';
+              },
+              "top": function() {
+                return (-height-margin.top-margin.bottom) + 'px';
+              }
+            });
 
   svg.append("g")
       .attr("class", "x axis")
@@ -280,7 +485,9 @@ var scatterPlot = function(data, selection) {
   var dots = svg.selectAll(".dot")
       .data(data)
     .enter().append("circle")
-      .attr("class", "dot")
+      .attr("class", function(d) {
+        return "dot " + slugify(d.Department);
+      })
       // .style("opacity", 1)
       .style("opacity", function(d) {
         p = d.pvalue;
@@ -303,7 +510,7 @@ var scatterPlot = function(data, selection) {
             return "#2ca02c";
         }
       })
-      .attr("r", 3)
+      .attr("r", 4)
       .attr("cx", xMap)
       .attr("cy", yMap)
       .on("mouseover", function(d) {
@@ -315,9 +522,7 @@ var scatterPlot = function(data, selection) {
             + "Hit Rate - Caucasian: " + xValue(d).toLocaleString()
             + "<br/>Hit Rate - " + d.Group + ": " + yValue(d).toLocaleString()
             + "<br/>Sample Size: " + d.searches
-            + "<br/>P-Value: " + d.pval)
-               .style("left", 130 + "px")
-               .style("top", 30 + "px");
+            + "<br/>P-Value: " + d.pval);
           d3.select(this).style("stroke", "black").style("stroke-width", 4);
       })
       .on("mouseout", function(d) {
@@ -347,11 +552,12 @@ var scatterPlot = function(data, selection) {
     .data(legendData)
     .enter().append("g")
     .attr("class", "legend")
-    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")";})
+    .attr("transform", function(d, i) {
+      return "translate(0," + ((height + margin.bottom + margin.top)/2 + (i * 20)) + ")";})
     .style("opacity", 1);
 
   legend.append("rect")
-    .attr("x", width - 18)
+    .attr("x", width - 50)
     .attr("width", 18)
     .attr("height", 18)
     .style("fill", function(d) {
@@ -371,24 +577,65 @@ var scatterPlot = function(data, selection) {
     .style("fill-opacity", 0.6);
 
   legend.append("text")
-    .attr("x", width - 24)
+    .attr("x", width - 30)
     .attr("y", 9)
     .attr("dy", ".35em")
-    .style("text-anchor", "end")
-    .text(function(d) { return d; });
+    .style("text-anchor", "start")
+    .text(function(d) { return d; })
+    .style("font-size", "0.8em");
 
+  d3.select("#kpt-wh")
+    .on("mouseover", function() {
+        target = ".dot." + slugify("West Hartford")
+        d3.selectAll(target).transition().duration(250)
+          .attr("r", 10);
+    })
+    .on("mouseout", function() {
+        target = ".dot." + slugify("West Hartford")
+        d3.selectAll(target).transition().duration(250)
+          .attr("r", 4);
+    });
+
+  d3.select("#kpt-spti")
+    .on("mouseover", function() {
+        target = ".dot." + slugify("State Police - Troop I")
+        d3.selectAll(target).transition().duration(250)
+          .attr("r", 10);
+    })
+    .on("mouseout", function() {
+        target = ".dot." + slugify("State Police - Troop I")
+        d3.selectAll(target).transition().duration(250)
+          .attr("r", 4);
+    });
+
+  var misc = ["Waterbury", "State Police - Troop C", "State Police - Troop F"];
+  d3.select("#kpt-misc")
+    .on("mouseover", function() {
+      console.log("mouseover detected");
+      misc.forEach(function(m) {
+        target = ".dot." + slugify(m)
+        d3.selectAll(target).transition().duration(250)
+          .attr("r", 10);
+      });
+    })
+    .on("mouseout", function() {
+      console.log("mouseover detected");
+      misc.forEach(function(m) {
+        target = ".dot." + slugify(m)
+        d3.selectAll(target).transition().duration(250)
+          .attr("r", 4);
+        });
+    });
 }
 
 
 function hitRate(data) {
-  console.log("loaded Hit Rate");
-  console.log(data);
   scatterPlot(data, "#kpt");
 }
 
 
 function vod(data) {
-  console.log("loaded VOD");
+  coefficientPlot(data, "#vod");
 }
 
 function sortHitrate(a,b) { return b.searches - a.searches; }
@@ -405,11 +652,25 @@ function processHitrate(data) {
   return data;
 }
 
-d3.csv("static/data/hitrate.csv", function(error1, hitrateData) {
-  var scatterData = processHitrate(hitrateData);
+function processVOD(data) {
+  test = data;
+  data.forEach(function(d) {
+    d.Coefficient = +d.Coefficient;
+    d.P = +d.P;
+    d.SE = +d.SE;
+    d.N = +d.N;
+  })
+  var nestedData = d3.nest().key(function(d) { return d.Department;}).key(function(d) { return d.Variable;}).entries(test);
+  test = nestedData;
+  return nestedData;
+}
+
+d3.csv("static/data/hitrate.csv", function(error1, data) {
+  var scatterData = processHitrate(data);
   hitRate(scatterData);
 });
 
-d3.csv("static/data/vod.csv", function(error2, vodData) {
+d3.csv("static/data/vod.csv", function(error2, data) {
+  var vodData = processVOD(data);
   vod(vodData);
 });

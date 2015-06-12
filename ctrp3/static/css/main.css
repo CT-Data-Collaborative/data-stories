@@ -11724,23 +11724,6 @@ div#quote-slide p.quote:after {
   opacity: 0.4;
 }
 
-/* line 138, ../sass/partials/_slides.scss */
-.tooltip {
-  background-color: #666;
-  padding: 5px;
-  color: white;
-  position: absolute;
-  width: 200px;
-  height: 100px;
-}
-
-/* line 147, ../sass/partials/_slides.scss */
-#vodTooltip {
-  position: absolute;
-  top: 50px;
-  right: 25px;
-}
-
 /* line 1, ../sass/partials/_article.scss */
 article {
   margin-left: -15px;
@@ -11793,11 +11776,11 @@ header .title-set .titles .byline, header .title-set .titles .dateline {
 
 /* line 2, ../sass/partials/_articleWrapper.scss */
 article .wrapper {
-  max-width: 75em;
+  max-width: 85em;
   margin: 0 auto;
 }
 /* line 6, ../sass/partials/_articleWrapper.scss */
-article .wrapper p, article .wrapper ol, article .wrapper ul {
+article .wrapper p, article .wrapper ol, article .wrapper ul, article .wrapper div#disqus_thread {
   width: 68.25%;
   margin-left: 21.875%;
 }
@@ -11807,6 +11790,13 @@ article .wrapper p, article .wrapper span, article .wrapper ol > li, article .wr
   font-size: 1.25em;
 }
 /* line 15, ../sass/partials/_articleWrapper.scss */
+article .wrapper span.viz-hook {
+  font-size: 1em;
+  color: #4997a5;
+  text-decoration: underline;
+  cursor: pointer;
+}
+/* line 21, ../sass/partials/_articleWrapper.scss */
 article .wrapper .dropcap {
   float: left;
   font-size: 2.75em;
@@ -11816,38 +11806,54 @@ article .wrapper .dropcap {
   position: relative;
   color: #4997a5;
 }
-/* line 24, ../sass/partials/_articleWrapper.scss */
+/* line 30, ../sass/partials/_articleWrapper.scss */
 article .wrapper p.opening {
   font-size: 1.5em;
 }
-/* line 27, ../sass/partials/_articleWrapper.scss */
+/* line 33, ../sass/partials/_articleWrapper.scss */
 article .wrapper p.opening .lead-in {
   text-transform: uppercase;
 }
-/* line 30, ../sass/partials/_articleWrapper.scss */
+/* line 36, ../sass/partials/_articleWrapper.scss */
 article .wrapper p.opening .lead-in .dropcap {
   font-size: 2.25em;
 }
-/* line 36, ../sass/partials/_articleWrapper.scss */
+/* line 42, ../sass/partials/_articleWrapper.scss */
 article .wrapper hr {
   border-top: 2px solid #b9b9b9;
   text-align: center;
   width: 40%;
 }
-/* line 42, ../sass/partials/_articleWrapper.scss */
+/* line 48, ../sass/partials/_articleWrapper.scss */
 article .wrapper aside.viz {
   width: 25.625%;
   margin-left: 17.5%;
   margin-right: 1.75em;
   float: left;
+  border-top: 1px solid #b9b9b9;
+  border-bottom: 1px solid #b9b9b9;
 }
-/* line 48, ../sass/partials/_articleWrapper.scss */
+/* line 56, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.viz h3 {
+  text-transform: uppercase;
+}
+/* line 59, ../sass/partials/_articleWrapper.scss */
 article .wrapper aside.viz img {
   width: 100%;
 }
-/* line 53, ../sass/partials/_articleWrapper.scss */
+/* line 64, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.note {
+  width: 20%;
+  float: left;
+  padding-top: 2em;
+}
+/* line 70, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.note p {
+  font-size: 0.75em;
+}
+/* line 74, ../sass/partials/_articleWrapper.scss */
 article .wrapper aside.interactive {
-  width: 42%;
+  width: 52%;
   margin-left: 3em;
   margin-right: 1em;
   float: right;
@@ -11856,11 +11862,15 @@ article .wrapper aside.interactive {
   border-top: 1px solid #b9b9b9;
   border-bottom: 1px solid #b9b9b9;
 }
-/* line 63, ../sass/partials/_articleWrapper.scss */
+/* line 84, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.interactive h1, article .wrapper aside.interactive h2, article .wrapper aside.interactive h3, article .wrapper aside.interactive h4 {
+  text-align: center;
+}
+/* line 87, ../sass/partials/_articleWrapper.scss */
 article .wrapper aside.interactive #townmap {
   height: 350px;
 }
-/* line 65, ../sass/partials/_articleWrapper.scss */
+/* line 89, ../sass/partials/_articleWrapper.scss */
 article .wrapper aside.interactive #townmap .info {
   padding: 6px 8px;
   font: 14px/16px Arial, Helvetica, sans-serif;
@@ -11869,17 +11879,17 @@ article .wrapper aside.interactive #townmap .info {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }
-/* line 73, ../sass/partials/_articleWrapper.scss */
+/* line 97, ../sass/partials/_articleWrapper.scss */
 article .wrapper aside.interactive #townmap .info h4 {
   margin: 0 0 5px;
   color: #777;
 }
-/* line 77, ../sass/partials/_articleWrapper.scss */
+/* line 101, ../sass/partials/_articleWrapper.scss */
 article .wrapper aside.interactive #townmap .legend {
   line-height: 18px;
   color: #555;
 }
-/* line 81, ../sass/partials/_articleWrapper.scss */
+/* line 105, ../sass/partials/_articleWrapper.scss */
 article .wrapper aside.interactive #townmap .legend i {
   width: 18px;
   height: 18px;
@@ -11887,8 +11897,18 @@ article .wrapper aside.interactive #townmap .legend i {
   margin-right: 8px;
   opacity: 0.7;
 }
-/* line 89, ../sass/partials/_articleWrapper.scss */
+/* line 113, ../sass/partials/_articleWrapper.scss */
 article .wrapper aside.interactive #vod, article .wrapper aside.interactive #kpt {
   width: 100%;
-  height: 350px;
+  height: 400px;
+}
+/* line 117, ../sass/partials/_articleWrapper.scss */
+article .wrapper aside.interactive #vod .tooltip, article .wrapper aside.interactive #kpt .tooltip {
+  background-color: #666;
+  padding: 5px;
+  color: white;
+  position: relative;
+  height: auto;
+  top: 50px;
+  right: 25px;
 }
